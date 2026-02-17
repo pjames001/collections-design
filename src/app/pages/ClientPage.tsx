@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { FileText, CreditCard, Calendar, Folder, ClipboardList, Activity, Scale, LayoutGrid, FileSearch, History, ChevronRight, ChevronLeft, Search } from 'lucide-react';
+import { FileText, CreditCard, Calendar, Folder, ClipboardList, Activity, Scale, LayoutGrid, FileSearch, History, ChevronRight, ChevronLeft, Search, Download, SlidersHorizontal } from 'lucide-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { ClientInfo } from '../components/ClientInfo';
 import { SelectField } from '../components/shared/SelectField';
 import { FromToDate } from '../components/shared/FromToDate';
 import { InputField } from '../components/shared/InputField';
+import { ActionPanel } from '../components/ActionPanel';
 
 const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
 
@@ -40,6 +41,7 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
     <div className={`p-8 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
         theme === 'dark' ? 'bg-gray-700 border-white/10' : 'bg-white/70 border-slate-200/60 shadow-slate-200/40'
       }`}>
+        <div className='flex gap-8'>
         <div className="flex-1 flex flex-col min-h-[600px] w-full">
           <Tabs.Root value={activeTab} className="flex flex-col h-full" onValueChange={setActiveTab}>
             <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl mb-6 border overflow-x-auto no-scrollbar transition-colors ${
@@ -85,7 +87,7 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                    {tab.id === 'client' && (
                     <>
                       {/* TOP: SEARCH & FILTER BAR */}
-                      <div className={`p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/20'}`}>
+                      <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/20'}`}>
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end">
                           <SelectField label="Client Type" options={[]} theme={theme} />
                           <SelectField label="Status" options={[]} theme={theme} />
@@ -94,7 +96,20 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                           <div className="lg:col-span-1">
                             <InputField label="Client Name" placeholder="Search name..." theme={theme} />
                           </div>
-                          
+                          <div className='flex items-center gap-2'>
+                            <button className={`w-full flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-all shadow-lg`}>
+                              <Search size={16} />
+                              Search
+                            </button>
+                            <button className={`w-full flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-teal-700 text-white font-bold hover:bg-teal-800 transition-all shadow-lg`}>
+                              <Download size={16} />
+                              Export
+                            </button>
+                            <button className={`absolute -top-10 right-10 w-max flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700 transition-all shadow-lg`}>
+                              <SlidersHorizontal size={16} />
+                              Advanced Filters
+                            </button>
+                          </div>
                         </div>
                         </div>
                       <ClientInfo theme={theme} />
@@ -161,6 +176,8 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
             </Tabs.Content>
           ))}
           </Tabs.Root>
+        </div>
+        <ActionPanel theme={theme} />
         </div>
     </div>
   )
