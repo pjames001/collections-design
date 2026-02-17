@@ -28,9 +28,11 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
   const categories = [
     "Contact Info",
     "Client Status",
-    "dispute",
-    "experian reports",
-    "settlement"
+    "Activity Code",
+    "Notes",
+    "Custom Fields",
+    "Default Value",
+    "Client Portal Settings"
   ];
 
   const [activeTab, setActiveTab] = useState('client');
@@ -88,11 +90,11 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                     <>
                       {/* TOP: SEARCH & FILTER BAR */}
                       <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/20'}`}>
-                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end">
+                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end">
                           <SelectField label="Client Type" options={[]} theme={theme} />
                           <SelectField label="Status" options={[]} theme={theme} />
                           <SelectField label="Sales Rep" options={[]} theme={theme} />
-                          <FromToDate label="Next Work" theme={theme} className='max-w-[120px]' />
+                          <FromToDate label="Next Work" theme={theme} className='col-span-2' />
                           <div className="lg:col-span-1">
                             <InputField label="Client Name" placeholder="Search name..." theme={theme} />
                           </div>

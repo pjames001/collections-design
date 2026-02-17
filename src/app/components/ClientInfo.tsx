@@ -78,7 +78,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
 
           {/* Collapsed state placeholder */}
           {!isDrawerOpen && (
-            <div className="ml-4 h-full w-full flex flex-col items-center pt-8 gap-4 opacity-100">
+            <div className="ml-10 h-full w-full flex flex-col items-center pt-8 gap-4 opacity-0">
               <div
                 className={`w-1 h-1/2 rounded-full ${theme === "dark" ? "bg-white/10" : "bg-slate-200"}`}
               />
