@@ -23,17 +23,17 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
           <h1 className={`text-4xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
             Account Search
           </h1>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">Universal Database Discovery</p>
+          
         </div>
 
         {/* Results per page and Filter Trigger */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Show</span>
-            <select className="bg-transparent text-xs font-black outline-none cursor-pointer">
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
+            <span className="text-md font-black tracking-widest text-white">Show</span>
+            <select className="bg-transparent text-md text-white outline-none cursor-pointer">
+              <option className='bg-slate-800'>25</option>
+              <option className='bg-slate-800'>50</option>
+              <option className='bg-slate-800'>100</option>
             </select>
           </div>
           
@@ -50,22 +50,22 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
       <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/40'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500/60 ml-1">First Name</label>
-            <div className="relative">
+            <label className="text-md tracking-[0.2em] text-white ml-1">First Name</label>
+            <div className="relative mt-2">
               <input type="text" placeholder="Search first name..." className={`w-full pl-12 pr-4 py-4 rounded-2xl border-2 transition-all outline-none font-bold ${theme === 'dark' ? 'bg-white/5 border-white/5 focus:border-blue-500/50 text-white' : 'bg-slate-50 border-slate-100 focus:border-blue-600/50'}`} />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
             </div>
           </div>
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500/60 ml-1">Last Name</label>
-            <div className="relative">
+            <label className="text-md tracking-[0.2em] text-white ml-1">Last Name</label>
+            <div className="relative mt-2">
               <input type="text" placeholder="Search last name..." className={`w-full pl-12 pr-4 py-4 rounded-2xl border-2 transition-all outline-none font-bold ${theme === 'dark' ? 'bg-white/5 border-white/5 focus:border-blue-500/50 text-white' : 'bg-slate-50 border-slate-100 focus:border-blue-600/50'}`} />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
             </div>
           </div>
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500/60 ml-1">Account Number</label>
-            <div className="relative">
+            <label className="text-md tracking-[0.2em] text-white ml-1">Account Number</label>
+            <div className="relative mt-2">
               <input type="text" placeholder="Search ACCT#..." className={`w-full pl-12 pr-4 py-4 rounded-2xl border-2 transition-all outline-none font-bold ${theme === 'dark' ? 'bg-white/5 border-white/5 focus:border-blue-500/50 text-white' : 'bg-slate-50 border-slate-100 focus:border-blue-600/50'}`} />
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
             </div>
@@ -85,6 +85,15 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
             <h2 className="text-2xl font-black uppercase tracking-tight text-white">Advanced Parameters</h2>
             <p className="text-[10px] font-black uppercase tracking-widest text-blue-500">Fine-tune your search results</p>
           </div>
+
+          <div className='flex items-end gap-4'>
+            <SelectField label="Pre-Defined Filters" options={[]} theme={theme} />
+            <InputField label="Name" placeholder="" theme={theme} type="number" />
+            <button className="px-6 py-3 w-72 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-blue-600/20">
+              Save Filter
+            </button>
+          </div>
+
           <div className="flex gap-4">
             <button className="flex items-center gap-2 px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:bg-white/5 text-slate-400">
               <RotateCcw size={16} /> Clear All
@@ -100,9 +109,14 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
           
           {/* GROUP 1: Entity & Status (Multi-select Area) */}
           <section className="space-y-6">
-            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 flex items-center gap-2">
-              <div className="h-1 w-4 bg-blue-500 rounded-full" /> Assignment & Status
-            </h4>
+            <div className='flex justify-between items-center'>
+              <h4 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 flex items-center gap-2">
+                <div className="h-1 w-4 bg-blue-500 rounded-full" /> Assignment & Status
+              </h4>
+              <div>
+                <SelectField label="Open Status" options={[]} theme={theme} />
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
               <MultiSearchSelect label="Collectors" theme={theme} />
               <MultiSearchSelect label="Co-Collectors" theme={theme} />
@@ -110,7 +124,10 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
               <MultiSearchSelect label="Clients" theme={theme} />
               <MultiSearchSelect label="Action Codes" theme={theme} />
               <MultiSearchSelect label="Legal Status" theme={theme} />
-              <MultiSearchSelect label="Ques" theme={theme} />
+              <MultiSearchSelect label="Main Status" theme={theme} />
+              <MultiSearchSelect label="Sub-Status" theme={theme} />
+              <MultiSearchSelect label="Sub-Sub-Status" theme={theme} />
+              <MultiSearchSelect label="Queues" theme={theme} />
               <MultiSearchSelect label="Collection Status" theme={theme} />
               <MultiSearchSelect label="Sales Rep" theme={theme} />
               <MultiSearchSelect label="State/Province" theme={theme} />
@@ -136,7 +153,6 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
                 <CheckboxField label="Address Consent" theme={theme} />
                 <CheckboxField label="Phone Voice Consent" theme={theme} />
                 <CheckboxField label="Phone SMS Consent" theme={theme} />
-                <CheckboxField label="Open Status" theme={theme} />
               </div>
 
               {/* Specialized Card for Reminders */}
@@ -197,10 +213,24 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               <FromToDate label="Amount Due" theme={theme} />
-              <FromToDate label="Total Paid" theme={theme} />
+              <div className='flex items-end gap-4 relative'>
+                <span className={`absolute top-0 text-md tracking-widest ${
+                  theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'
+                }`}>Total Amount</span>
+                <InputField label="" placeholder="" theme={theme} type="number" />
+                <span className="text-slate-700 flex items-center">-</span>
+                <InputField label="" placeholder="" theme={theme} type="number" />
+              </div>
               <FromToDate label="Charge Off Date" theme={theme} />
               <FromToDate label="Last Payment" theme={theme} />
-              <FromToDate label="Cumulative Delinquent Days" theme={theme} />
+              <div className='flex items-end gap-4 relative'>
+                <span className={`absolute top-0 text-md tracking-widest ${
+                  theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'
+                }`}>Cumulative Delinquent Days</span>
+                <InputField label="" placeholder="" theme={theme} type="number" />
+                <span className="text-slate-700 flex items-center">-</span>
+                <InputField label="" placeholder="" theme={theme} type="number" />
+              </div>
             </div>
           </section>
 
@@ -209,19 +239,7 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-end">
               
               {/* Custom Field Input */}
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-blue-500">Add Custom Search Parameter</label>
-                <div className="flex gap-2">
-                  <input 
-                    type="text" 
-                    placeholder="Field Name (e.g. Internal_Tag_ID)" 
-                    className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-bold outline-none ${theme === 'dark' ? 'bg-black/20 border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900'}`}
-                  />
-                  <button className="px-4 bg-blue-600 text-white rounded-xl font-black text-xs hover:bg-blue-500 transition-all">
-                    ADD
-                  </button>
-                </div>
-              </div>
+              <SelectField label="Select Custom Field" options={[]} theme={theme} />
 
               {/* Global Sorting */}
               <SelectField 
