@@ -68,7 +68,6 @@ export const TabContent: React.FC<{
   const [activeCategory, setActiveCategory] = useState('Contact Info');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-   
   
   return (
     <div className="flex-1 flex flex-col min-h-[600px] w-full">
@@ -419,8 +418,6 @@ const CategoryView: React.FC<{
   theme: 'dark' | 'light';
   activeCreditor: string;
 }> = ({ category, theme, activeCreditor }) => {
-
-
 
   // Content rendering based on category
   switch (category) {

@@ -3,10 +3,11 @@ import React from 'react';
 interface FromToDateProps {
   label: string;
   theme: string;
+  className?: string;
 }
 
-export const FromToDate: React.FC<FromToDateProps> = ({ label, theme }) => (
-  <div className="space-y-">
+export const FromToDate: React.FC<FromToDateProps> = ({ label, className, theme }) => (
+  <div className={`space-y-2 ${className}`}>
     <label className={`text-md tracking-widest ${
         theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'
       }`}>{label}</label>

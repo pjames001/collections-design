@@ -5,6 +5,7 @@ interface InputFieldProps {
   placeholder?: string;
   theme: string;
   type?: string;
+  className?: string;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -12,8 +13,9 @@ export const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   theme,
   type = 'text',
+  className
 }) => (
-  <div className="flex flex-col gap-1.5 w-full">
+  <div className={`flex flex-col gap-1.5 w-full ${className}`}>
     <label
       className={`text-md tracking-widest ${
         theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'

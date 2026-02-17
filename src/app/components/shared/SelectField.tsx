@@ -11,6 +11,7 @@ interface SelectFieldProps {
   options: SelectFieldOption[];
   theme: string;
   defaultValue?: string;
+  className?: string;
 }
 
 export const SelectField: React.FC<SelectFieldProps> = ({
@@ -18,8 +19,9 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   options,
   theme,
   defaultValue,
+  className
 }) => (
-  <div className="flex flex-col gap-1.5 w-full">
+  <div className={`flex flex-col gap-1.5 w-full ${className}`}>
     <label
       className={`text-md  tracking-widest ${
         theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'
