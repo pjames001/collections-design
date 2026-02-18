@@ -5,7 +5,9 @@ import { ClientInfo } from '../components/ClientInfo';
 import { SelectField } from '../components/shared/SelectField';
 import { FromToDate } from '../components/shared/FromToDate';
 import { InputField } from '../components/shared/InputField';
-import { ActionPanel } from '../components/ActionPanel';
+import { AccountsModule } from '../components/Accounts';
+import PrimaryActionCodes from '../components/PrimaryActionCodes';
+import Documents from '../components/Documents';
 
 const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
 
@@ -17,8 +19,8 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
 
   const tabs: TabItem[] = [
     { id: 'client', label: 'Client Details', icon: FileText },
-    { id: 'financials', label: 'Financials', icon: CreditCard },
-    { id: 'plan', label: 'Payment Plan', icon: Calendar },
+    { id: 'accounts', label: 'Accounts', icon: CreditCard },
+    { id: 'documents', label: 'Documents', icon: Calendar },
     { id: 'folder', label: 'Doc Folder', icon: Folder },
     { id: 'reminders', label: 'Reminders', icon: ClipboardList },
     { id: 'logs', label: 'Audit Logs', icon: Activity },
@@ -68,13 +70,13 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
             {tabs.map((tab) => (
             <Tabs.Content key={tab.id} value={tab.id} className="flex-1 flex gap-4 outline-none data-[state=inactive]:hidden">
                {/* Main View Area */}
-              <div className={`flex-1 overflow-y-auto rounded-3xl transition-all duration-300 backdrop-blur-md border custom-scrollbar ${
+              <div className={`min-h-screen flex-1 overflow-y-auto rounded-3xl transition-all duration-300 backdrop-blur-md border custom-scrollbar ${
                 theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-sm'
               }`}>
                 <div className="p-8">
                    <div className="flex items-start gap-3 mb-6">
                      <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500">
-                        {tab.id === 'client' ? <LayoutGrid size={20} /> : tab.id === 'financials' ? <FileSearch size={20} /> : <History size={20} />}
+                        {tab.id === 'client' ? <LayoutGrid size={20} /> : tab.id === 'accounts' ? <FileSearch size={20} /> : <History size={20} />}
                      </div>
 
                      <div className='flex justify-between items-start'>
@@ -107,25 +109,26 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                               <Download size={16} />
                               Export
                             </button>
-                            <button className={`absolute -top-10 right-10 w-max flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700 transition-all shadow-lg`}>
+                            <button className={`absolute -top-11 right-10 w-max flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition-all shadow-lg`}>
                               <SlidersHorizontal size={16} />
                               Advanced Filters
                             </button>
                           </div>
                         </div>
+                        <PrimaryActionCodes theme={theme} className='mt-7 rounded-xl' />
                         </div>
                       <ClientInfo theme={theme} />
                     </>
                   )}
-                  {tab.id === 'financials' && (
+                  {tab.id === 'accounts' && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-  
+                      <AccountsModule theme={theme} />
                     </div>
                   )}
 
-                  {tab.id === 'plan' && (
+                  {tab.id === 'documents' && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                      
+                      <Documents theme={theme} />
                     </div>
                   )}
                   {tab.id === 'folder' && (
@@ -179,7 +182,7 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
           ))}
           </Tabs.Root>
         </div>
-        <ActionPanel theme={theme} />
+        
         </div>
     </div>
   )

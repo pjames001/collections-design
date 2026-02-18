@@ -27,7 +27,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
     <div className="space-y-6 animate-in fade-in duration-500 ">
       {/* BOTTOM: RESULTS & DETAIL VIEW */}
       <div className="flex gap-6 h-[700px] ">
-        {/* LEFT PART: RESULTS LEDGER (4/12 columns) */}
+        {/* LEFT PART: RESULTS LEDGER */}
 
         <div
           className={`flex transition-all duration-300 ease-in-out ${isDrawerOpen ? "translate-x-0 w-sm " : "translate-x-[-100%] w-8"} h-full flex-shrink-0 relative overflow-hidden`}
@@ -35,7 +35,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           {/* Toggle Handle */}
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            className={`absolute top-1/2 -translate-y-1/2 right-0 z-20 w-8 h-12 flex items-center justify-center rounded-l-xl transition-colors ${
+            className={`absolute top-1/2 -translate-y-1/2 right-0 z-20 w-8 h-12 flex items-center justify-center rounded-r-xl transition-colors ${
               theme === "dark"
                 ? "bg-blue-600 hover:bg-blue-500 text-white"
                 : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
