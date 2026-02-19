@@ -49,7 +49,6 @@ const tabs: TabItem[] = [
   { id: 'folder', label: 'Doc Folder', icon: Folder },
   { id: 'reminders', label: 'Reminders', icon: ClipboardList },
   { id: 'logs', label: 'Audit Logs', icon: Activity },
-  { id: 'legal', label: 'Legal Department', icon: Scale },
 ];
 
 const categories = [

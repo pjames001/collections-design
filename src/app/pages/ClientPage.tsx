@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FileText, CreditCard, Calendar, Folder, ClipboardList, Activity, Scale, LayoutGrid, FileSearch, History, ChevronRight, ChevronLeft, Search, Download, SlidersHorizontal } from 'lucide-react';
+import { FileText, CreditCard, NotebookPen,  Folder, ClipboardList, Activity, Scale, LayoutGrid, FileSearch, History, ChevronRight, ChevronLeft, Search, Download, SlidersHorizontal } from 'lucide-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { ClientInfo } from '../components/ClientInfo';
 import { SelectField } from '../components/shared/SelectField';
@@ -8,6 +8,8 @@ import { InputField } from '../components/shared/InputField';
 import { AccountsModule } from '../components/Accounts';
 import PrimaryActionCodes from '../components/PrimaryActionCodes';
 import Documents from '../components/Documents';
+import { AccountingModule } from '../components/Accounting';
+import { RemindersFeed } from '../components/Reminders';
 
 const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
 
@@ -20,11 +22,10 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
   const tabs: TabItem[] = [
     { id: 'client', label: 'Client Details', icon: FileText },
     { id: 'accounts', label: 'Accounts', icon: CreditCard },
-    { id: 'documents', label: 'Documents', icon: Calendar },
-    { id: 'folder', label: 'Doc Folder', icon: Folder },
+    { id: 'documents', label: 'Documents', icon: Folder },
+    { id: 'accounting', label: 'Accounting', icon: NotebookPen},
     { id: 'reminders', label: 'Reminders', icon: ClipboardList },
-    { id: 'logs', label: 'Audit Logs', icon: Activity },
-    { id: 'legal', label: 'Legal Department', icon: Scale },
+    { id: 'settings', label: 'Settings', icon: SlidersHorizontal },
   ];
 
   const categories = [
@@ -131,9 +132,14 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                       <Documents theme={theme} />
                     </div>
                   )}
-                  {tab.id === 'folder' && (
-                    <div className="max-w-[1300px] animate-in fade-in slide-in-from-bottom-4 duration-700">
-                      
+                  {tab.id === 'accounting' && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <AccountingModule theme={theme} />
+                    </div>
+                  )}
+                  {tab.id === 'reminders' && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <RemindersFeed theme={theme} />
                     </div>
                   )}
                 </div>

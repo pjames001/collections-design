@@ -17,6 +17,7 @@ import { FromToDate } from "./shared/FromToDate";
 import { InputField } from "./shared/InputField";
 import { CheckboxField } from "./shared/CheckboxField";
 import { DynamicContactList } from "./shared/DynamicContactList";
+import { ActionPanel } from "./ActionPanel";
 
 export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
   theme,
@@ -106,7 +107,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-3 gap-8">
             {/* General Info */}
             <div className="space-y-4">
               <h4 className="text-[16px] tracking-[0.3em] text-blue-600 font-bold">
@@ -144,6 +145,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
                 <InputField label="Country" theme={theme} />
               </div>
             </div>
+            <ActionPanel theme={theme} className="w-full" />
           </div>
 
           <hr className="my-10 border-white/5" />

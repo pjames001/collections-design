@@ -96,7 +96,7 @@ const App: React.FC = () => {
               />
               
               {/* Right Side Action Panel */}
-              <ActionPanel theme={theme} />
+              <ActionPanel theme={theme} className='w-80' />
             </div>
 
             {/* Global Notes as a regular section at the bottom */}

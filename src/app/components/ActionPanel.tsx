@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Hash, MessageSquare, History, Bookmark } from 'lucide-react';
 
-export const ActionPanel: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
-  const [note, setNote] = useState('');
+export const ActionPanel: React.FC<{ theme: 'dark' | 'light', className?: string }> = ({ theme, className }) => {
   
   const actionCodes = [
     { code: 'PTP', label: 'Promise to Pay', color: theme === 'dark' ? 'bg-green-500/40 text-green-400 border-green-500/30' : 'bg-green-50 text-green-600 border-green-200' },
@@ -20,9 +19,9 @@ export const ActionPanel: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
   ];
 
   return (
-    <div className="w-full lg:w-80 flex flex-col gap-6 flex-shrink-0">
+    <div className={`${className} flex flex-col gap-6 flex-shrink-0`}>
       {/* Action Codes */}
-      <div className={`backdrop-blur-xl border rounded-3xl p-6 shadow-xl transition-all duration-500 ${
+      <div className={`backdrop-blur-xl max-h-110 border rounded-3xl p-6 shadow-xl transition-all duration-500 overflow-y-auto custom-scrollbar ${
         theme === 'dark' ? 'bg-white/10 border-white/20' : 'bg-white border-slate-200 shadow-slate-200/50'
       }`}>
         <div className="flex items-center gap-2 mb-4">
