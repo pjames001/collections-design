@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, FileText, Mail, FileDown, Plus, CreditCard, Scale } from 'lucide-react';
+import { ChevronDown, FileText, Mail, FileDown, Plus, CreditCard, Scale, Printer, MessageCircle, Link } from 'lucide-react';
 import { IconButton } from './shared/IconButton';
 import { SummaryItem } from './shared/SummaryItem';
 import { SelectField } from './shared/SelectField';
@@ -33,19 +33,33 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
       </div>
 
       {/* 2. Tab Navigation */}
-      <div className="flex gap-8">
-        <button 
-          onClick={() => setActiveTab('account')}
-          className={`pb-4 text-md transition-all ${activeTab === 'account' ? 'text-sky-500 border-b-2 border-sky-500' : 'text-slate-400'}`}
-        >
-          Account billing
-        </button>
-        <button 
-          onClick={() => setActiveTab('legal')}
-          className={`pb-4 text-md transition-all ${activeTab === 'legal' ? 'text-sky-500 border-b-2 border-sky-500' : 'text-slate-400'}`}
-        >
-          Legal billing
-        </button>
+      <div className="flex justify-between items-center gap-8">
+        <div className='flex gap-8'>
+          <button 
+            onClick={() => setActiveTab('account')}
+            className={`pb-4 text-lg transition-all ${activeTab === 'account' ? 'text-sky-500 border-b-2 border-sky-500' : 'text-white'}`}
+          >
+            Account Billing
+          </button>
+          <button 
+            onClick={() => setActiveTab('legal')}
+            className={`pb-4 text-lg transition-all ${activeTab === 'legal' ? 'text-sky-500 border-b-2 border-sky-500' : 'text-white'}`}
+          >
+            Legal Billing
+          </button>
+        </div>
+
+        <div className="flex gap-8">
+          {/* <SummaryItem label="Client owes" value="$12,400.00" theme={theme} />
+          <SummaryItem label="Company owes" value="$3,150.00" theme={theme} /> */}
+          <div className='p-3 px-8 bg-teal-700 rounded-lg flex flex-col justify-center items-center gap-4'>
+            <span className='text-md font-bold text-white'>Client owes: $382,660</span>
+          </div>
+
+          <div className='p-3 px-8 bg-blue-800 rounded-lg flex flex-col justify-center items-center gap-4'>
+            <span className='text-md font-bold text-white'>Company owes: $382,660</span>
+          </div>
+        </div>
       </div>
 
       {/* 3. Tab Content */}
@@ -53,33 +67,30 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
         {activeTab === 'account' ? (
           <>
             {/* Quick Summary */}
-            <div className="flex gap-8">
-              <SummaryItem label="Client owes" value="$12,400.00" theme={theme} />
-              <SummaryItem label="Company owes" value="$3,150.00" theme={theme} />
-            </div>
+            
 
             {/* Main Ledger Table */}
             <div className={`rounded-[30px] border overflow-hidden ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-white border-slate-100'}`}>
               <div className="p-4 bg-blue-900 flex justify-between">
-                <span className="text-sm text-white">Account billing ledger</span>
-                <span className="text-sm text-white">Offset selected accounts</span>
+                <span className="text-sm text-white">Account Billing Ledger</span>
+                <span className="text-sm text-white">Offset Selected Accounts</span>
               </div>
               <div className="overflow-x-auto custom-scrollbar">
                 <table className="w-full text-left text-xs">
                   <thead>
                     <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-slate-50'}>
                       <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5"><input type="checkbox" /></th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Account number</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Account Number</th>
                       <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Status</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Id/Check number</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Id/Check Number</th>
                       <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Description</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Attorney fees</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Agency fee</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Client fee</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Conv. fee</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Attorney owes</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Agency owes</th>
-                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Client owes</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Attorney Fees</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Agency Fee</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Client Fee</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Conv. Fee</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Attorney Owes</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Agency Owes</th>
+                      <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Client Owes</th>
                       <th className="p-4 text-[16px] min-w-[200px] tracking-widest text-sky-300 border-b border-white/5">Actions</th>
                     </tr>
                   </thead>
@@ -111,6 +122,9 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
               <div className="flex gap-3">
                 <IconButton icon={<FileDown size={14} />} theme={theme} />
                 <IconButton icon={<Mail size={14} />} theme={theme} />
+                <IconButton icon={<Printer size={14} />} theme={theme} />
+                <IconButton icon={<MessageCircle size={14} />} theme={theme} />
+                <IconButton icon={<Link size={14} />} theme={theme} />
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 p-6 rounded-3xl bg-slate-900 border border-blue-600">
                 <FooterStat label="Total attorney:" value="$0.00" />
@@ -202,6 +216,9 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
               <div className="flex gap-3">
                 <IconButton icon={<FileDown size={14} />} theme={theme} />
                 <IconButton icon={<Mail size={14} />} theme={theme} />
+                <IconButton icon={<Printer size={14} />} theme={theme} />
+                <IconButton icon={<MessageCircle size={14} />} theme={theme} />
+                <IconButton icon={<Link size={14} />} theme={theme} />
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 p-6 rounded-3xl bg-slate-900 border border-blue-600">
                 <FooterStat label="Agency Spent:" value="$0.00" />

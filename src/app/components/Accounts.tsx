@@ -12,9 +12,13 @@ export const AccountsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
   const summaryStats: SummaryData[] = [
     { label: "Total assigned", value: "10" },
     { label: "Number of accounts", value: "10" },
+    { label: "Total Face Value", value: "$100.00" },
+    { label: "Total Accounts Collected", value: "4" },
+    { label: "Total Amount Collected", value: "$4,000" },
+    { label: "Last Placement Date", value: "01/01/2024" },
     { label: "Opened", value: "8" },
+    { label: "Closed", value: "2" },
     { label: "Legal accounts", value: "1" },
-    { label: "Total collected", value: "8" },
     { label: "Client owes", value: "$382,660" }
   ];
 
@@ -31,7 +35,7 @@ export const AccountsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
       </div>
 
       {/* Summary Grid */}
-      <div className={`grid grid-cols-2 md:grid-cols-6 gap-6 p-8 rounded-[30px] border 
+      <div className={`flex justify-between items-start flex-wrap p-8 rounded-[30px] border 
         ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-white border-slate-100 shadow-sm'}`}>
         {summaryStats.map((stat, i) => (
           <div key={i} className="flex flex-col items-center gap-1">

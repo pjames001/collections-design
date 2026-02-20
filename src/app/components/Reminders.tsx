@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, Clock, AlertCircle, CheckCircle2, MoreHorizontal, StickyNote, User, Plus } from 'lucide-react';
+import * as Dialog from '@radix-ui/react-dialog';
 import { ImportancePill } from './shared/ImportancePill';
+import AddReminder from './AddReminder';
 
 interface Reminder {
   id: string;
@@ -9,12 +11,15 @@ interface Reminder {
   accountRef: string;
   description: string;
   notes: string;
-  importance: 'high' | 'medium' | 'low';
+  importance: 'urgent' | 'super high' | 'high' | 'medium' | 'low' | 'none';
   collector: string;
   dateCompleted?: string;
 }
 
 export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
+
+  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
+
   const reminders: Reminder[] = [
     {
       id: '1',
@@ -23,7 +28,7 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
       accountRef: '#882019',
       description: 'Follow up on settlement',
       notes: 'Client mentioned they would have funds by friday afternoon.',
-      importance: 'high',
+      importance: 'urgent',
       collector: 'Jacob King',
     },
     {
@@ -40,6 +45,7 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
   ];
 
   return (
+    <Dialog.Root open={isFiltersModalOpen} onOpenChange={setIsFiltersModalOpen}>
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Header Area */}
       <div className="flex justify-between items-end">
@@ -50,12 +56,14 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
           <p className="text-xs text-blue-500 mt-1">Daily task queue and follow-ups</p>
         </div>
         <div className='flex items-center gap-5'>
-          <button className={`px-4 py-2 rounded-xl text-sm transition-all border
-            ${theme === 'dark' 
-              ? 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10' 
-              : 'border-blue-100 text-blue-600 hover:bg-blue-50'}`}>
-            <Plus size={16} className='inline mb-1' /> Add New Reminder
-          </button>
+          <Dialog.Trigger asChild>
+            <button className={`px-4 py-2 rounded-xl text-sm transition-all border
+              ${theme === 'dark' 
+                ? 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10' 
+                : 'border-blue-100 text-blue-600 hover:bg-blue-50'}`}>
+              <Plus size={16} className='inline mb-1' /> Add New Reminder
+            </button>
+          </Dialog.Trigger>
           <button className={`px-4 py-2 rounded-xl text-sm transition-all border
             ${theme === 'dark' 
               ? 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10' 
@@ -86,7 +94,7 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
             {/* Main Content */}
             <div className="space-y-4">
               <div>
-                <p className="text-[14px] text-blue-500 mb-1">{item.accountRef}</p>
+                <p className="text-md font-bold text-blue-500 mb-1">{item.accountRef}</p>
                 <h3 className={`text-base font-normal leading-tight ${theme === 'dark' ? 'text-slate-100' : 'text-slate-800'}`}>
                   {item.description}
                 </h3>
@@ -104,15 +112,15 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
               <div className="flex flex-wrap gap-y-3 gap-x-6 pt-2">
                 <div className="flex items-center gap-2">
                   <Calendar size={14} className="text-slate-400" />
-                  <span className="text-[13px] text-gray-300">{item.dueDate}</span>
+                  <span className="text-md text-white">{item.dueDate}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock size={14} className="text-slate-400" />
-                  <span className="text-[13px] text-gray-300">{item.timeOfDay}</span>
+                  <span className="text-md text-white">{item.timeOfDay}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <User size={14} className="text-slate-400" />
-                  <span className="text-[13px] text-gray-300">{item.collector}</span>
+                  <span className="text-md text-white">{item.collector}</span>
                 </div>
               </div>
 
@@ -137,5 +145,12 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
         ))}
       </div>
     </div>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-md z-[999] animate-in fade-in duration-300" />
+      <Dialog.Content className={`fixed top-1/2 left-1/2 -translate-1/2  z-[1000] outline-none animate-in zoom-in-95 duration-300`}>
+        <AddReminder theme={theme} />
+      </Dialog.Content>
+    </Dialog.Portal>
+    </Dialog.Root>
   );
 };
