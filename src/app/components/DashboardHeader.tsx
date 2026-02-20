@@ -68,7 +68,7 @@ export const DashboardHeader: React.FC<{
   return (
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
       <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-2xl transition-all duration-500 overflow-hidden relative ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white/70 border-slate-200/60 shadow-slate-200/40'
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
       }`}>
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] pointer-events-none rounded-full" />
         
@@ -118,11 +118,11 @@ export const DashboardHeader: React.FC<{
                {topHeader.status}
             </div>
             <div className="flex items-center gap-1.5">
-              <span className={`text-lg uppercase font-black tracking-widest ${theme === 'dark' ? 'text-sky-500' : 'text-slate-400'}`}>
+              <span className={`text-lg font-black tracking-widest ${theme === 'dark' ? 'text-sky-500' : 'text-sky-600'}`}>
                 Account Age
               </span>
               <div className="flex items-center gap-2">
-                <Clock size={20} className="text-sky-500" />
+                <Clock size={20} className={`${theme === 'dark' ? 'text-sky-500' : 'text-sky-600'}`} />
                 <span className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>{accountStats[7].value}</span>
               </div>
             </div>
@@ -227,12 +227,12 @@ export const DashboardHeader: React.FC<{
             </Dialog.Trigger>
 
             <div className='mt-2 p-3 rounded-xl flex justify-between items-center'>
-               <span className={`text-md font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>Linked Balance</span>
+               <span className={`text-md font-black tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-600'}`}>Linked Balance</span>
                <span className={`text-md font-black ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>$0.00</span>
             </div>
 
             <div className={`mt-2 p-3 rounded-xl border-t flex justify-between items-center ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
-               <span className={`text-md font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>Can Settle</span>
+               <span className={`text-md font-black tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-600'}`}>Can Settle</span>
                <span className={`text-md font-black ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>$7,445.67</span>
             </div>
           </div>

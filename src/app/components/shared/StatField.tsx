@@ -16,7 +16,7 @@ export const StatField: React.FC<StatFieldProps> = ({
   <div className="flex flex-col gap-1.5">
     <span
       className={`text-md tracking-widest ${
-        theme === 'dark' ? 'text-sky-300' : 'text-slate-400'
+        theme === 'dark' ? 'text-sky-300' : 'text-blue-600'
       }`}
     >
       {label}

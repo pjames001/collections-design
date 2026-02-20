@@ -10,6 +10,11 @@ import PrimaryActionCodes from '../components/PrimaryActionCodes';
 import Documents from '../components/Documents';
 import { AccountingModule } from '../components/Accounting';
 import { RemindersFeed } from '../components/Reminders';
+import { SettingsModule } from '../components/Settings';
+import { AccountStatusModule } from '../components/ClientStatus';
+import { TransactionAllocations } from '../components/TransactionAllocations';
+
+
 
 const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
 
@@ -31,9 +36,8 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
   const categories = [
     "Contact Info",
     "Client Status",
-    "Activity Code",
-    "Notes",
     "Custom Fields",
+    "Transaction Allocations",
     "Default Value",
     "Client Portal Settings"
   ];
@@ -41,6 +45,26 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
   const [activeTab, setActiveTab] = useState('client');
   const [activeCategory, setActiveCategory] = useState('Contact Info');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const CategoryView: React.FC<{ 
+    category: string; 
+    theme: 'dark' | 'light';
+    }> = ({ category, theme }) => {
+      switch (category) {
+        case 'Contact Info':
+          return (
+            <ClientInfo theme={theme} />
+          );
+        case 'Client Status':
+          return (
+            <AccountStatusModule theme={theme} />
+          );
+        case 'Transaction Allocations':
+          return (
+            <TransactionAllocations theme={theme} />
+          );
+    }
+  }
 
   return (
     <div className={`p-8 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
@@ -91,6 +115,8 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                    
                    {tab.id === 'client' && (
                     <>
+                      
+
                       {/* TOP: SEARCH & FILTER BAR */}
                       <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/20'}`}>
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end">
@@ -118,7 +144,10 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                         </div>
                         <PrimaryActionCodes theme={theme} className='mt-7 rounded-xl' />
                         </div>
-                      <ClientInfo theme={theme} />
+                        <CategoryView 
+                          category={activeCategory} 
+                          theme={theme} 
+                        />
                     </>
                   )}
                   {tab.id === 'accounts' && (
@@ -140,6 +169,11 @@ const ClientPage = ({ theme }: { theme: 'dark' | 'light' }) => {
                   {tab.id === 'reminders' && (
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
                       <RemindersFeed theme={theme} />
+                    </div>
+                  )}
+                  {tab.id === 'settings' && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <SettingsModule theme={theme} />
                     </div>
                   )}
                 </div>

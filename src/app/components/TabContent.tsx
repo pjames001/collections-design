@@ -72,7 +72,7 @@ export const TabContent: React.FC<{
     <div className="flex-1 flex flex-col min-h-[600px] w-full">
       <Tabs.Root value={activeTab} className="flex flex-col h-full" onValueChange={setActiveTab}>
         <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl mb-6 border overflow-x-auto no-scrollbar transition-colors ${
-          theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-slate-200 border-slate-300 shadow-inner'
+          theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-[#e6f0fa] border-slate-300 shadow-inner'
         }`}>
           {tabs.map((tab) => (
             <Tabs.Trigger
@@ -96,7 +96,7 @@ export const TabContent: React.FC<{
             <Tabs.Content key={tab.id} value={tab.id} className="flex-1 flex gap-4 outline-none data-[state=inactive]:hidden">
                {/* Main View Area */}
               <div className={`flex-1 overflow-y-auto rounded-3xl transition-all duration-300 backdrop-blur-md border custom-scrollbar ${
-                theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-sm'
+                theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#e6f0fa] border-slate-200 shadow-sm'
               }`}>
                 <div className="p-8">
                    <div className="flex items-center gap-3 mb-6">
@@ -506,7 +506,7 @@ const CategoryView: React.FC<{
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Primary Locations</h4>
             </div>
             
-            <div className={`grid gap-3 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`grid gap-3 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
               {[
                 { id: 'home1', addr: '498 Elm Ave, San Bruno, CA 94066', status: 'Good', type: 'Home' },
                 { id: 'home2', addr: '269 EL Camino Real, San Francisco, CA 94080', status: 'Unknown', type: 'Work' }
@@ -519,8 +519,8 @@ const CategoryView: React.FC<{
                         {item.addr}
                       </label>
                       <div>
-                        <span className="text-[14px] tracking-widest text-sky-300 mr-2">{item.type} Address</span>
-                        <span className="text-[14px] tracking-widest text-sky-300">Consented</span>
+                        <span className={`text-[14px] mr-2 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{item.type} Address</span>
+                        <span className={`text-[14px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>Consented</span>
                       </div>
                     </div>
                   </div>
@@ -530,7 +530,7 @@ const CategoryView: React.FC<{
                     }`}>
                       {item.status}
                     </div>
-                    <PenLine className='text-white' size={20} />
+                    <PenLine className={`${theme === 'dark' ? 'text-white' : 'text-slate-700'}`} size={20} />
                   </div>
                 </div>
               ))}
@@ -547,17 +547,17 @@ const CategoryView: React.FC<{
                 <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>Phone Directory</h4>
               </div>
               
-              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
                 {[
-                  { id: 'ph1', label: 'From Experian', num: '415-310-1981', status: 'Bad', icon: <Phone size={14}/>, color: 'text-green-500' },
-                  { id: 'ph2', label: 'From IDI', num: '415-310-4188', status: 'Good', icon: <Smartphone size={14}/>, color: 'text-orange-500' }
+                  { id: 'ph1', label: 'From Experian', num: '415-310-1981', status: 'Bad', icon: <Phone size={14}/>, color: theme === 'dark' ? 'text-green-500' : 'text-green-600' },
+                  { id: 'ph2', label: 'From IDI', num: '415-310-4188', status: 'Good', icon: <Smartphone size={14}/>, color: theme === 'dark' ? 'text-orange-500' : 'text-orange-600' }
                 ].map(item => (
                   <div key={item.id} className='flex items-center justify-between p-4'>
                     <div className="flex items-center gap-4">
                       <input type="checkbox" id={item.id} className="w-5 h-5 rounded-md accent-blue-600" />
                       <div>
-                        <div className={`flex items-center gap-2 text-[14px] tracking-widest mb-1 ${item.color}`}>
-                          {item.icon} {item.label} <span className='text-sky-300'>Consented</span>
+                        <div className={`flex items-center gap-2 text-[14px] font-semibold tracking-widest mb-1 ${item.color}`}>
+                          {item.icon} {item.label} <span className={`${theme === 'dark' ? 'text-sky-300' : 'text-slate-600'}`}>Consented</span>
                         </div>
                         <div className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>{item.num}</div>
                       </div>
@@ -566,7 +566,7 @@ const CategoryView: React.FC<{
                       <span className={`px-2 py-1 rounded-full text-[12px] font-black uppercase ${item.status === 'Good' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
                         {item.status}
                       </span>
-                      <PenLine className='text-white' size={20} />
+                      <PenLine className={`${theme === 'dark' ? 'text-white' : 'text-slate-700'}`} size={20} />
                     </div>
                   </div>
                 ))}
@@ -580,7 +580,7 @@ const CategoryView: React.FC<{
                 <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-teal-400' : 'text-teal-600'}`}>Email Accounts</h4>
               </div>
               
-              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
                 {[
                   { id: 'em1', mail: 'boracaygarden@att.net', status: 'Good' },
                   { id: 'em2', mail: 'hyattgirl55@yahoo.com', status: 'Bad' }
@@ -589,13 +589,13 @@ const CategoryView: React.FC<{
                      <div className="flex items-center gap-4">
                       <input type="checkbox" id={item.id} className="w-5 h-5 rounded-md accent-blue-600" />
                       <span className={`text-md tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>{item.mail}</span>
-                       <span className='text-md text-sky-300'>Consented</span>
+                       <span className={`${theme === 'dark' ? 'text-sky-300' : 'text-slate-600'}`}>Consented</span>
                     </div>
                     <div className='flex items-center gap-2'>
                       <span className={`px-2 py-1 rounded-full text-[12px] font-black uppercase ${item.status === 'Good' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
                         {item.status}
                       </span>
-                      <PenLine className='text-white' size={20} />
+                      <PenLine className={`${theme === 'dark' ? 'text-white' : 'text-slate-700'}`} size={20} />
                     </div>
                   </div>
                 ))}
