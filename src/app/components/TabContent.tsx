@@ -444,7 +444,7 @@ const CategoryView: React.FC<{
         
             {/* Credit Configuration Fields */}
             <div className={`lg:col-span-3 p-6 rounded-[30px] border grid grid-cols-1 md:grid-cols-3 gap-6 items-center ${
-              theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200 shadow-sm'
+              theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200 shadow-sm'
             }`}>
               <SelectField
                 label="Credit Rating" 
@@ -459,7 +459,7 @@ const CategoryView: React.FC<{
                 theme={theme}
               />
               <div className="flex flex-col gap-1.5">
-                <label className={`text-[12px] tracking-widest ${theme === 'dark' ? 'text-blue-300' : 'text-sky-300'}`}>
+                <label className={`text-md tracking-widest ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>
                   Revolving Credit
                 </label>
                 <div className="flex items-baseline gap-2">
@@ -472,7 +472,7 @@ const CategoryView: React.FC<{
         
           {/* BOTTOM ROW: Real Estate & Equity Assets */}
           <div className={`p-8 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-slate-50 border-slate-200'
+            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-200/70 border-slate-200'
           }`}>
             <div className="flex items-center gap-2 mb-8">
               <div className="h-5 w-1 bg-violet-500 rounded-full" />
@@ -604,13 +604,13 @@ const CategoryView: React.FC<{
           </div>
         
           {/* Footer: Legal/Employment */}
-          <div className={`flex flex-col md:flex-row justify-between gap-4 p-6 rounded-[25px] border-2 border-dashed ${theme === 'dark' ? 'border-white/10 bg-white/2' : 'border-slate-200 bg-slate-50/50'}`}>
+          <div className={`flex flex-col md:flex-row justify-between gap-4 p-6 rounded-[25px] border-2 border-dashed ${theme === 'dark' ? 'border-white/10 bg-white/2' : 'border-slate-400 bg-slate-50/50'}`}>
             <div className="flex items-center gap-3">
               <div className={`p-3 rounded-xl ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-50'}`}>
                 <User size={20} className="text-blue-500" />
               </div>
               <div>
-                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>Assignee Attorney</p>
+                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>Assignee Attorney</p>
                 <p className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>John Doe</p>
               </div>
             </div>
@@ -620,7 +620,7 @@ const CategoryView: React.FC<{
                 <Briefcase size={20} className="text-violet-500" />
               </div>
               <div>
-                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>Verified Employer</p>
+                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>Verified Employer</p>
                 <p className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>John Doe Architecture</p>
               </div>
             </div>
@@ -633,7 +633,7 @@ const CategoryView: React.FC<{
   
           {/* SECTION HEADER: Stats & Global Actions */}
           <div className={`flex flex-col md:flex-row justify-between items-center p-6 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-sm'
+            theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-200/70 border-slate-200 shadow-sm'
           }`}>
             <div className="flex items-center gap-4">
               <div className="p-3 bg-red-500/10 rounded-2xl">
@@ -676,7 +676,7 @@ const CategoryView: React.FC<{
             {/* Sample Dispute Card */}
             {[1, 2].map((id) => (
               <div key={id} className={`group relative p-8 rounded-[30px] border transition-all ${
-                theme === 'dark' ? 'bg-white/5 border-white/10 hover:border-blue-500/30' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'
+                theme === 'dark' ? 'bg-white/5 border-white/10 hover:border-blue-500/30' : 'bg-sky-200/70 border-slate-200 shadow-sm hover:shadow-md'
               }`}>
                 
                 {/* Row 1: Primary Controls */}
@@ -697,11 +697,11 @@ const CategoryView: React.FC<{
                   
                   {/* Attachment Input Styled */}
                   <div className="flex flex-col gap-1.5">
-                    <label className={`text-md  tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'}`}>
+                    <label className={`text-md  tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>
                       Proof / Attachment
                     </label>
                     <label className={`flex items-center gap-2 justify-center py-2 px-4 rounded-xl border-2 border-dashed cursor-pointer transition-all ${
-                      theme === 'dark' ? 'border-white/10 hover:bg-white/5 text-white/40' : 'border-slate-200 hover:bg-slate-50 text-slate-400'
+                      theme === 'dark' ? 'border-white/10 hover:bg-white/5 text-white/40' : 'border-slate-400 hover:bg-slate-50 text-slate-400'
                     }`}>
                       <Paperclip size={14} />
                       <span className="text-xs font-bold">Upload PDF</span>
@@ -729,7 +729,7 @@ const CategoryView: React.FC<{
           <button className={`w-full py-6 rounded-[25px] border-2 border-dashed flex flex-col items-center gap-2 transition-all ${
             theme === 'dark' 
               ? 'border-white/10 bg-white/2 hover:bg-white/5 text-white/40 hover:text-blue-400' 
-              : 'border-slate-200 bg-slate-50/50 hover:bg-slate-50 text-slate-400 hover:text-blue-600'
+              : 'border-slate-400 bg-slate-50/50 hover:bg-slate-50 text-slate-400 hover:text-blue-600'
           }`}>
             <div className="p-2 rounded-full bg-blue-500/10">
               <Plus size={24} className="text-blue-500" />
@@ -745,7 +745,7 @@ const CategoryView: React.FC<{
           
           {/* Top Row: Legal & Risk Indicators */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
               <SelectField
                 label="Bankruptcy Filing" 
                 options={[{value:'other', label:'Other / General'}, {value:'7', label:'Chapter 7'}, {value:'11', label:'Chapter 11'}, {value:'13', label:'Chapter 13'} ]}
@@ -753,7 +753,7 @@ const CategoryView: React.FC<{
                 theme={theme}
               />
             </div>
-            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
               <SelectField
                 label="Judgments / Liens (12M)" 
                 options={[ {value:'yes', label:'Yes - Active'}, {value:'no', label:'No - None'} ]}
@@ -768,7 +768,7 @@ const CategoryView: React.FC<{
           </div>
         
           {/* Middle Section: Delinquency Timeline (The "Heatmap") */}
-          <div className={`rounded-[30px] border p-8 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/50'}`}>
+          <div className={`rounded-[30px] border p-8 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-200/70 border-slate-200 shadow-xl shadow-slate-200/50'}`}>
             <div className="flex items-center gap-2 mb-6">
               <div className="h-5 w-1 bg-amber-500 rounded-full" />
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>Delinquency Chronology (24 Months)</h4>
@@ -782,7 +782,7 @@ const CategoryView: React.FC<{
                 { label: "120-180 Days", value: "6,380", color: "text-red-700" },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className={`text-[12px] font-black uppercase tracking-widest opacity-80 mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>{item.label}</span>
+                  <span className={`text-[12px] font-black uppercase tracking-widest opacity-80 mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>{item.label}</span>
                   <span className={`text-2xl font-black ${item.value === "0" ? (theme === 'dark' ? 'text-white/20' : 'text-slate-300') : item.color}`}>
                     {item.value === "0" ? "—" : item.value}
                   </span>
@@ -799,7 +799,7 @@ const CategoryView: React.FC<{
           {/* Bottom Section: Credit & Debt Balances */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Revolving & Installments */}
-            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Revolving & Installments</h4>
               <div className="space-y-6">
                 <BalanceRow label="Monthly Payments (12M)" value="$6,380" theme={theme} />
@@ -810,7 +810,7 @@ const CategoryView: React.FC<{
             </div>
         
             {/* Mortgage & Equity */}
-            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] mb-6 ${theme === 'dark' ? 'text-violet-400' : 'text-violet-600'}`}>Mortgage & Equity</h4>
               <div className="space-y-6">
                 <BalanceRow label="Total Mortgage Credit" value="$6,380" theme={theme} />

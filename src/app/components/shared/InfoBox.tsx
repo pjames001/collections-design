@@ -16,7 +16,7 @@ export const InfoBox: React.FC<InfoBoxProps> = ({
   <div className="flex flex-col">
     <span
       className={`text-[12px] font-black tracking-widest mb-1 ${
-        theme === 'dark' ? 'text-white/80' : 'text-slate-400'
+        theme === 'dark' ? 'text-white/80' : 'text-slate-700'
       }`}
     >
       {label}

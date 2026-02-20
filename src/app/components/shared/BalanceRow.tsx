@@ -18,7 +18,7 @@ export const BalanceRow: React.FC<BalanceRowProps> = ({
   >
     <span
       className={`text-sm font-bold ${
-        theme === 'dark' ? 'text-white' : 'text-slate-500'
+        theme === 'dark' ? 'text-white' : 'text-slate-700'
       }`}
     >
       {label}

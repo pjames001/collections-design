@@ -16,7 +16,7 @@ export const AssetStat: React.FC<AssetStatProps> = ({
   <div className="flex flex-col gap-1">
     <span
       className={`text-[12px] font-black tracking-widest mb-1 ${
-        theme === 'dark' ? 'text-sky-300' : 'text-slate-400'
+        theme === 'dark' ? 'text-sky-300' : 'text-blue-600'
       }`}
     >
       {label}
@@ -26,7 +26,7 @@ export const AssetStat: React.FC<AssetStatProps> = ({
         !value
           ? theme === 'dark'
             ? 'text-white/10'
-            : 'text-slate-200'
+            : 'text-slate-400'
           : highlight
           ? 'text-green-500'
           : theme === 'dark'

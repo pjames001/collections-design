@@ -21,7 +21,7 @@ export const GlobalNotes: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
 
   return (
     <div className={`w-full backdrop-blur-3xl border rounded-[40px] overflow-hidden transition-all duration-500 mb-12 shadow-2xl ${
-      theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white/70 border-slate-200/60'
+      theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60'
     }`}>
       {/* Header */}
       <div className={`flex items-center justify-between px-8 py-6 border-b ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
@@ -51,7 +51,7 @@ export const GlobalNotes: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
           <div className="space-y-4">
             {mockNotes.map((note) => (
               <div key={note.id} className={`px-6 py-3 rounded-3xl border transition-all hover:scale-[1.01] ${
-                theme === 'dark' ? 'bg-white/5 border-white/5 hover:bg-white/[0.07]' : 'bg-slate-50 border-slate-200 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50'
+                theme === 'dark' ? 'bg-white/5 border-white/5 hover:bg-white/[0.07]' : 'bg-gray-50/80 border-slate-200 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50'
               }`}>
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-2">
