@@ -5,6 +5,7 @@ import { TabContent } from '../components/TabContent';
 import { ActionPanel } from '../components/ActionPanel';
 import { GlobalNotes } from '../components/GlobalNotes';
 import { Toaster } from 'sonner';
+import PrimaryActionCodes from '../components/PrimaryActionCodes';
 
 const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme }) => {
   const [activeNav, setActiveNav] = useState('crm');
@@ -24,18 +25,9 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-500 overflow-hidden flex flex-col ${
-      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-[#e6f0fa] text-slate-900'
     }`}>
       {/* Dynamic Background */}
-      <div 
-        className="fixed inset-0 z-0 opacity-40 pointer-events-none transition-opacity duration-1000"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1730327442005-b5d3d854eb49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRhcmslMjBibHVlJTIwZ2VvbWV0cmljJTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3NzA1NDg3MzV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: theme === 'dark' ? 'blur(100px)' : 'blur(100px) brightness(1.5) saturate(0.5)'
-        }}
-      />
       
       {/* Sidebar */}
       <Sidebar activeTab={activeNav} setActiveTab={setActiveNav} theme={theme} toggleTheme={toggleTheme} />
@@ -66,7 +58,7 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
         </header>
 
         {/* Primary Action Codes Strip */}
-        <div className={`px-8 py-3 border-y flex justify-center items-center gap-3 overflow-x-auto no-scrollbar flex-shrink-0 ${
+        {/* <div className={`px-8 py-3 border-y flex justify-center items-center gap-3 overflow-x-auto no-scrollbar flex-shrink-0 ${
           theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-white border-slate-200 shadow-sm'
         }`}>
           {primaryActionCodes.map((action) => (
@@ -77,7 +69,8 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
               {action.label}
             </button>
           ))}
-        </div>
+        </div> */}
+        <PrimaryActionCodes theme={theme} />
 
         {/* Dashboard Content - Scrollable area */}
         <div className="flex-1 overflow-y-auto p-8 pt-4 custom-scrollbar">

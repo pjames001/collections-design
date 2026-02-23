@@ -10,10 +10,10 @@ import { RotateCcw } from "lucide-react";
 const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
   return (
     <div
-      className={`w-3xl max-w-4xl h-[90vh] overflow-hidden rounded-[25px] border flex flex-col ${theme === "dark" ? "bg-slate-900 border-white/10" : "bg-white border-slate-200 shadow-2xl"}`}
+      className={`w-3xl max-w-4xl h-[90vh] overflow-hidden rounded-[25px] border flex flex-col ${theme === "dark" ? "bg-slate-900 border-white/10" : "bg-sky-100 border-slate-200 shadow-2xl"}`}
     >
       {/* TOP BAR */}
-      <div className="px-8 py-4 border-b border-white/5 flex justify-between items-center bg-slate-500/5">
+      <div className={`px-8 py-4 border-b border-white/5 flex justify-between items-center ${theme === 'dark' ? 'bg-slate-900/50' : 'bg-blue-300'}`}>
         <div>
           <h2 className="text-2xl font-black uppercase tracking-tight text-white">
             Add New Reminder
@@ -54,14 +54,14 @@ const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
       </div>
 
       {/* 3. Sticky Footer (Action Buttons) */}
-      <div className={`p-6 border-t flex justify-end gap-4 ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-white border-slate-200'}`}>
-            <button className="flex items-center gap-2 px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:bg-white/5 text-slate-400">
-            <RotateCcw size={16} /> Cancel
-          </button>
-          <button className="px-8 py-3 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-blue-600/20">
-            Save Reminder
-          </button>
-          </div>
+      <div className={`p-6 border-t flex justify-end gap-4 ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-blue-300 border-slate-200'}`}>
+        <button className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:bg-white/5 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-700'}`}>
+          <RotateCcw size={16} /> Cancel
+        </button>
+        <button className="px-8 py-3 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-blue-600/20">
+          Save Reminder
+        </button>
+      </div>
     </div>
   );
 };

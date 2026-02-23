@@ -9,7 +9,7 @@ interface AllocationRowProps {
 
 const AllocationRow: React.FC<AllocationRowProps> = ({ label, theme }) => (
   <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 items-center p-4 rounded-2xl transition-all
-    ${theme === 'dark' ? 'hover:bg-white/5 border-b border-white/5' : 'hover:bg-slate-50 border-b border-slate-50'}`}>
+    ${theme === 'dark' ? 'hover:bg-white/5 border-b border-white/5' : 'hover:bg-blue-300 border-b border-slate-50'}`}>
     
     <div className="md:col-span-1">
       <span className={`text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -23,7 +23,7 @@ const AllocationRow: React.FC<AllocationRowProps> = ({ label, theme }) => (
           type="text" 
           placeholder="0.00"
           className={`w-full py-2 px-3 pl-12 rounded-xl border text-xs outline-none transition-all
-            ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-blue-500/50' : 'bg-white border-slate-200 text-slate-700 focus:border-blue-400'}`} 
+            ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-blue-500/50' : 'bg-white border-slate-400 text-slate-700 focus:border-blue-400'}`} 
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">adv %</span>
       </div>
@@ -33,7 +33,7 @@ const AllocationRow: React.FC<AllocationRowProps> = ({ label, theme }) => (
           type="text" 
           placeholder="0.00"
           className={`w-full py-2 px-3 pl-12 rounded-xl border text-xs outline-none transition-all
-            ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-blue-500/50' : 'bg-white border-slate-200 text-slate-700 focus:border-blue-400'}`}
+            ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-blue-500/50' : 'bg-white border-slate-400 text-slate-700 focus:border-blue-400'}`}
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">atty %</span>
       </div>
@@ -43,7 +43,7 @@ const AllocationRow: React.FC<AllocationRowProps> = ({ label, theme }) => (
           type="text" 
           placeholder="0.00"
           className={`w-full py-2 px-3 pl-12 rounded-xl border text-xs outline-none transition-all
-            ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-blue-500/50' : 'bg-white border-slate-200 text-slate-700 focus:border-blue-400'}`} 
+            ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-blue-500/50' : 'bg-white border-slate-400 text-slate-700 focus:border-blue-400'}`} 
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">age %</span>
       </div>
@@ -80,14 +80,14 @@ export const TransactionAllocations: React.FC<{ theme: 'dark' | 'light' }> = ({ 
         </div>
 
         <div className={`p-6 rounded-[40px] border shadow-sm ${
-          theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-100'
+          theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200'
         }`}>
           {/* Table Header Guide */}
           <div className="grid grid-cols-4 gap-4 px-4 mb-4">
-            <span className="text-md text-white">Category type</span>
-            <span className="text-md text-white text-center">Advanced %</span>
-            <span className="text-md text-white text-center">Attorney %</span>
-            <span className="text-md text-white text-center">Agency %</span>
+            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>Category type</span>
+            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Advanced %</span>
+            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Attorney %</span>
+            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Agency %</span>
           </div>
 
           {/* Mapping Categories */}
@@ -99,7 +99,7 @@ export const TransactionAllocations: React.FC<{ theme: 'dark' | 'light' }> = ({ 
 
           {/* Bottom Actions */}
           <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className={`text-[11px] ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>
+            <p className={`text-[11px] ${theme === 'dark' ? 'text-slate-500' : 'text-slate-700'}`}>
               Changes will apply to all future incoming transactions for this client.
             </p>
             <button className="w-full md:w-auto px-10 py-3 bg-blue-600 text-white rounded-2xl text-xs transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/10">

@@ -51,10 +51,10 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
 
           {/* List Content */}
           <div
-            className={`w-full  rounded-[35px] border overflow-hidden flex flex-col ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-slate-50   border-slate-200"}`}
+            className={`w-full  rounded-[35px] border overflow-hidden flex flex-col ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-100   border-slate-200"}`}
           >
             <div className="p-5 border-b border-white/5 flex justify-between items-center bg-blue-500/5">
-              <span className="text-md font-black uppercase tracking-widest text-sky-300">
+              <span className={`text-md font-black uppercase tracking-widest ${theme === "dark" ? "text-sky-300" : "text-blue-600"}`}>
                 Search Results
               </span>
               <span className="px-2 py-1 rounded-md bg-blue-500 text-white text-md font-black">
@@ -89,7 +89,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
 
         {/* RIGHT PART: CLIENT DOSSIER (8/12 columns) */}
         <div
-          className={`w-full rounded-[35px] border overflow-y-auto custom-scrollbar p-8 ${theme === "dark" ? "bg-slate-900/60 border-white/10" : "bg-white border-slate-200 shadow-sm"}`}
+          className={`w-full rounded-[35px] border overflow-y-auto custom-scrollbar p-8 ${theme === "dark" ? "bg-slate-900/60 border-white/10" : "bg-sky-100 border-slate-200 shadow-sm"}`}
         >
           <div className="flex items-center gap-3 mb-8">
             <div className="p-3 bg-blue-600/10 rounded-2xl">
@@ -156,7 +156,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
               <h4 className="text-[16px] tracking-[0.3em] text-green-500">
                 Point of Contact
               </h4>
-              <button className="text-[14px] tracking-widest text-blue-500 border border-blue-500/20 px-3 py-1 rounded-lg hover:bg-blue-500/10 transition-all">
+              <button className="text-[14px] tracking-widest text-blue-500 border border-blue-500/60 px-3 py-1 rounded-lg hover:bg-blue-500/10 transition-all">
                 Add Personnel
               </button>
             </div>

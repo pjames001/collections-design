@@ -94,7 +94,7 @@ const ClientPage = () => {
       
 
       {/* TOP: SEARCH & FILTER BAR */}
-      <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/20'}`}>
+      <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200 shadow-xl shadow-slate-200/20'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end">
           <SelectField label="Client Type" options={[]} theme={theme} />
           <SelectField label="Status" options={[]} theme={theme} />
@@ -128,8 +128,8 @@ const ClientPage = () => {
   ), [activeCategory, theme]);
 
   return (
-    <div className={`p-8 pl-20 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
-        theme === 'dark' ? 'bg-gray-700 border-white/10' : 'bg-white/70 border-slate-200/60 shadow-slate-200/40'
+    <div className={`p-8 pl-24 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
+        theme === 'dark' ? 'bg-gray-700 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
       }`}>
         <Sidebar activeTab={activeNav} setActiveTab={setActiveNav} theme={theme} toggleTheme={toggleTheme} />
         <div className='flex gap-8'>
@@ -149,7 +149,7 @@ const ClientPage = () => {
                 }
               `}</style>
               <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl border overflow-visible no-scrollbar transition-colors ${
-                theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-slate-200 border-slate-300 shadow-inner'
+                theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-[#bbdcfd] border-slate-300 shadow-inner'
               }`}>
                 {tabs.map((tab) => (
                   <div
@@ -208,7 +208,7 @@ const ClientPage = () => {
             <Tabs.Content key={tab.id} value={tab.id} className="flex-1 flex outline-none data-[state=inactive]:hidden">
                {/* Main View Area */}
               <div className={`min-h-screen flex-1 overflow-y-auto rounded-3xl transition-all duration-300 backdrop-blur-md border custom-scrollbar ${
-                theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-sm'
+                theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200 shadow-sm'
               }`}>
                 <div className="p-8">
                    <div className="flex items-start gap-3 mb-6">

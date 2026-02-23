@@ -215,7 +215,7 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
               <FromToDate label="Amount Due" theme={theme} />
               <div className='flex items-end gap-4 relative'>
                 <span className={`absolute top-0 text-md tracking-widest ${
-                  theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'
+                  theme === 'dark' ? 'text-sky-300' : 'text-blue-600'
                 }`}>Total Amount</span>
                 <InputField label="" placeholder="" theme={theme} type="number" />
                 <span className="text-slate-700 flex items-center">-</span>
@@ -225,7 +225,7 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
               <FromToDate label="Last Payment" theme={theme} />
               <div className='flex items-end gap-4 relative'>
                 <span className={`absolute top-0 text-md tracking-widest ${
-                  theme === 'dark' ? 'text-sky-300' : 'text-blue-600/60'
+                  theme === 'dark' ? 'text-sky-300' : 'text-blue-600'
                 }`}>Cumulative Delinquent Days</span>
                 <InputField label="" placeholder="" theme={theme} type="number" />
                 <span className="text-slate-700 flex items-center">-</span>

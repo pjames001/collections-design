@@ -11,7 +11,7 @@ export const AccountStatusModule: React.FC<{ theme: 'dark' | 'light' }> = ({ the
       
       {/* 1. Primary Metrics & Status (Left Side - 5/12 columns) */}
       <div className={`lg:col-span-5 p-8 rounded-[40px] border space-y-8 h-fit
-        ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-100 shadow-sm'}`}>
+        ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'}`}>
         
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-600">
@@ -63,7 +63,7 @@ export const AccountStatusModule: React.FC<{ theme: 'dark' | 'light' }> = ({ the
         
         {/* Note Entry Area */}
         <div className={`p-8 rounded-[40px] border transition-all
-          ${theme === 'dark' ? 'bg-slate-900/60 border-white/10 focus-within:border-blue-500/30' : 'bg-white border-slate-100 shadow-sm focus-within:border-blue-200'}`}>
+          ${theme === 'dark' ? 'bg-slate-900/60 border-white/10 focus-within:border-blue-500/30' : 'bg-sky-100 border-slate-200 shadow-sm focus-within:border-blue-200'}`}>
           <div className="flex items-center gap-2 mb-4 text-slate-400">
             <MessageSquare size={16} />
             <span className="text-xs">Add a note</span>
@@ -85,7 +85,7 @@ export const AccountStatusModule: React.FC<{ theme: 'dark' | 'light' }> = ({ the
 
         {/* Notes History / Client Notes */}
         <div className={`flex-1 p-8 rounded-[40px] border flex flex-col gap-6 overflow-hidden
-          ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-slate-50/50 border-slate-100'}`}>
+          ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'}`}>
           <div className="flex items-center justify-between">
             <h4 className="text-xs text-slate-400 flex items-center gap-2">
               <ClipboardList size={14} />

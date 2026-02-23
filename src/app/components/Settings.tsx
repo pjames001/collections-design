@@ -36,7 +36,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
 
       {/* Settings Form Content */}
       <div className={`flex-1 p-10 rounded-[40px] border ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-100 shadow-sm'
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'
       }`}>
         
         {activeSection === 'company' && (
@@ -47,7 +47,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
               <SelectField label="Sales agent" options={[]} theme={theme} />
               <InputField label="Business type" theme={theme} />
               <div className="flex flex-col gap-3">
-                <label className="text-md text-sky-300">Medical</label>
+                <label className={`text-md ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Medical</label>
                 <div className="flex gap-4">
                   <RadioField label="Yes" name="medical" theme={theme} />
                   <RadioField label="No" name="medical" theme={theme} />
@@ -95,12 +95,14 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField label="Hourly rate" theme={theme} />
               <InputField label="Legal hourly rate %" theme={theme} />
-              <div className="md:col-span-2">
-                <label className="text-md text-sky-300 block mb-2">Agreement terms</label>
+              {/* <div className="md:col-span-2">
+                <label className={`text-md block mb-2 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Agreement terms</label>
                 <textarea className={`w-full h-32 p-4 rounded-2xl border outline-none text-sm ${
                   theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-slate-50 border-slate-200'
                 }`} placeholder="Enter legal terms..." />
-              </div>
+              </div> */}
+              <InputField label="Pre Lit" theme={theme} />
+              <InputField label="Post Lit" theme={theme} />
             </div>
           </div>
         )}

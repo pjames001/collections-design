@@ -36,10 +36,10 @@ export const AccountsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
 
       {/* Summary Grid */}
       <div className={`flex justify-between items-start flex-wrap p-8 rounded-[30px] border 
-        ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-white border-slate-100 shadow-sm'}`}>
+        ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'}`}>
         {summaryStats.map((stat, i) => (
           <div key={i} className="flex flex-col items-center gap-1">
-            <span className="text-[14px] text-sky-300">{stat.label}</span>
+            <span className={`text-[14px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>{stat.label}</span>
             <span className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{stat.value}</span>
           </div>
         ))}
@@ -49,65 +49,65 @@ export const AccountsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
       <div className="overflow-hidden rounded-[30px]">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-slate-50'}>
-              <th className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5"></th>
-              <th className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5">Name</th>
-              <th className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5">Amount</th>
-              <th className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5">Status</th>
-              <th className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5">Balance</th>
-              <th className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5">Actions</th>
+            <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-sky-100'}>
+              <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}></th>
+              <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Name</th>
+              <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Amount</th>
+              <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Status</th>
+              <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Balance</th>
+              <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Actions</th>
             </tr>
           </thead>
           <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-slate-100'}`}>
             {[1, 2, 3, 4, 5, 6].map((id) => (
               <React.Fragment key={id}>
-                <tr className="cursor-pointer hover:bg-slate-900" onClick={() => setExpandedRow(expandedRow === id ? null : id)}>
-                  <td className="p-4 text-white"><ChevronRight size={16} className={`transition-transform ${expandedRow === id ? 'rotate-90' : ''}`} /></td>
-                  <td className="p-4 text-white text-sm">global logistics inc</td>
-                  <td className="p-4 text-white text-sm">$15,000</td>
+                <tr className={`cursor-pointer ${theme === 'dark' ? 'hover:bg-slate-900' : 'hover:bg-slate-100'}`} onClick={() => setExpandedRow(expandedRow === id ? null : id)}>
+                  <td className={`p-4 ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}><ChevronRight size={16} className={`transition-transform ${expandedRow === id ? 'rotate-90' : ''}`} /></td>
+                  <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>global logistics inc</td>
+                  <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>$15,000</td>
                   <td className="p-4 text-white"><span className="text-[12px] px-2 py-0.5 rounded-full font-bold bg-emerald-300 text-emerald-700">Active</span></td>
-                  <td className="p-4 text-white text-sm">$8,200</td>
-                  <td className="p-4 text-white">
-                    <select className="bg-transparent text-xs text-slate-400">
-                      <option className='bg-slate-800'>edit</option>
-                      <option className='bg-slate-800'>Delete</option>
+                  <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>$8,200</td>
+                  <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>
+                    <select className={`bg-transparent text-xs ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>
+                      <option className={` ${theme === 'dark' ? 'text-white bg-slate-800' : 'bg-white text-slate-700'}`}>edit</option>
+                      <option className={` ${theme === 'dark' ? 'text-white bg-slate-800' : 'bg-white text-slate-700'}`}>Delete</option>
                     </select>
                   </td>
                 </tr>
                 {expandedRow === id && (
-                  <tr className={theme === 'dark' ? 'bg-white/10' : 'bg-slate-50'}>
+                  <tr className={theme === 'dark' ? 'bg-white/10' : 'bg-blue-500/60'}>
                     <td colSpan={6} className="p-6">
                       <div className="grid grid-cols-4 md:grid-cols-8 gap-4 text-sm w-full">
                         <div>
-                          <p className="text-sky-300">Date</p>
+                          <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>Date</p>
                           <p className='text-white'>02/18/26</p>
                         </div>
                         <div>
-                          <p className="text-sky-300">ID/Check Number</p>
+                          <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>ID/Check Number</p>
                           <p className='text-white'>#9902</p>
                         </div>
                         <div>
-                          <p className="text-sky-300">Description</p>
+                          <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>Description</p>
                           <p className='text-white'>payment</p>
                         </div>
                         <div>
-                          <p className="text-sky-300">Agency</p>
+                          <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>Agency</p>
                           <p className='text-white'>$50.00</p>
                         </div>
                         <div>
-                          <p className="text-sky-300">Client</p>
+                          <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>Client</p>
                           <p className='text-white'>$450.00</p>
                         </div>
                         <div>
-                          <p className="text-sky-300">Convenience Fees</p>
+                          <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>Convenience Fees</p>
                           <p className='text-white'>$250.00</p>
                         </div>
                         <div className='border-l border-white pl-10'>
-                          <p className="text-green-500">Agency</p>
+                          <p className={theme === 'dark' ? 'text-green-500' : 'text-green-300 font-bold'}>Agency</p>
                           <p className='text-white'>$150.00</p>
                         </div>
                         <div>
-                          <p className="text-yellow-500">Client</p>
+                          <p className={theme === 'dark' ? 'text-yellow-500' : 'text-yellow-300 font-bold'}>Client</p>
                           <p className='text-white'>$100.00</p>
                         </div>
                       </div>

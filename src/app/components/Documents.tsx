@@ -70,7 +70,7 @@ const Documents: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
 
       {/* Grid Container */}
       <div className={`p-8 rounded-[35px] border min-h-[400px] transition-all
-        ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-100 shadow-sm'}`}>
+        ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'}`}>
         
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {!activeFolder ? (

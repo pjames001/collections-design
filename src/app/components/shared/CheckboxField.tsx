@@ -29,10 +29,10 @@ export const CheckboxField: React.FC<{
         />
       </div>
     </div>
-    <span className={`text-[12px] tracking-widest transition-colors
+    <span className={`text-[14px] tracking-widest transition-colors
       ${theme === 'dark' 
         ? 'text-white group-hover:text-white' 
-        : 'text-slate-500 group-hover:text-slate-900'
+        : 'text-slate-700 group-hover:text-slate-900'
       } ${checked ? (theme === 'dark' ? 'text-white' : 'text-slate-900') : ''}`}>
       {label}
     </span>

@@ -78,15 +78,15 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
         {reminders.map((item) => (
           <div 
             key={item.id} 
-            className={`relative p-6 rounded-[30px] border transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/20 
+            className={`relative p-6 rounded-[30px] border transition-all duration-300 hover:shadow-xl  
               ${theme === 'dark' 
-                ? 'bg-slate-900/60 border-white/10 hover:border-white/20' 
-                : 'bg-white border-slate-100 shadow-sm hover:border-blue-100'}`}
+                ? 'bg-slate-900/60 border-white/10 hover:border-white/20 hover:shadow-slate-200/20' 
+                : 'bg-sky-100 border-slate-100 shadow-sm hover:border-blue-100 hover:shadow-gray-700/30'}`}
           >
             {/* Importance Indicator */}
             <div className="flex justify-between items-start mb-4">
               <ImportancePill level={item.importance} />
-              <button className="text-slate-300 hover:text-slate-500 transition-colors">
+              <button className={`transition-colors ${theme === 'dark' ? 'text-slate-300 hover:text-slate-200' : 'text-slate-500 hover:text-slate-700'}`}>
                 <MoreHorizontal size={18} />
               </button>
             </div>
@@ -95,13 +95,13 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
             <div className="space-y-4">
               <div>
                 <p className="text-md font-bold text-blue-500 mb-1">{item.accountRef}</p>
-                <h3 className={`text-base font-normal leading-tight ${theme === 'dark' ? 'text-slate-100' : 'text-slate-800'}`}>
+                <h3 className={`text-base font-normal leading-tight ${theme === 'dark' ? 'text-slate-100' : 'text-slate-600'}`}>
                   {item.description}
                 </h3>
               </div>
 
               {/* Notes Box */}
-              <div className={`p-4 rounded-2xl text-sm leading-relaxed ${theme === 'dark' ? 'bg-white/5 text-white' : 'bg-slate-50 text-slate-500'}`}>
+              <div className={`p-4 rounded-2xl text-sm leading-relaxed ${theme === 'dark' ? 'bg-white/5 text-white' : 'bg-slate-50 text-slate-600'}`}>
                 <div className="flex gap-2">
                   <StickyNote size={14} className="shrink-0 mt-0.5 opacity-50" />
                   <p>{item.notes}</p>
@@ -111,23 +111,23 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
               {/* Metadata Row */}
               <div className="flex flex-wrap gap-y-3 gap-x-6 pt-2">
                 <div className="flex items-center gap-2">
-                  <Calendar size={14} className="text-slate-400" />
-                  <span className="text-md text-white">{item.dueDate}</span>
+                  <Calendar size={14} className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'} />
+                  <span className={`text-md ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>{item.dueDate}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock size={14} className="text-slate-400" />
-                  <span className="text-md text-white">{item.timeOfDay}</span>
+                  <Clock size={14} className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'} />
+                  <span className={`text-md ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>{item.timeOfDay}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <User size={14} className="text-slate-400" />
-                  <span className="text-md text-white">{item.collector}</span>
+                  <User size={14} className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'} />
+                  <span className={`text-md ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>{item.collector}</span>
                 </div>
               </div>
 
               {/* Action/Completion Footer */}
               <div className="pt-4 mt-2 border-t border-slate-100 dark:border-white/5">
                 {item.dateCompleted ? (
-                  <div className="flex items-center gap-2 text-green-500 text-xs">
+                  <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-green-500' : 'text-green-700'}`}>
                     <CheckCircle2 size={16} />
                     <span>Completed on {item.dateCompleted}</span>
                   </div>
@@ -135,7 +135,7 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
                   <button className={`w-full py-2.5 rounded-xl text-xs transition-all border
                     ${theme === 'dark' 
                       ? 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10' 
-                      : 'border-blue-100 text-blue-600 hover:bg-blue-50'}`}>
+                      : 'border-blue-300 text-blue-600 hover:bg-blue-200'}`}>
                     Mark as completed
                   </button>
                 )}
