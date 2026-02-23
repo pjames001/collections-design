@@ -22,7 +22,7 @@ export const ActionPanel: React.FC<{ theme: 'dark' | 'light', className?: string
     <div className={`${className} flex flex-col gap-6 flex-shrink-0`}>
       {/* Action Codes */}
       <div className={`backdrop-blur-xl max-h-110 border rounded-3xl p-6 shadow-xl transition-all duration-500 overflow-y-auto custom-scrollbar ${
-        theme === 'dark' ? 'bg-white/10 border-white/20' : 'bg-[#e6f0fa] border-slate-200 shadow-slate-200/50'
+        theme === 'dark' ? 'bg-white/10 border-white/20' : 'bg-[#bbdcfd] border-slate-200 shadow-slate-200/50'
       }`}>
         <div className="flex items-center gap-2 mb-4">
           <Hash size={18} className={theme === 'dark' ? 'text-blue-400' : 'text-blue-600'} />

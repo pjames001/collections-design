@@ -21,7 +21,7 @@ export const GlobalNotes: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
 
   return (
     <div className={`w-full backdrop-blur-3xl border rounded-[40px] overflow-hidden transition-all duration-500 mb-12 shadow-2xl ${
-      theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60'
+      theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200/60'
     }`}>
       {/* Header */}
       <div className={`flex items-center justify-between px-8 py-6 border-b ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>

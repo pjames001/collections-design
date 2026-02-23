@@ -47,7 +47,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
               <SelectField label="Sales agent" options={[]} theme={theme} />
               <InputField label="Business type" theme={theme} />
               <div className="flex flex-col gap-3">
-                <label className="text-xs text-slate-500">Medical</label>
+                <label className="text-md text-sky-300">Medical</label>
                 <div className="flex gap-4">
                   <RadioField label="Yes" name="medical" theme={theme} />
                   <RadioField label="No" name="medical" theme={theme} />
@@ -96,7 +96,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
               <InputField label="Hourly rate" theme={theme} />
               <InputField label="Legal hourly rate %" theme={theme} />
               <div className="md:col-span-2">
-                <label className="text-xs text-slate-500 block mb-2">Agreement terms</label>
+                <label className="text-md text-sky-300 block mb-2">Agreement terms</label>
                 <textarea className={`w-full h-32 p-4 rounded-2xl border outline-none text-sm ${
                   theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-slate-50 border-slate-200'
                 }`} placeholder="Enter legal terms..." />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 import {
   FileText,
@@ -7,8 +7,6 @@ import {
   Folder,
   ClipboardList,
   Activity,
-  ChevronRight,
-  ChevronLeft,
   LayoutGrid,
   FileSearch,
   History,
@@ -51,13 +49,14 @@ const tabs: TabItem[] = [
   { id: 'logs', label: 'Audit Logs', icon: Activity },
 ];
 
-const categories = [
-  "Contact Info",
-  "Skip Tracing",
-  "dispute",
-  "experian reports",
-  "settlement"
-];
+const submenus: Record<string, string[]> = {
+  'details': ['Contact Info', 'Skip Tracing', 'dispute', 'experian reports', 'settlement'],
+  'financials': ['Summary', 'Transactions', 'Allocations', 'Reports'],
+  'plan': ['Schedule', 'Terms', 'History', 'Documents'],
+  'folder': ['Uploaded Files', 'Generated Docs', 'Templates', 'Archives'],
+  'reminders': ['Upcoming', 'Completed', 'Overdue', 'Calendar'],
+  'logs': ['All Activity', 'Edits', 'Status Changes', 'Assignments'],
+};
 
 export const TabContent: React.FC<{ 
   theme: 'dark' | 'light';
@@ -65,38 +64,102 @@ export const TabContent: React.FC<{
 }> = ({ theme, activeCreditor }) => {
   const [activeTab, setActiveTab] = useState('details');
   const [activeCategory, setActiveCategory] = useState('Contact Info');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  
+  const handleMouseEnter = (tabId: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setHoveredTab(tabId);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredTab(null);
+    }, 200);
+  };
+
   return (
     <div className="flex-1 flex flex-col min-h-[600px] w-full">
       <Tabs.Root value={activeTab} className="flex flex-col h-full" onValueChange={setActiveTab}>
-        <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl mb-6 border overflow-x-auto no-scrollbar transition-colors ${
-          theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-[#e6f0fa] border-slate-300 shadow-inner'
-        }`}>
-          {tabs.map((tab) => (
-            <Tabs.Trigger
-              key={tab.id}
-              value={tab.id}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 whitespace-nowrap outline-none cursor-pointer ${
-                activeTab === tab.id
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : theme === 'dark' ? 'text-blue-100 hover:bg-white/5' : 'text-slate-600 hover:bg-white/50'
-              }`}
-            >
-              <tab.icon size={18} />
-              <span className="font-medium text-xs uppercase tracking-widest">{tab.label}</span>
-            </Tabs.Trigger>
-          ))}
-        </Tabs.List>
+        <div className="mb-6 relative z-40">
+          <style>{`
+            @keyframes fadeInDown {
+              from {
+                opacity: 0;
+                transform: translateY(-8px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
+          <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl border overflow-visible no-scrollbar transition-colors ${
+            theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-[#bbdcfd] border-slate-300 shadow-inner'
+          }`}>
+            {tabs.map((tab) => (
+              <div
+                key={tab.id}
+                className="relative group"
+                onMouseEnter={() => handleMouseEnter(tab.id)}
+                onMouseLeave={() => handleMouseLeave()}
+              >
+                <Tabs.Trigger
+                  value={tab.id}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 whitespace-nowrap outline-none cursor-pointer ${
+                    activeTab === tab.id
+                      ? 'bg-blue-600 text-white shadow-lg'
+                      : theme === 'dark' ? 'text-blue-100 hover:bg-white/5' : 'text-slate-600 hover:bg-white/50'
+                  }`}
+                >
+                  <tab.icon size={18} />
+                  <span className="font-medium text-xs uppercase tracking-widest">{tab.label}</span>
+                </Tabs.Trigger>
 
-        <div className="flex-1 flex gap-4 overflow-hidden min-h-0 relative">
+                {/* Dropdown Menu */}
+                {hoveredTab === tab.id && (
+                  <div 
+                    className={`absolute top-full left-0 mt-0 min-w-max rounded-2xl border shadow-2xl backdrop-blur-md z-50 overflow-visible ${
+                      theme === 'dark' ? 'bg-slate-900/98 border-white/20' : 'bg-white/98 border-slate-300'
+                    }`}
+                    style={{ animation: 'fadeInDown 0.2s ease-out', pointerEvents: 'auto' }}
+                    onMouseEnter={() => handleMouseEnter(tab.id)}
+                    onMouseLeave={() => handleMouseLeave()}
+                  >
+                    {submenus[tab.id].map((item, idx) => (
+                      <button
+                        key={item}
+                        onClick={() => setActiveCategory(item)}
+                        className={`block w-full text-left px-5 py-3 text-sm font-bold uppercase tracking-wide transition-all whitespace-nowrap first:rounded-t-xl last:rounded-b-xl ${
+                          idx > 0 ? 'border-t ' + (theme === 'dark' ? 'border-white/5' : 'border-slate-200') : ''
+                        } ${
+                          activeCategory === item
+                            ? 'bg-blue-600 text-white'
+                            : theme === 'dark'
+                            ? 'text-white/80 hover:bg-white/10 hover:text-white'
+                            : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600'
+                        }`}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </Tabs.List>
+        </div>
+
+        <div className="flex-1 flex overflow-hidden min-h-0 relative">
           {/* Content Area wrapped in Tabs.Content for each tab */}
           {tabs.map((tab) => (
-            <Tabs.Content key={tab.id} value={tab.id} className="flex-1 flex gap-4 outline-none data-[state=inactive]:hidden">
+            <Tabs.Content key={tab.id} value={tab.id} className="flex-1 flex outline-none data-[state=inactive]:hidden">
                {/* Main View Area */}
               <div className={`flex-1 overflow-y-auto rounded-3xl transition-all duration-300 backdrop-blur-md border custom-scrollbar ${
-                theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#e6f0fa] border-slate-200 shadow-sm'
+                theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200 shadow-sm'
               }`}>
                 <div className="p-8">
                    <div className="flex items-center gap-3 mb-6">
@@ -119,7 +182,7 @@ export const TabContent: React.FC<{
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
   
                       {/* SECTION 1: ADD NEW TRANSACTION */}
-                      <div className={`p-8 rounded-[35px] border-2 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/40'}`}>
+                      <div className={`p-8 rounded-[35px] border-2 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200 shadow-xl shadow-slate-200/40'}`}>
                         <div className="flex items-center gap-3 mb-8">
                           <div className="p-2 bg-green-500/10 rounded-xl"><Plus className="text-green-500" size={20} /></div>
                           <h3 className={`text-xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Add New Transaction</h3>
@@ -150,7 +213,7 @@ export const TabContent: React.FC<{
                       </div>
                     
                       {/* SECTION 3: TRANSACTION HISTORY TABLE */}
-                      <div className={`rounded-[35px] border overflow-hidden ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className={`rounded-[35px] border overflow-hidden ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200 shadow-sm'}`}>
                         <div className="p-6 border-b border-white/5 flex justify-between items-center bg-slate-500/5">
                             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">Transaction History Ledger</h4>
                             <button className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${theme === 'dark' ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
@@ -161,9 +224,9 @@ export const TabContent: React.FC<{
                         <div className="max-w-[1300px] overflow-x-scroll custom-scrollbar">
                           <table className="text-left border-collapse">
                             <thead>
-                              <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-slate-50'}>
+                              <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-sky-100'}>
                                 {['Date', 'Description', 'ID', 'Note', 'Collector', 'Amount', 'Principal', 'Interest', 'Costs', 'Atty Fees', '3rd Party', 'Agency', 'Client', 'Balance', 'Action'].map((head) => (
-                                  <th key={head} className="p-4 text-[16px] min-w-[120px] tracking-widest text-sky-300 border-b border-white/5">{head}</th>
+                                  <th key={head} className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-slate-700'}`}>{head}</th>
                                 ))}
                               </tr>
                             </thead>
@@ -172,17 +235,17 @@ export const TabContent: React.FC<{
                                 <tr key={i} className="hover:bg-blue-500/5 transition-colors group">
                                   <td className={`p-4 text-md ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>02/13/2026</td>
                                   <td className="p-4"><span className="px-2 py-1 rounded bg-green-500/10 text-green-500 text-[10px] font-black uppercase">Payment</span></td>
-                                  <td className="p-4 text-md text-gray-300">#TRX-9902</td>
-                                  <td className="p-4 text-md text-gray-300">Ck #4402</td>
-                                  <td className="p-4 text-md text-gray-300">S. Jenkins</td>
+                                  <td className="p-4 text-md text-gray-700">#TRX-9902</td>
+                                  <td className="p-4 text-md text-gray-700">Ck #4402</td>
+                                  <td className="p-4 text-md text-gray-700">S. Jenkins</td>
                                   <td className="p-4 text-md text-green-500">$500.00</td>
-                                  <td className="p-4 text-md text-gray-300">$400.00</td>
-                                  <td className="p-4 text-md text-gray-300">$100.00</td>
-                                  <td className="p-4 text-md text-gray-300">$0.00</td>
-                                  <td className="p-4 text-md text-gray-300">$0.00</td>
-                                  <td className="p-4 text-md text-gray-300">$0.00</td>
-                                  <td className="p-4 text-md text-gray-300">$50.00</td>
-                                  <td className="p-4 text-md text-gray-300">$450.00</td>
+                                  <td className="p-4 text-md text-gray-700">$400.00</td>
+                                  <td className="p-4 text-md text-gray-700">$100.00</td>
+                                  <td className="p-4 text-md text-gray-700">$0.00</td>
+                                  <td className="p-4 text-md text-gray-700">$0.00</td>
+                                  <td className="p-4 text-md text-gray-700">$0.00</td>
+                                  <td className="p-4 text-md text-gray-700">$50.00</td>
+                                  <td className="p-4 text-md text-gray-700">$450.00</td>
                                   <td className="p-4 text-md text-blue-500">$9,375.32</td>
                                   <td className="p-4">
                                     <select className={`bg-transparent text-[10px] font-black uppercase outline-none cursor-pointer ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
@@ -204,7 +267,7 @@ export const TabContent: React.FC<{
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
   
                       {/* ZONE 1: ASSIGNMENT & TERMS */}
-                      <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/40'}`}>
+                      <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200 shadow-xl shadow-slate-200/40'}`}>
                         <div className="flex items-center gap-3 mb-8">
                           <div className="p-2 bg-blue-500/10 rounded-xl"><CreditCard className="text-blue-500" size={20} /></div>
                           <h3 className={`text-xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Payment Plan Architect</h3>
@@ -220,7 +283,7 @@ export const TabContent: React.FC<{
                           {/* Settlement Math Column */}
                           <div className="space-y-10">
                             <div className="flex flex-col gap-3">
-                              <label className="text-md tracking-widest text-sky-300">Calculation Basis</label>
+                              <label className={`text-md tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Calculation Basis</label>
                               <div className="flex gap-4">
                                 <label className="flex items-center gap-2 cursor-pointer group">
                                   <input type="radio" name="basis" className="w-4 h-4 accent-blue-600" defaultChecked />
@@ -243,15 +306,15 @@ export const TabContent: React.FC<{
                             <label className="flex items-center gap-3 cursor-pointer">
                               <input type="checkbox" className="w-5 h-5 rounded-md accent-blue-600" />
                               <div className="flex flex-col">
-                                <span className={`text-xs font-black uppercase ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Recurring CC / ACH</span>
-                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Enable automatic drafting</span>
+                                <span className={`text-sm font-black ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Recurring CC / ACH</span>
+                                <span className={`text-[12px] font-bold tracking-tighter ${theme === 'dark' ? 'text-white/80' : 'text-slate-700'}`}>Enable automatic drafting</span>
                               </div>
                             </label>
                             <label className="flex items-center gap-3 cursor-pointer">
                               <input type="checkbox" className="w-5 h-5 rounded-md accent-blue-600" />
                               <div className="flex flex-col">
-                                <span className={`text-xs font-black uppercase ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Convenience Fees</span>
-                                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Apply processing surcharge</span>
+                                <span className={`text-sm font-black ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Convenience Fees</span>
+                                <span className={`text-[12px] font-bold tracking-tighter ${theme === 'dark' ? 'text-white/80' : 'text-slate-700'}`}>Apply processing surcharge</span>
                               </div>
                             </label>
                           </div>
@@ -262,7 +325,7 @@ export const TabContent: React.FC<{
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         
                         {/* Installment Manager */}
-                        <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-white border-slate-100 shadow-sm'}`}>
+                        <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-100 shadow-sm'}`}>
                           <div className="flex justify-between items-center mb-6">
                             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">Installment Schedule</h4>
                             <button className="flex items-center gap-2 py-1.5 px-3 bg-blue-600 text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all">
@@ -271,27 +334,28 @@ export const TabContent: React.FC<{
                           </div>
                           
                           <div className="space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                            <div className="grid grid-cols-3 gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
                                <DateField label="First Payment On" theme={theme} />
                                <InputField label="Payment Amount" placeholder="$0.00" type="number" theme={theme} />
+                               <InputField label="Description" placeholder="Enter description" type="text" theme={theme} />
                             </div>
                             {/* Placeholder for dynamic payments */}
-                            <div className="flex items-center justify-center p-4 border-2 border-dashed border-white/5 rounded-2xl">
-                              <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Click "Add Installment" to stack payments</span>
+                            <div className={`flex items-center justify-center p-4 border-2 border-dashed rounded-2xl ${theme === 'dark' ? 'border-white/20' : 'border-slate-300'}`}>
+                              <span className={`text-[12px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/60' : 'text-slate-400'}`}>Click "Add Installment" to stack payments</span>
                             </div>
                           </div>
                     
                           <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
                              <label className="flex items-center gap-3 cursor-pointer">
                                 <input type="checkbox" className="w-4 h-4 accent-blue-600" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Send Payment Reminders</span>
+                                <span className={`text-[12px] font-black tracking-widest ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>Send Payment Reminders</span>
                              </label>
                           </div>
 
                           <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
                              <label className="flex items-center gap-3 cursor-pointer">
                                 <input type="checkbox" className="w-4 h-4 accent-blue-600" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Initial Payment Is Different Amount:</span>
+                                <span className={`text-[12px] font-black tracking-widest ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>Initial Payment Is Different Amount:</span>
                              </label>
                           </div>
                         </div>
@@ -299,7 +363,7 @@ export const TabContent: React.FC<{
                         {/* Frequency & Allocation */}
                         <div className="space-y-6">
                           {/* Frequency Card */}
-                          <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-white border-slate-100'}`}>
+                          <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-100'}`}>
                             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-500 mb-6">Frequency Settings</h4>
                             <div className="grid grid-cols-2 gap-6">
                               <SelectField label="Repeat Cycle" options={[{value:'1', label:'Indefinite'}, {value:'2', label:'Fixed Count'}]} defaultValue="1" theme={theme} />
@@ -308,14 +372,14 @@ export const TabContent: React.FC<{
                           </div>
                     
                           {/* Allocation Order Card */}
-                          <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-white border-slate-100'}`}>
+                          <div className={`p-8 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-100'}`}>
                             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-blue-500 mb-6">Allocation Priority</h4>
                             <div className="space-y-2">
                               <AllocationTag order={1} label="Principal Balance" theme={theme} />
                               <AllocationTag order={2} label="Interest Accrued" theme={theme} />
                               <AllocationTag order={3} label="Legal & Service Fees" theme={theme} />
                             </div>
-                            <p className="mt-4 text-[9px] font-bold text-slate-500 uppercase tracking-tighter">Drag to reorder payment application priority</p>
+                            <p className="mt-4 text-[14px] font-bold text-slate-500 ">Drag to reorder payment application priority</p>
                           </div>
                         </div>
                       </div>
@@ -364,46 +428,6 @@ export const TabContent: React.FC<{
                   )}
                 </div>
               </div>
-
-              {/* Drawer for Categories (Vertical list) */}
-              <div className={`flex transition-all duration-300 ease-in-out ${isDrawerOpen ? 'w-64' : 'w-12'} h-full flex-shrink-0 relative overflow-hidden`}>
-                {/* Toggle Handle */}
-                <button 
-                  onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                  className={`absolute top-1/2 -translate-y-1/2 left-0 z-20 w-8 h-12 flex items-center justify-center rounded-l-xl transition-colors ${
-                    theme === 'dark' ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
-                  }`}
-                >
-                  {isDrawerOpen ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-                </button>
-
-                {/* List Content */}
-                <div className={`ml-4 h-full w-full rounded-3xl backdrop-blur-md border overflow-y-auto custom-scrollbar p-4 flex flex-col gap-2 transition-all duration-300 ${
-                  theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-100 border-slate-200'
-                } ${!isDrawerOpen && 'opacity-0 pointer-events-none transform translate-x-4'}`}>
-                   <p className={`text-[10px] uppercase font-black tracking-widest mb-2 px-2 ${theme === 'dark' ? 'text-blue-300/50' : 'text-slate-400'}`}>Sub-Sections</p>
-                   {categories.map((cat) => (
-                     <button
-                       key={cat}
-                       onClick={() => setActiveCategory(cat)}
-                       className={`text-left px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wide transition-all ${
-                         activeCategory === cat
-                           ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20 translate-x-1'
-                           : theme === 'dark' ? 'text-white/60 hover:bg-white/5 hover:text-white' : 'text-slate-600 hover:bg-white hover:shadow-sm'
-                       }`}
-                     >
-                       {cat}
-                     </button>
-                   ))}
-                </div>
-                
-                {/* Collapsed state placeholder */}
-                {!isDrawerOpen && (
-                   <div className="ml-4 h-full w-full flex flex-col items-center pt-8 gap-4 opacity-100">
-                      <div className={`w-1 h-1/2 rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-slate-200'}`} />
-                   </div>
-                )}
-              </div>
             </Tabs.Content>
           ))}
         </div>
@@ -444,7 +468,7 @@ const CategoryView: React.FC<{
         
             {/* Credit Configuration Fields */}
             <div className={`lg:col-span-3 p-6 rounded-[30px] border grid grid-cols-1 md:grid-cols-3 gap-6 items-center ${
-              theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200 shadow-sm'
+              theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200 shadow-sm'
             }`}>
               <SelectField
                 label="Credit Rating" 
@@ -472,7 +496,7 @@ const CategoryView: React.FC<{
         
           {/* BOTTOM ROW: Real Estate & Equity Assets */}
           <div className={`p-8 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-200/70 border-slate-200'
+            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
           }`}>
             <div className="flex items-center gap-2 mb-8">
               <div className="h-5 w-1 bg-violet-500 rounded-full" />
@@ -506,7 +530,7 @@ const CategoryView: React.FC<{
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Primary Locations</h4>
             </div>
             
-            <div className={`grid gap-3 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+            <div className={`grid gap-3 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               {[
                 { id: 'home1', addr: '498 Elm Ave, San Bruno, CA 94066', status: 'Good', type: 'Home' },
                 { id: 'home2', addr: '269 EL Camino Real, San Francisco, CA 94080', status: 'Unknown', type: 'Work' }
@@ -547,7 +571,7 @@ const CategoryView: React.FC<{
                 <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>Phone Directory</h4>
               </div>
               
-              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
                 {[
                   { id: 'ph1', label: 'From Experian', num: '415-310-1981', status: 'Bad', icon: <Phone size={14}/>, color: theme === 'dark' ? 'text-green-500' : 'text-green-600' },
                   { id: 'ph2', label: 'From IDI', num: '415-310-4188', status: 'Good', icon: <Smartphone size={14}/>, color: theme === 'dark' ? 'text-orange-500' : 'text-orange-600' }
@@ -580,7 +604,7 @@ const CategoryView: React.FC<{
                 <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-teal-400' : 'text-teal-600'}`}>Email Accounts</h4>
               </div>
               
-              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
                 {[
                   { id: 'em1', mail: 'boracaygarden@att.net', status: 'Good' },
                   { id: 'em2', mail: 'hyattgirl55@yahoo.com', status: 'Bad' }
@@ -633,7 +657,7 @@ const CategoryView: React.FC<{
   
           {/* SECTION HEADER: Stats & Global Actions */}
           <div className={`flex flex-col md:flex-row justify-between items-center p-6 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-200/70 border-slate-200 shadow-sm'
+            theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200 shadow-sm'
           }`}>
             <div className="flex items-center gap-4">
               <div className="p-3 bg-red-500/10 rounded-2xl">
@@ -676,7 +700,7 @@ const CategoryView: React.FC<{
             {/* Sample Dispute Card */}
             {[1, 2].map((id) => (
               <div key={id} className={`group relative p-8 rounded-[30px] border transition-all ${
-                theme === 'dark' ? 'bg-white/5 border-white/10 hover:border-blue-500/30' : 'bg-sky-200/70 border-slate-200 shadow-sm hover:shadow-md'
+                theme === 'dark' ? 'bg-white/5 border-white/10 hover:border-blue-500/30' : 'bg-sky-100 border-slate-200 shadow-sm hover:shadow-md'
               }`}>
                 
                 {/* Row 1: Primary Controls */}
@@ -745,7 +769,7 @@ const CategoryView: React.FC<{
           
           {/* Top Row: Legal & Risk Indicators */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               <SelectField
                 label="Bankruptcy Filing" 
                 options={[{value:'other', label:'Other / General'}, {value:'7', label:'Chapter 7'}, {value:'11', label:'Chapter 11'}, {value:'13', label:'Chapter 13'} ]}
@@ -753,7 +777,7 @@ const CategoryView: React.FC<{
                 theme={theme}
               />
             </div>
-            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+            <div className={`p-6 rounded-[25px] border shadow-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               <SelectField
                 label="Judgments / Liens (12M)" 
                 options={[ {value:'yes', label:'Yes - Active'}, {value:'no', label:'No - None'} ]}
@@ -768,7 +792,7 @@ const CategoryView: React.FC<{
           </div>
         
           {/* Middle Section: Delinquency Timeline (The "Heatmap") */}
-          <div className={`rounded-[30px] border p-8 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-200/70 border-slate-200 shadow-xl shadow-slate-200/50'}`}>
+          <div className={`rounded-[30px] border p-8 ${theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200 shadow-xl shadow-slate-200/50'}`}>
             <div className="flex items-center gap-2 mb-6">
               <div className="h-5 w-1 bg-amber-500 rounded-full" />
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>Delinquency Chronology (24 Months)</h4>
@@ -799,7 +823,7 @@ const CategoryView: React.FC<{
           {/* Bottom Section: Credit & Debt Balances */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Revolving & Installments */}
-            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Revolving & Installments</h4>
               <div className="space-y-6">
                 <BalanceRow label="Monthly Payments (12M)" value="$6,380" theme={theme} />
@@ -810,7 +834,7 @@ const CategoryView: React.FC<{
             </div>
         
             {/* Mortgage & Equity */}
-            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-200/70 border-slate-200'}`}>
+            <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] mb-6 ${theme === 'dark' ? 'text-violet-400' : 'text-violet-600'}`}>Mortgage & Equity</h4>
               <div className="space-y-6">
                 <BalanceRow label="Total Mortgage Credit" value="$6,380" theme={theme} />

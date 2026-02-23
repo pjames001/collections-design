@@ -68,7 +68,7 @@ export const DashboardHeader: React.FC<{
   return (
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
       <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-2xl transition-all duration-500 overflow-hidden relative ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200/60 shadow-slate-200/40'
       }`}>
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] pointer-events-none rounded-full" />
         
@@ -154,6 +154,8 @@ export const DashboardHeader: React.FC<{
             <SelectField label="Account Sub-Type" options={[{value:'1', label:'Medical'}, {value:'2', label:'Retail'}, {value:'3', label:'Banking'}]} defaultValue="1" theme={theme} />
             <SelectField label="Primary Collector" options={[{value:'john', label:'John Doe'}, {value:'jane', label:'Sarah Jenkins'}]} defaultValue="jane" theme={theme} />
             <SelectField label="Co-Collector" options={[{value:'jane', label:'Jane Smith'}, {value:'john', label:'John Doe'}]} defaultValue="jane" theme={theme} />
+            <SelectField label="Agreement Arrangement" options={[]} defaultValue="jane" theme={theme} />
+            <SelectField label="Last Date of Service" options={[]} defaultValue="jane" theme={theme} />
           </div>
 
           <div className="space-y-6">

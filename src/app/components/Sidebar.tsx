@@ -34,7 +34,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, theme
 
   return (
     <aside className={`w-20 h-screen flex flex-col items-center py-8 backdrop-blur-xl border-r fixed left-0 top-0 z-50 transition-colors duration-500 ${
-      theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-[#fff0db] border-black/5 shadow-2xl shadow-black/5'
+      theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-[#bbdcfd] border-black/5 shadow-2xl shadow-black/5'
     }`}>
       <div className="mb-10">
         <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30">

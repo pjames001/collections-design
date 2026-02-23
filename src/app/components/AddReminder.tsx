@@ -31,9 +31,10 @@ const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
             <MultiSearchSelect isFilter={false} label="Department" theme={theme} />
             <MultiSearchSelect isFilter={false} label="Custom Group" theme={theme} />
             <MultiSearchSelect isFilter={false} label="Add Custom Group" theme={theme} />
+            <MultiSearchSelect isFilter={false} label="Created For" theme={theme} />
             <SelectField label="Priority" options={[]} theme={theme} />
             <DateField label="Due Date" theme={theme} />
-            <SelectField label="Repeatition" options={[]} theme={theme} />
+            <SelectField label="Repitition" options={[]} theme={theme} />
             <DateField label="Days" theme={theme} />
             <SelectField label="Time" options={[]} theme={theme} />
             <DateField label="Completed" theme={theme} />

@@ -19,7 +19,7 @@ export const SummaryStat: React.FC<SummaryStatProps> = ({
         ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
         : theme === 'dark'
         ? 'bg-white/5 border border-white/5'
-        : 'bg-slate-50 border border-slate-100'
+        : 'bg-sky-100 border border-slate-100'
     }`}
   >
     <span
