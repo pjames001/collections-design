@@ -5,6 +5,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { SelectField } from './shared/SelectField';
 import { DateField } from './shared/DateField';
 import { StatField } from './shared/StatField';
+import { InputField } from './shared/InputField';
 
 interface TabItem {
   id: string;
@@ -57,6 +58,7 @@ export const DashboardHeader: React.FC<{
   ];
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isHexagonDialogOpen, setIsHexagonDialogOpen] = useState(false);
 
   // Mock Payment Data
   const paymentHistory = [
@@ -67,6 +69,7 @@ export const DashboardHeader: React.FC<{
 
   return (
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
+      <Dialog.Root open={isHexagonDialogOpen} onOpenChange={setIsHexagonDialogOpen}>
       <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-2xl transition-all duration-500 overflow-hidden relative ${
         theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200/60 shadow-slate-200/40'
       }`}>
@@ -106,10 +109,12 @@ export const DashboardHeader: React.FC<{
             </Tabs.Root>
           </div>
 
-          <div className='relative'>
-            <Hexagon size={110} className='text-red-500' />
-            <span className='absolute top-1/2 left-1/2 -translate-1/2 uppercase text-xs text-red-500 font-bold'>reported</span>
-          </div>
+          <Dialog.Trigger asChild>
+            <div className='relative cursor-pointer group transition-transform hover:scale-105'>
+              <Hexagon size={110} className='text-red-500 group-hover:text-red-400 transition-colors' />
+              <span className='absolute top-1/2 left-1/2 -translate-1/2 uppercase text-xs text-red-500 font-bold group-hover:text-red-400'>reported</span>
+            </div>
+          </Dialog.Trigger>
 
           <div className='flex flex-col items-end gap-2'>
             <div className={`w-max px-4 py-1.5 rounded-full text-lg font-black uppercase tracking-widest shadow-lg ${
@@ -169,6 +174,15 @@ export const DashboardHeader: React.FC<{
 
           <div className="flex flex-col gap-3">
             <div className={`py-2 px-4 rounded-2xl border flex flex-col gap-1 transition-all hover:scale-[1.02] ${
+              theme === 'dark' ? 'bg-blue-600/40 border-blue-500/20' : 'bg-blue-50/50 border-blue-100 shadow-sm'
+            }`}>
+              <div className="flex justify-between items-center">
+                <span className={`text-[10px] font-black uppercase tracking-wider ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'}`}>Total Balance</span>
+              </div>
+              <span className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-blue-900'}`}>{currentCreditor.balance}</span>
+            </div>
+
+            <div className={`py-2 px-4 rounded-2xl border flex flex-col gap-1 transition-all hover:scale-[1.02] ${
               theme === 'dark' ? 'bg-slate-600/60 border-blue-500/20' : 'bg-blue-50/50 border-blue-100 shadow-sm'
             }`}>
               <span className={`text-[10px] font-black uppercase tracking-wider ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'}`}>Principal</span>
@@ -208,15 +222,6 @@ export const DashboardHeader: React.FC<{
               </div>
             </Dialog.Trigger>
 
-            <div className={`py-2 px-4 rounded-2xl border flex flex-col gap-1 transition-all hover:scale-[1.02] ${
-              theme === 'dark' ? 'bg-blue-600/40 border-blue-500/20' : 'bg-blue-50/50 border-blue-100 shadow-sm'
-            }`}>
-              <div className="flex justify-between items-center">
-                <span className={`text-[10px] font-black uppercase tracking-wider ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'}`}>Total Balance</span>
-              </div>
-              <span className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-blue-900'}`}>{currentCreditor.balance}</span>
-            </div>
-
             {/* Make Payments Trigger */}
             <Dialog.Trigger asChild>
               <div className={`py-4 px-4 rounded-2xl border flex flex-col gap-1 transition-all hover:scale-[1.02] cursor-pointer ${
@@ -228,15 +233,25 @@ export const DashboardHeader: React.FC<{
               </div>
             </Dialog.Trigger>
 
-            <div className='mt-2 p-3 rounded-xl flex justify-between items-center'>
-               <span className={`text-md font-black tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-600'}`}>Linked Balance</span>
-               <span className={`text-md font-black ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>$0.00</span>
-            </div>
-
             <div className={`mt-2 p-3 rounded-xl border-t flex justify-between items-center ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
                <span className={`text-md font-black tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-600'}`}>Can Settle</span>
                <span className={`text-md font-black ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>$7,445.67</span>
             </div>
+
+            <div className='mt-2 p-3 rounded-xl flex justify-between items-center'>
+               <span className={`text-md font-black tracking-widest ${theme === 'dark' ? 'text-white/30' : 'text-slate-600'}`}>Linked Balance</span>
+               <span className={`text-md font-black ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>$10,000.00</span>
+            </div>
+
+            <div className={`px-4 py-2 border ${theme === 'dark' ? 'border-red-500/60 hover:bg-white/10' : 'border-red-500/70 hover:bg-slate-50'} rounded-xl flex justify-between items-center`}>
+               <span className={`text-md  tracking-widest ${theme === 'dark' ? 'text-white' : 'text-slate-600'}`}>John Doe</span>
+               <span className={`text-md font-black ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>#125438-0000</span>
+            </div>
+            <div className={`px-4 py-2 border ${theme === 'dark' ? 'border-red-500/60 hover:bg-white/10' : 'border-red-500/70 hover:bg-slate-50'} rounded-xl flex justify-between items-center`}>
+               <span className={`text-md  tracking-widest ${theme === 'dark' ? 'text-white' : 'text-slate-600'}`}>Jane Smith</span>
+               <span className={`text-md font-black ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>#125438-0000</span>
+            </div>
+
           </div>
         </div>
       </div>
@@ -313,6 +328,83 @@ export const DashboardHeader: React.FC<{
           </div>
         </Dialog.Content>
       </Dialog.Portal>
+
+      {/* HEXAGON DIALOG - Account Status */}
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/60 backdrop-blur-md z-[999] animate-in fade-in duration-300" />
+        <Dialog.Content className={`fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-2xl z-[1000] outline-none animate-in zoom-in-95 duration-300`}>
+          <div className={`rounded-[30px] border shadow-2xl overflow-hidden ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-white border-slate-200'}`}>
+            {/* Modal Header */}
+            <div className={`p-6 border-b flex justify-between items-center ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-red-500/10 rounded-lg">
+                  <Hexagon className="text-red-500" size={24} />
+                </div>
+                <div>
+                  <Dialog.Title className={`text-xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                    Account Status
+                  </Dialog.Title>
+                  <p className={`text-[10px] font-bold uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
+                    Account: {topHeader.accountNumber}
+                  </p>
+                </div>
+              </div>
+              <Dialog.Close className={`p-2 rounded-full transition-colors ${theme === 'dark' ? 'hover:bg-white/5 text-white/40' : 'hover:bg-slate-100 text-slate-400'}`}>
+                <X size={20} />
+              </Dialog.Close>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6">
+              <div className="space-y-6">
+                <SelectField 
+                  label="Account Status" 
+                  options={[{value:'open', label:'Open'}, {value:'closed', label:'Closed'}, {value:'legal', label:'Legal'}, {value:'charged-off', label:'Charged Off'}]} 
+                  defaultValue="open" 
+                  theme={theme} 
+                />
+                <SelectField 
+                  label="Compliance Condition" 
+                  options={[{value:'compliant', label:'Compliant'}, {value:'non-compliant', label:'Non-Compliant'}, {value:'pending', label:'Pending Review'}]} 
+                  defaultValue="compliant" 
+                  theme={theme} 
+                />
+                <SelectField 
+                  label="Special Comment" 
+                  options={[{value:'none', label:'None'}, {value:'bankruptcy', label:'Bankruptcy Filed'}, {value:'dispute', label:'Under Dispute'}, {value:'settlement', label:'Settlement Pending'}]} 
+                  defaultValue="none" 
+                  theme={theme} 
+                />
+                <SelectField 
+                  label="Consumer Information Indicator" 
+                  options={[{value:'active', label:'Active Consumer'}, {value:'inactive', label:'Inactive'}, {value:'deceased', label:'Deceased'}, {value:'military', label:'Military Active'}]} 
+                  defaultValue="active" 
+                  theme={theme} 
+                />
+                <InputField 
+                  label="ECOA Code" 
+                  placeholder="Enter ECOA code..." 
+                  type="text" 
+                  theme={theme} 
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 mt-8">
+                <Dialog.Close asChild>
+                  <button className={`flex-1 py-3 rounded-2xl font-black uppercase tracking-widest transition-all ${theme === 'dark' ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}>
+                    Cancel
+                  </button>
+                </Dialog.Close>
+                <button className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-blue-600/20 active:scale-95">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+      </Dialog.Root>
     </Dialog.Root>
   );
 };

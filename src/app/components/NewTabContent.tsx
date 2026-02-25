@@ -46,29 +46,21 @@ interface TabItem {
 
 const tabs: TabItem[] = [
   { id: 'details', label: 'Account Details', icon: FileText },
-  { id: 'financials', label: 'Financials', icon: CreditCard },
-  { id: 'plan', label: 'Payment Plan', icon: Calendar },
   { id: 'folder', label: 'Doc Folder', icon: Folder },
   { id: 'judgment', label: 'Judgment', icon: Scale },
   { id: 'legal', label: 'Legal Details', icon: FileText },
   { id: 'allocations', label: 'Transactions Allocations', icon: Percent },
-  { id: 'reminders', label: 'Reminders', icon: ClipboardList },
-  { id: 'logs', label: 'Audit Logs', icon: Activity },
 ];
 
 const submenus: Record<string, string[]> = {
-  'details': ['Contact Info', 'Skip Tracing', 'dispute', 'experian reports', 'settlement'],
-  'financials': ['Summary', 'Transactions', 'Allocations', 'Reports'],
-  'plan': ['Schedule', 'Terms', 'History', 'Documents'],
+  'details': ['Contact Info', 'Skip Tracing', 'experian reports'],
   'folder': ['Uploaded Files', 'Generated Docs', 'Templates', 'Archives'],
   'judgment': ['Settings', 'History', 'Calculator'],
   'legal': ['legal details'],
   'allocations': [],
-  'reminders': ['Upcoming', 'Completed', 'Overdue', 'Calendar'],
-  'logs': ['All Activity', 'Edits', 'Status Changes', 'Assignments'],
 };
 
-export const TabContent: React.FC<{ 
+export const NewTabContent: React.FC<{ 
   theme: 'dark' | 'light';
   activeCreditor: string;
 }> = ({ theme, activeCreditor }) => {
@@ -470,7 +462,7 @@ export const TabContent: React.FC<{
 
                             {!postJudgmentInterest && (
                               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-                                <InputField label="Interest Amount" placeholder="0.00%" type="text" theme={theme} />
+                                <InputField label="Interest Amount" placeholder="0.00%" type="number" theme={theme} />
                                 <SelectField label="Compounding" options={[{value:'daily', label:'Daily'}, {value:'monthly', label:'Monthly'}, {value:'annually', label:'Annually'}]} defaultValue="daily" theme={theme} />
                                 <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-blue-600/20">
                                   Add Step
@@ -664,7 +656,8 @@ const CategoryView: React.FC<{
                 <Activity size={60} className="text-blue-500" />
               </div>
               <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Credit Score</span>
-              <span className={`text-5xl font-black mb-1 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>695</span>
+              {/* <span className={`text-5xl font-black mb-1 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>695</span> */}
+              <input type="text" placeholder="695" className={`text-5xl font-black mb-1 w-full text-center bg-transparent outline-none ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} />
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-green-500">Good Standing</span>
@@ -675,19 +668,7 @@ const CategoryView: React.FC<{
             <div className={`lg:col-span-3 p-6 rounded-[30px] border grid grid-cols-1 md:grid-cols-3 gap-6 items-center ${
               theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200 shadow-sm'
             }`}>
-              <SelectField
-                label="Credit Rating" 
-                options={[{value:'poor', label:'Poor'}, {value:'fair', label:'Fair'}, {value:'good', label:'Good'}, {value:'very good', label:'Very Good'}, {value:'excellent', label:'Excellent'} ]}
-                defaultValue="good"
-                theme={theme}
-              />
-              <SelectField
-                label="TRW Bureau Status" 
-                options={[{value:'reported', label:'Reported'}, {value:'not reported', label:'Not Reported'} ]}
-                defaultValue="reported"
-                theme={theme}
-              />
-              <div className="flex flex-col gap-1.5">
+              {/* <div className="flex flex-col gap-1.5">
                 <label className={`text-md tracking-widest ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>
                   Revolving Credit
                 </label>
@@ -695,7 +676,9 @@ const CategoryView: React.FC<{
                    <span className={`text-xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>$2,130</span>
                    <span className="text-xs font-bold text-slate-400">/ N/A</span>
                 </div>
-              </div>
+              </div> */}
+              <InputField label="Revolving Credit" placeholder="$2,130" type="text" theme={theme} />
+              <InputField label="Available Credit" placeholder="$1,000" type="text" theme={theme} />
             </div>
           </div>
         
@@ -716,11 +699,17 @@ const CategoryView: React.FC<{
                 theme={theme}
               />
               
-              <AssetStat label="Mortgage Amount" value={null} theme={theme} />
-              <AssetStat label="Available Equity" value="$0.00" theme={theme} highlight />
-              <AssetStat label="Zillow Valuation" value={null} theme={theme} />
-              <AssetStat label="Est. Monthly Rent" value="$6,380" theme={theme} />
+              <InputField label="Mortgage Amount" theme={theme} />
+              <InputField label="Available Equity" theme={theme} />
+              <InputField label="Zillow Valuation" theme={theme} />
+              <InputField label="Est. Monthly Rent" theme={theme} />
             </div>
+          </div>
+          <div className="pt-8 flex justify-end">
+            <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20">
+              <Save size={18} />
+              Save changes
+            </button>
           </div>
         </div>
       );
@@ -728,46 +717,27 @@ const CategoryView: React.FC<{
       return (
         <div className="grid grid-cols-1 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
   
-          {/* Section: Addresses */}
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="h-5 w-1 bg-blue-600 rounded-full" />
-              <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Primary Locations</h4>
-            </div>
-            
-            <div className={`grid gap-3 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
-              {[
-                { id: 'home1', addr: '498 Elm Ave, San Bruno, CA 94066', status: 'Good', type: 'Home' },
-                { id: 'home2', addr: '269 EL Camino Real, San Francisco, CA 94080', status: 'Unknown', type: 'Work' }
-              ].map((item) => (
-                <div key={item.id} className={`group flex items-center justify-between p-4`}>
-                  <div className="flex items-center gap-4">
-                    <input type="checkbox" id={item.id} className="w-5 h-5 rounded-md border-2 border-blue-500 accent-blue-600 cursor-pointer" />
-                    <div className="flex flex-col">
-                      <label htmlFor={item.id} className={`text-md capitalize tracking-tight cursor-pointer ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>
-                        {item.addr}
-                      </label>
-                      <div>
-                        <span className={`text-[14px] mr-2 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{item.type} Address</span>
-                        <span className={`text-[14px] ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>Consented</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='flex items-center gap-2'>
-                    <div className={`px-3 py-1 rounded-full text-[12px] font-black uppercase tracking-widest ${
-                      item.status === 'Good' ? 'bg-green-500/10 text-green-500' : 'bg-slate-500/10 text-slate-400'
-                    }`}>
-                      {item.status}
-                    </div>
-                    <PenLine className={`${theme === 'dark' ? 'text-white' : 'text-slate-700'}`} size={20} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         
           {/* Section: Communications */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-3 gap-8">
+            {/* Section: Addresses */}
+            <section className="flex flex-col gap-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-5 w-1 bg-blue-600 rounded-full" />
+                <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Primary Locations</h4>
+              </div>
+              
+              <div className={`p-8 flex flex-col gap-3 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
+              
+                <InputField label="Address 1" placeholder="" type='text' theme={theme} />
+                <SelectField label="Address Type" options={[{value:'home', label:'Home'}, {value:'work', label:'Work'}, {value:'other', label:'Other'}]} defaultValue="home" theme={theme} />
+                <SelectField label="Verification Status" options={[{value:'good', label:'Good'}, {value:'unknown', label:'Unknown'}, {value:'bad', label:'Bad'}]} defaultValue="good" theme={theme} />
+                <SelectField label="Consent Status" options={[{value:'consented', label:'Consented'}, {value:'not consented', label:'Not Consented'}]} defaultValue="consented" theme={theme} />
+                <button className="self-end w-full mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-blue-600/20">
+                  Add Address
+                </button>
+              </div>
+            </section>
             
             {/* Phone Numbers */}
             <section className="flex flex-col gap-4">
@@ -776,29 +746,16 @@ const CategoryView: React.FC<{
                 <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>Phone Directory</h4>
               </div>
               
-              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
-                {[
-                  { id: 'ph1', label: 'From Experian', num: '415-310-1981', status: 'Bad', icon: <Phone size={14}/>, color: theme === 'dark' ? 'text-green-500' : 'text-green-600' },
-                  { id: 'ph2', label: 'From IDI', num: '415-310-4188', status: 'Good', icon: <Smartphone size={14}/>, color: theme === 'dark' ? 'text-orange-500' : 'text-orange-600' }
-                ].map(item => (
-                  <div key={item.id} className='flex items-center justify-between p-4'>
-                    <div className="flex items-center gap-4">
-                      <input type="checkbox" id={item.id} className="w-5 h-5 rounded-md accent-blue-600" />
-                      <div>
-                        <div className={`flex items-center gap-2 text-[14px] font-semibold tracking-widest mb-1 ${item.color}`}>
-                          {item.icon} {item.label} <span className={`${theme === 'dark' ? 'text-sky-300' : 'text-slate-600'}`}>Consented</span>
-                        </div>
-                        <div className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>{item.num}</div>
-                      </div>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <span className={`px-2 py-1 rounded-full text-[12px] font-black uppercase ${item.status === 'Good' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
-                        {item.status}
-                      </span>
-                      <PenLine className={`${theme === 'dark' ? 'text-white' : 'text-slate-700'}`} size={20} />
-                    </div>
-                  </div>
-                ))}
+              <div className={`space-y-3 p-8 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
+
+                <SelectField label="Phone Number" options={[{value:'415-310-1981', label:'415-310-1981'}, {value:'415-310-4188', label:'415-310-4188'}]} defaultValue="415-310-1981" theme={theme} />
+                <SelectField label="Phone Type" options={[{value:'mobile', label:'Mobile'}, {value:'home', label:'Home'}, {value:'work', label:'Work'}]} defaultValue="mobile" theme={theme} />
+                <SelectField label="Source" options={[{value:'experian', label:'From Experian'}, {value:'idi', label:'From IDI'}]} defaultValue="experian" theme={theme} />
+                <SelectField label="Verification Status" options={[{value:'good', label:'Good'}, {value:'unknown', label:'Unknown'}, {value:'bad', label:'Bad'}]} defaultValue="good" theme={theme} />
+                <SelectField label="Consent Status" options={[{value:'consented', label:'Consented'}, {value:'not consented', label:'Not Consented'}]} defaultValue="consented" theme={theme} />
+                <button className="self-end w-full h-max mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-blue-600/20">
+                  Add Phone Number
+                </button>
               </div>
             </section>
         
@@ -809,50 +766,38 @@ const CategoryView: React.FC<{
                 <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-teal-400' : 'text-teal-600'}`}>Email Accounts</h4>
               </div>
               
-              <div className={`space-y-3  rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
-                {[
-                  { id: 'em1', mail: 'boracaygarden@att.net', status: 'Good' },
-                  { id: 'em2', mail: 'hyattgirl55@yahoo.com', status: 'Bad' }
-                ].map(item => (
-                  <div key={item.id} className='flex items-center justify-between p-4'>
-                     <div className="flex items-center gap-4">
-                      <input type="checkbox" id={item.id} className="w-5 h-5 rounded-md accent-blue-600" />
-                      <span className={`text-md tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>{item.mail}</span>
-                       <span className={`${theme === 'dark' ? 'text-sky-300' : 'text-slate-600'}`}>Consented</span>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                      <span className={`px-2 py-1 rounded-full text-[12px] font-black uppercase ${item.status === 'Good' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
-                        {item.status}
-                      </span>
-                      <PenLine className={`${theme === 'dark' ? 'text-white' : 'text-slate-700'}`} size={20} />
-                    </div>
-                  </div>
-                ))}
+              <div className={`space-y-3 p-8 rounded-2xl border transition-all hover:border-blue-500/50 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
+                <InputField label="Email Address" type='email' theme={theme} />
+                <SelectField label="Verification Status" options={[{value:'good', label:'Good'}, {value:'unknown', label:'Unknown'}, {value:'bad', label:'Bad'}]} defaultValue="good" theme={theme} />
+                <SelectField label="Consent Status" options={[{value:'consented', label:'Consented'}, {value:'not consented', label:'Not Consented'}]} defaultValue="consented" theme={theme} />
+                <button className="self-end w-full h-max mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-blue-600/20">
+                  Add Email Address
+                </button>
               </div>
             </section>
           </div>
         
           {/* Footer: Legal/Employment */}
-          <div className={`flex flex-col md:flex-row justify-between gap-4 p-6 rounded-[25px] border-2 border-dashed ${theme === 'dark' ? 'border-white/10 bg-white/2' : 'border-slate-400 bg-slate-50/50'}`}>
-            <div className="flex items-center gap-3">
+          <div className={`flex flex-row justify-between gap-4 p-6 rounded-[25px] border-2 border-dashed ${theme === 'dark' ? 'border-white/10 bg-white/2' : 'border-slate-400 bg-slate-50/50'}`}>
+            <div className="flex items-start gap-3">
               <div className={`p-3 rounded-xl ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-50'}`}>
                 <User size={20} className="text-blue-500" />
               </div>
-              <div>
-                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>Assignee Attorney</p>
-                <p className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>John Doe</p>
-              </div>
+              <InputField label="Assignee Attorney" type='text' theme={theme} />
             </div>
         
-            <div className="flex items-center gap-3">
+            <div className="flex items-start gap-3">
               <div className={`p-3 rounded-xl ${theme === 'dark' ? 'bg-violet-500/10' : 'bg-violet-50'}`}>
                 <Briefcase size={20} className="text-violet-500" />
               </div>
-              <div>
-                <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>Verified Employer</p>
-                <p className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>John Doe Architecture</p>
-              </div>
+              <InputField label="Verified Employer" type='text' theme={theme} />
             </div>
+          </div>
+          <div className="pt-8 flex justify-end">
+            <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20">
+              <Save size={18} />
+              Save changes
+            </button>
           </div>
         </div>
       );
@@ -991,8 +936,9 @@ const CategoryView: React.FC<{
               />
             </div>
             <div className={`p-6 rounded-[25px] border border-red-500/20 shadow-sm flex flex-col justify-center ${theme === 'dark' ? 'bg-red-500/5' : 'bg-red-50/50'}`}>
-              <span className="text-md font-medium tracking-[0.2em] text-red-500 mb-1">Total Derogatory Accounts</span>
-              <span className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>695</span>
+              {/* <span className="text-md font-medium tracking-[0.2em] text-red-500 mb-1">Total Derogatory Accounts</span>
+              <span className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>695</span> */}
+              <InputField label="Total Derogatory Accounts" placeholder="6,380" type="text" theme={theme} />
             </div>
           </div>
         
@@ -1001,6 +947,7 @@ const CategoryView: React.FC<{
             <div className="flex items-center gap-2 mb-6">
               <div className="h-5 w-1 bg-amber-500 rounded-full" />
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>Delinquency Chronology (24 Months)</h4>
+              <span className='ml-10 text-white font-bold'>As Of 2-25-2026</span>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -1011,17 +958,14 @@ const CategoryView: React.FC<{
                 { label: "120-180 Days", value: "6,380", color: "text-red-700" },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className={`text-[12px] font-black uppercase tracking-widest opacity-80 mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>{item.label}</span>
-                  <span className={`text-2xl font-black ${item.value === "0" ? (theme === 'dark' ? 'text-white/20' : 'text-slate-300') : item.color}`}>
-                    {item.value === "0" ? "—" : item.value}
-                  </span>
+                  <InputField label={item.label} type="text" theme={theme} />
                 </div>
               ))}
             </div>
             
             <div className={`mt-8 pt-8 border-t grid grid-cols-1 md:grid-cols-2 gap-8 ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
-               <InfoBox label="Accounts in Collections" value="2,130" subValue="N/A" theme={theme} />
-               <InfoBox label="Paid Collections (6 Months)" value="0" theme={theme} />
+               <InputField label="Accounts in Collections" theme={theme} />
+               <InputField label="Paid Collections (6 Months)" theme={theme} />
             </div>
           </div>
         
@@ -1031,10 +975,10 @@ const CategoryView: React.FC<{
             <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Revolving & Installments</h4>
               <div className="space-y-6">
-                <BalanceRow label="Monthly Payments (12M)" value="$6,380" theme={theme} />
-                <BalanceRow label="Installment Loans" value="$6,380" theme={theme} />
-                <BalanceRow label="Revolving Trades (Credit)" value="$6,380" theme={theme} />
-                <BalanceRow label="Revolving Trades (Balance)" value="$6,380" theme={theme} />
+                <InputField label="Monthly Payments (12M)"theme={theme} />
+                <InputField label="Installment Loans" theme={theme} />
+                <InputField label="Revolving Trades (Credit)" theme={theme} />
+                <InputField label="Revolving Trades (Balance)" theme={theme} />
               </div>
             </div>
         
@@ -1042,11 +986,17 @@ const CategoryView: React.FC<{
             <div className={`p-8 rounded-[30px] border ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200'}`}>
               <h4 className={`text-xs uppercase font-black tracking-[0.2em] mb-6 ${theme === 'dark' ? 'text-violet-400' : 'text-violet-600'}`}>Mortgage & Equity</h4>
               <div className="space-y-6">
-                <BalanceRow label="Total Mortgage Credit" value="$6,380" theme={theme} />
-                <BalanceRow label="Home Equity / 2nd Mortgage" value="$6,380" theme={theme} />
-                <BalanceRow label="1st Mortgage Balance" value="$6,380" theme={theme} />
+                <InputField label="Total Mortgage Credit" theme={theme} />
+                <InputField label="Home Equity / 2nd Mortgage" theme={theme} />
+                <InputField label="1st Mortgage Balance" theme={theme} />
               </div>
             </div>
+          </div>
+          <div className="pt-8 flex justify-end">
+            <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20">
+              <Save size={18} />
+              Save changes
+            </button>
           </div>
         </div>
       );
@@ -1081,6 +1031,7 @@ const CategoryView: React.FC<{
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <InputField label="Complaint Amount" placeholder="$0.00" type="text" theme={theme} />
               <SelectField label="County" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
               <SelectField label="Court" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}, {value:'municipal', label:'Municipal Court'}]} defaultValue="superior" theme={theme} />
               <DateField label="Complaint Sent Date" theme={theme} />
@@ -1120,6 +1071,7 @@ const CategoryView: React.FC<{
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <DateField label="Judgement Sent Date" theme={theme} />
                 <DateField label="Judgement Entered Date" theme={theme} />
+                <InputField label="Judgement Amount" placeholder="$0.00" type="text" theme={theme} />
                 <DateField label="Abstract Recorded Date" theme={theme} />
                 <DateField label="Satisfaction of Judgement Sent Date" theme={theme} />
                 <InputField label="Attorney Fees Sought" placeholder="$0.00" type="text" theme={theme} />

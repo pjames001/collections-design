@@ -15,7 +15,7 @@ export default function SearchPage({ theme }: { theme: 'dark' | 'light' }) {
   return (
     <Dialog.Root open={isFiltersModalOpen} onOpenChange={setIsFiltersModalOpen}>
     <div className={`p-8 space-y-8 animate-in fade-in duration-700 ${
-        theme === 'dark' ? 'bg-gray-700 border-white/10' : 'bg-white/70 border-slate-200/60 shadow-slate-200/40'
+        theme === 'dark' ? 'bg-slate-950 border-white/10' : 'bg-white/70 border-slate-200/60 shadow-slate-200/40'
       }`}>
       {/* HEADER SECTION */}
       <div className="flex flex-col md:flex-row justify-between items-end gap-6">

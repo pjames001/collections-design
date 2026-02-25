@@ -6,6 +6,10 @@ import { ActionPanel } from '../components/ActionPanel';
 import { GlobalNotes } from '../components/GlobalNotes';
 import { Toaster } from 'sonner';
 import PrimaryActionCodes from '../components/PrimaryActionCodes';
+import { NewDashboardHeader } from '../components/NewDashbaordHeader';
+import { NewTabContent } from '../components/NewTabContent';
+import NewPrimaryActionCodes from '../components/NewPrimaryActionCodes';
+import { NewActionPanel } from '../components/NewActionCodes';
 
 const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme }) => {
   const [activeNav, setActiveNav] = useState('crm');
@@ -40,7 +44,7 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
             <h1 className={`text-xl font-bold bg-clip-text text-transparent ${
               theme === 'dark' ? 'bg-gradient-to-r from-blue-400 to-white' : 'bg-gradient-to-r from-blue-600 to-blue-900'
             }`}>
-              Debt Collection Dashboard
+              Add New Account
             </h1>
           </div>
           <div className="flex items-center gap-4">
@@ -70,12 +74,11 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
             </button>
           ))}
         </div> */}
-        <PrimaryActionCodes theme={theme} />
 
         {/* Dashboard Content - Scrollable area */}
         <div className="flex-1 overflow-y-auto p-8 pt-4 custom-scrollbar">
           <div className="max-w-[1800px] mx-auto space-y-8 pb-12">
-            <DashboardHeader 
+            <NewDashboardHeader 
               theme={theme} 
               activeCreditor={activeCreditor} 
               setActiveCreditor={setActiveCreditor} 
@@ -83,17 +86,14 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
             
             <div className="flex flex-col lg:flex-row gap-8 items-start">
               {/* Central Detailed View */}
-              <TabContent 
+              <NewTabContent 
                 theme={theme} 
                 activeCreditor={activeCreditor} 
               />
               
               {/* Right Side Action Panel */}
-              <ActionPanel theme={theme} className='w-80' />
+              <NewActionPanel theme={theme} className='w-80' />
             </div>
-
-            {/* Global Notes as a regular section at the bottom */}
-            <GlobalNotes theme={theme} />
           </div>
         </div>
       </main>

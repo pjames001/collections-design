@@ -12,6 +12,7 @@ interface SelectFieldProps {
   theme: string;
   defaultValue?: string;
   className?: string;
+  onChange?: (value: string) => void;
 }
 
 export const SelectField: React.FC<SelectFieldProps> = ({
@@ -19,7 +20,8 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   options,
   theme,
   defaultValue,
-  className
+  className,
+  onChange
 }) => (
   <div className={`flex flex-col gap-1.5 w-full ${className}`}>
     <label
@@ -32,6 +34,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     <div className="relative group">
       <select
         defaultValue={defaultValue}
+        onChange={(e) => onChange?.(e.target.value)}
         className={`w-full appearance-none py-2.5 px-4 pr-10 rounded-xl border text-xs font-bold transition-all outline-none cursor-pointer ${
           theme === 'dark'
             ? 'bg-white/5 border-white/10 text-white hover:bg-white/10 focus:border-blue-500/50'

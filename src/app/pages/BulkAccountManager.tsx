@@ -20,11 +20,11 @@ export const BulkAccountManagement = () => {
 
   // Mock filtered accounts data
   const filteredAccounts = [
-    { id: '1', name: 'Acme Corporation', status: 'Active', amount: '$12,450.00', collector: 'John Smith', lastUpdated: '2/20/2026', actionCode: 'PLC' },
-    { id: '2', name: 'Tech Industries Inc', status: 'Overdue', amount: '$8,920.50', collector: 'Sarah Johnson', lastUpdated: '2/15/2026', actionCode: 'FLO' },
-    { id: '3', name: 'Global Solutions LLC', status: 'Pending', amount: '$15,680.00', collector: 'Mike Davis', lastUpdated: '2/22/2026', actionCode: 'PLC' },
-    { id: '4', name: 'Advanced Systems Co', status: 'Active', amount: '$5,240.75', collector: 'Emily Wilson', lastUpdated: '2/18/2026', actionCode: 'PRE' },
-    { id: '5', name: 'Innovation Partners', status: 'Active', amount: '$22,105.25', collector: 'John Smith', lastUpdated: '2/21/2026', actionCode: 'FLO' },
+    { id: '1', accountNumber: 'ACC-001', debtorName: 'John Doe', clientName: 'Acme Corporation', collector: 'John Smith', claimStatus: 'Active', legalStanding: 'No Legal', balanceDue: '$12,450.00', nextWorkDate: '2/25/2026', originatedDate: '1/15/2026' },
+    { id: '2', accountNumber: 'ACC-002', debtorName: 'Jane Smith', clientName: 'Tech Industries Inc', collector: 'Sarah Johnson', claimStatus: 'Overdue', legalStanding: 'In Litigation', balanceDue: '$8,920.50', nextWorkDate: '2/24/2026', originatedDate: '12/20/2025' },
+    { id: '3', accountNumber: 'ACC-003', debtorName: 'Bob Wilson', clientName: 'Global Solutions LLC', collector: 'Mike Davis', claimStatus: 'Pending', legalStanding: 'No Legal', balanceDue: '$15,680.00', nextWorkDate: '2/26/2026', originatedDate: '1/01/2026' },
+    { id: '4', accountNumber: 'ACC-004', debtorName: 'Alice Brown', clientName: 'Advanced Systems Co', collector: 'Emily Wilson', claimStatus: 'Active', legalStanding: 'Judgment', balanceDue: '$5,240.75', nextWorkDate: '2/27/2026', originatedDate: '2/01/2026' },
+    { id: '5', accountNumber: 'ACC-005', debtorName: 'Charlie Davis', clientName: 'Innovation Partners', collector: 'John Smith', claimStatus: 'Active', legalStanding: 'No Legal', balanceDue: '$22,105.25', nextWorkDate: '2/28/2026', originatedDate: '11/15/2025' },
   ];
 
   const toggleTheme = () => {
@@ -57,7 +57,7 @@ export const BulkAccountManagement = () => {
   return (
     <Dialog.Root open={isFiltersModalOpen} onOpenChange={setIsFiltersModalOpen}>
     <div className={`p-8 pl-24 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
-        theme === 'dark' ? 'bg-gray-700 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
+        theme === 'dark' ? 'bg-slate-950 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
       }`}>
       <Sidebar activeTab={activeNav} setActiveTab={setActiveNav} theme={theme} toggleTheme={toggleTheme} />
       {/* 1. TOP FILTER SECTION */}
@@ -104,9 +104,8 @@ export const BulkAccountManagement = () => {
               <Zap size={14} /> Execution Scope
             </h4>
             <div className="flex gap-4 items-end">
-              <div className="flex-1"><SelectField label="Perform Over" options={[]} theme={theme} /></div>
-              <div className="w-24"><SelectField label="Quantity" options={[{label: "All", value: "all"}, {label: "Number", value: "number"}, {label: "Percentage", value: "percentage"}]} theme={theme} /></div>
-              <div className="w-24"><InputField label="Quantity" placeholder="0" theme={theme} /></div>
+              <SelectField label="Quantity" options={[{label: "All", value: "all"}, {label: "Number", value: "number"}, {label: "Percentage", value: "percentage"}]} theme={theme} />
+              <InputField label="Quantity" placeholder="0" theme={theme} />
             </div>
             <SelectField label="Set Account Status" options={[]} theme={theme} />
             <div className='flex items-start gap-6'>
@@ -118,7 +117,32 @@ export const BulkAccountManagement = () => {
                 }`} placeholder="Append note to all selected..." />
               </div>
             </div>
-            <CheckboxField label="Add Sliding Area" theme={theme} />
+            <div className='grid grid-cols-4 gap-4'>
+               <span className='text-md text-sky-300 self-end'>Principal</span>
+               <InputField label="Advanced %" placeholder="0.00" theme={theme} />
+               <InputField label="Attorney %" placeholder="0.00" theme={theme} />
+               <InputField label="Agency %" placeholder="0.00" theme={theme} />
+
+               <span className='text-md text-sky-300 self-end'>Interest</span>
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+
+               <span className='text-md text-sky-300 self-end'>Costs</span>
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+
+               <span className='text-md text-sky-300 self-end'>Attorney Fees</span>
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+
+               <span className='text-md text-sky-300 self-end'>Over Payment</span>
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+               <InputField label="" placeholder="0.00" theme={theme} />
+            </div>
           </div>
 
           {/* Group: Assignments & Queues */}
@@ -219,13 +243,16 @@ export const BulkAccountManagement = () => {
                       className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                     />
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Account Name</th>
-                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Status</th>
-                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Amount Due</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Next Work Date</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Account Number</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Debtor Name</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Client Name</th>
                   <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Collector</th>
-                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Action Code</th>
-                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Last Updated</th>
-                  <th className={`px-6 py-4 text-center text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Actions</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Claim Status</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Legal Standing</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Balance Due</th>
+                  <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Originated Date</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -246,14 +273,18 @@ export const BulkAccountManagement = () => {
                         className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                       />
                     </td>
-                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.name}</td>
+                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.nextWorkDate}</td>
+                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.accountNumber}</td>
+                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.debtorName}</td>
+                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.clientName}</td>
+                    <td className={`px-6 py-4 text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{account.collector}</td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter ${
-                        account.status === 'Active'
+                        account.claimStatus === 'Active'
                           ? theme === 'dark'
                             ? 'bg-green-500/20 text-green-400'
                             : 'bg-green-100/50 text-green-700'
-                          : account.status === 'Overdue'
+                          : account.claimStatus === 'Overdue'
                           ? theme === 'dark'
                             ? 'bg-red-500/20 text-red-400'
                             : 'bg-red-100/50 text-red-700'
@@ -261,26 +292,13 @@ export const BulkAccountManagement = () => {
                           ? 'bg-amber-500/20 text-amber-400'
                           : 'bg-amber-100/50 text-amber-700'
                       }`}>
-                        {account.status}
+                        {account.claimStatus}
                       </span>
                     </td>
-                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.amount}</td>
-                    <td className={`px-6 py-4 text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{account.collector}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-block px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-tighter ${
-                        theme === 'dark' ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-100/50 text-blue-700'
-                      }`}>
-                        {account.actionCode}
-                      </span>
-                    </td>
-                    <td className={`px-6 py-4 text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{account.lastUpdated}</td>
-                    <td className="px-6 py-4 text-center">
-                      <button className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors ${
-                        theme === 'dark' ? 'hover:bg-white/10 text-slate-400' : 'hover:bg-white text-slate-600'
-                      }`}>
-                        <ChevronRight size={18} />
-                      </button>
-                    </td>
+                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.legalStanding}</td>
+                    <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.balanceDue}</td>
+                    <td className={`px-6 py-4 text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{account.originatedDate}</td>
+
                   </tr>
                 ))}
               </tbody>

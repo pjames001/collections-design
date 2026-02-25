@@ -59,14 +59,15 @@ export const TransactionAllocations: React.FC<{ theme: 'dark' | 'light' }> = ({ 
     "Attorney fees",
     "Over payment",
     "Payment convenience fee",
-    "Legal costs"
+    "Legal costs",
+    "Collector Percentage",
   ];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-500 max-w-[1600px] mx-auto">
+    <div className="animate-in fade-in duration-500 max-w-[1600px] mx-auto">
       
       {/* MAIN ALLOCATIONS SECTION (Left 9 Columns) */}
-      <div className="lg:col-span-8 xl:col-span-9 space-y-6">
+      <div className="space-y-6">
         <div className="flex items-center justify-between px-2">
           <div>
             <h2 className={`text-2xl font-normal ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>
@@ -85,7 +86,7 @@ export const TransactionAllocations: React.FC<{ theme: 'dark' | 'light' }> = ({ 
           {/* Table Header Guide */}
           <div className="grid grid-cols-4 gap-4 px-4 mb-4">
             <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>Category type</span>
-            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Advanced %</span>
+            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Client %</span>
             <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Attorney %</span>
             <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Agency %</span>
           </div>
@@ -97,24 +98,15 @@ export const TransactionAllocations: React.FC<{ theme: 'dark' | 'light' }> = ({ 
             ))}
           </div>
 
-          {/* Bottom Actions */}
-          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className={`text-[11px] ${theme === 'dark' ? 'text-slate-500' : 'text-slate-700'}`}>
-              Changes will apply to all future incoming transactions for this client.
-            </p>
-            <button className="w-full md:w-auto px-10 py-3 bg-blue-600 text-white rounded-2xl text-xs transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/10">
-              Save allocations
-            </button>
-          </div>
         </div>
       </div>
 
       {/* SIDEBAR ACTION PANEL (Right 3 Columns) */}
-      <div className="lg:col-span-4 xl:col-span-3">
+      {/* <div className="lg:col-span-4 xl:col-span-3">
         <div className="sticky top-8">
           <ActionPanel theme={theme} className="w-full" />
         </div>
-      </div>
+      </div> */}
       
     </div>
   );

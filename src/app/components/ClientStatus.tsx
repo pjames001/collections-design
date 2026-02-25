@@ -28,34 +28,9 @@ export const AccountStatusModule: React.FC<{ theme: 'dark' | 'light' }> = ({ the
           <SelectField label="Status" options={[]} theme={theme} />
           <SelectField label="Sales rep" options={[]} theme={theme} />
           
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500">Next work</label>
-              <div className="relative">
-                <input 
-                  type="date" 
-                  className={`w-full p-2.5 pl-10 rounded-xl border text-sm outline-none transition-all
-                    ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-slate-50 border-slate-200 text-slate-700'}`} 
-                />
-                <Calendar size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              </div>
-            </div>
-            
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs text-slate-500">Account cap</label>
-              <div className="relative">
-                <input 
-                  type="text" 
-                  placeholder="0.00"
-                  className={`w-full p-2.5 pl-10 rounded-xl border text-sm outline-none transition-all
-                    ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white' : 'bg-slate-50 border-slate-200 text-slate-700'}`} 
-                />
-                <DollarSign size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              </div>
-            </div>
-          </div>
+          
         </div>
-        <ActionPanel theme={theme} />
+        
       </div>
 
       {/* 2. Communication Hub & Notes (Right Side - 7/12 columns) */}

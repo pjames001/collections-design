@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/search" element={<SearchPage theme="dark" />} />
       <Route path="/client" element={<ClientPage />} />
       <Route path="/new-account" element={<NewAccount theme="dark" />} />
-      <Route path="/account-management" element={<BulkAccountManagement theme="dark" />} />
+      <Route path="/account-management" element={<BulkAccountManagement />} />
     </Routes>
   </BrowserRouter>
 );

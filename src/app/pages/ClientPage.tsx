@@ -35,12 +35,12 @@ const ClientPage = () => {
   ];
 
   const submenus: Record<string, string[]> = {
-    'client': ['Contact Info', 'Client Status', 'Custom Fields', 'Transaction Allocations', 'Default Value', 'Client Portal Settings'],
-    'accounts': ['Summary', 'Active Accounts', 'Closed Accounts', 'Payment Plans'],
-    'documents': ['Uploaded Files', 'Generated Docs', 'Templates', 'Archives'],
-    'accounting': ['Transactions', 'Allocations', 'Reports', 'Reconciliation'],
-    'reminders': ['Upcoming', 'Completed', 'Overdue', 'Calendar'],
-    'settings': ['General', 'Billing', 'Notifications', 'Security'],
+    'client': [],
+    'accounts': [],
+    'documents': [],
+    'accounting': [],
+    'reminders': [],
+    'settings': [],
   };
 
   const [activeTab, setActiveTab] = useState('client');
@@ -68,33 +68,20 @@ const ClientPage = () => {
     }, 200);
   };
 
-  const CategoryView: React.FC<{ 
-    category: string; 
-    theme: 'dark' | 'light';
-    }> = ({ category, theme }) => {
-      switch (category) {
-        case 'Contact Info':
-          return (
-            <ClientInfo theme={theme} />
-          );
-        case 'Client Status':
-          return (
-            <AccountStatusModule theme={theme} />
-          );
-        case 'Transaction Allocations':
-          return (
-            <TransactionAllocations theme={theme} />
-          );
-    }
-  }
-
   // Memoize client details content to prevent re-render on hoveredTab change
   const clientDetailsContent = useMemo(() => (
-    <>
-      
+    
+    <ClientInfo theme={theme} />
+    
+  ), [activeCategory, theme]);
 
-      {/* TOP: SEARCH & FILTER BAR */}
-      <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200 shadow-xl shadow-slate-200/20'}`}>
+  return (
+    <div className={`p-8 pl-24 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
+        theme === 'dark' ? 'bg-slate-950 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
+      }`}>
+        <Sidebar activeTab={activeNav} setActiveTab={setActiveNav} theme={theme} toggleTheme={toggleTheme} />
+        {/* TOP: SEARCH & FILTER BAR */}
+      <div className={`relative p-6 mb-10 rounded-[35px] border ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200 shadow-xl shadow-slate-200/20'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end">
           <SelectField label="Client Type" options={[]} theme={theme} />
           <SelectField label="Status" options={[]} theme={theme} />
@@ -112,26 +99,14 @@ const ClientPage = () => {
               <Download size={16} />
               Export
             </button>
-            <button className={`absolute -top-11 right-10 w-max flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition-all shadow-lg`}>
+            <button className={`absolute -top-5 right-10 w-max flex items-center justify-center gap-2 text-sm py-2.5 px-2 rounded-xl bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition-all shadow-lg`}>
               <SlidersHorizontal size={16} />
               Advanced Filters
             </button>
           </div>
         </div>
-        <PrimaryActionCodes theme={theme} className='mt-7 rounded-xl' />
         </div>
-        <CategoryView 
-          category={activeCategory} 
-          theme={theme} 
-        />
-    </>
-  ), [activeCategory, theme]);
-
-  return (
-    <div className={`p-8 pl-24 space-y-8 animate-in fade-in duration-700 custom-scrollbar ${
-        theme === 'dark' ? 'bg-gray-700 border-white/10' : 'bg-[#e6f0fa] border-slate-200/60 shadow-slate-200/40'
-      }`}>
-        <Sidebar activeTab={activeNav} setActiveTab={setActiveNav} theme={theme} toggleTheme={toggleTheme} />
+        <PrimaryActionCodes theme={theme} className='mt-7 rounded-xl' />
         <div className='flex gap-8'>
         <div className="flex-1 flex flex-col min-h-[600px] w-full">
           <Tabs.Root value={activeTab} className="flex flex-col h-full" onValueChange={setActiveTab}>
@@ -211,18 +186,27 @@ const ClientPage = () => {
                 theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200 shadow-sm'
               }`}>
                 <div className="p-8">
-                   <div className="flex items-start gap-3 mb-6">
-                     <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500">
-                        {tab.id === 'client' ? <LayoutGrid size={20} /> : tab.id === 'accounts' ? <FileSearch size={20} /> : <History size={20} />}
-                     </div>
+                   <div className="flex justify-between items-start gap-3 mb-6">
 
-                     <div className='flex justify-between items-start'>
+                     <div className='flex  items-center gap-2'>
+                      <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500">
+                          {tab.id === 'client' ? <LayoutGrid size={20} /> : tab.id === 'accounts' ? <FileSearch size={20} /> : <History size={20} />}
+                      </div>
                       <h2 className={`text-xl tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>
-                        {tab.label} / {activeCategory}
+                        {tab.label}
                       </h2>
-
-                      
                      </div>
+
+                     <div className='space-y-2'>
+                      <h2 className={`text-3xl mr-10 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>
+                        Global Logistics Inc.
+                      </h2>
+                      <div>
+                        <h2 className={`text-lg text-center underline ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>#640126480</h2>
+                        <h2 className={`text-lg text-center rounded-full py-1 px-6 ${theme === 'dark' ? 'bg-green-500/20 text-green-500' : 'bg-green-500/20 text-green-600'}`}>Active</h2>
+                      </div>
+                     </div>
+
                    </div>
                    
                    {tab.id === 'client' && clientDetailsContent}
