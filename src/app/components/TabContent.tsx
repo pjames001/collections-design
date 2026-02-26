@@ -37,6 +37,8 @@ import { InputField } from './shared/InputField';
 import { SummaryStat } from './shared/SummaryStat';
 import { AllocationTag } from './shared/AllocationTag';
 import { TransactionAllocations } from './TransactionAllocations';
+import { RemindersFeed } from './Reminders';
+import AuditLogs from './AuditLogs';
 
 interface TabItem {
   id: string;
@@ -58,14 +60,14 @@ const tabs: TabItem[] = [
 
 const submenus: Record<string, string[]> = {
   'details': ['Contact Info', 'Skip Tracing', 'dispute', 'experian reports', 'settlement'],
-  'financials': ['Summary', 'Transactions', 'Allocations', 'Reports'],
-  'plan': ['Schedule', 'Terms', 'History', 'Documents'],
+  'financials': [],
+  'plan': [],
   'folder': ['Uploaded Files', 'Generated Docs', 'Templates', 'Archives'],
-  'judgment': ['Settings', 'History', 'Calculator'],
-  'legal': ['legal details'],
+  'judgment': [],
+  'legal': [],
   'allocations': [],
-  'reminders': ['Upcoming', 'Completed', 'Overdue', 'Calendar'],
-  'logs': ['All Activity', 'Edits', 'Status Changes', 'Assignments'],
+  'reminders': [],
+  'logs': [],
 };
 
 export const TabContent: React.FC<{ 
@@ -110,7 +112,7 @@ export const TabContent: React.FC<{
               }
             }
           `}</style>
-          <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl border overflow-visible no-scrollbar transition-colors ${
+          <Tabs.List className={`flex gap-2 p-1 backdrop-blur-md rounded-2xl border overflow-visible  transition-colors ${
             theme === 'dark' ? 'bg-white/10 border-white/10' : 'bg-[#bbdcfd] border-slate-300 shadow-inner'
           }`}>
             {tabs.map((tab) => (
@@ -450,7 +452,7 @@ export const TabContent: React.FC<{
 
                         <div className="space-y-8">
                           {/* Base Judgment Fields */}
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div className="grid grid-cols-3 gap-6">
                             <DateField label="Judgment Date" theme={theme} />
                             <InputField label="Judgment Amount" placeholder="$0.00" type="number" theme={theme} />
                             <SelectField label="Pre-Judgment Interest" options={[{value:'simple', label:'Simple Interest'}, {value:'compound', label:'Compound Interest'}, {value:'none', label:'None'}]} defaultValue="simple" theme={theme} />
@@ -469,7 +471,7 @@ export const TabContent: React.FC<{
                             </label>
 
                             {!postJudgmentInterest && (
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                              <div className="grid grid-cols-3 gap-6 items-end">
                                 <InputField label="Interest Amount" placeholder="0.00%" type="text" theme={theme} />
                                 <SelectField label="Compounding" options={[{value:'daily', label:'Daily'}, {value:'monthly', label:'Monthly'}, {value:'annually', label:'Annually'}]} defaultValue="daily" theme={theme} />
                                 <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-blue-600/20">
@@ -501,7 +503,7 @@ export const TabContent: React.FC<{
                           </label>
 
                           {/* Conditional Component Display */}
-                          <div className="space-y-6">
+                          <div className="flex justify-between">
                             {/* Pre-Judgment Interest */}
                             <div className={`p-6 rounded-2xl border-2 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
                               <h4 className={`text-sm font-black uppercase tracking-widest mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>Pre-Judgment Interest</h4>
@@ -573,8 +575,6 @@ export const TabContent: React.FC<{
                                 )}
                               </div>
                             </div>
-                          </div>
-
                           {/* Apply to Post-Judgment Section */}
                           <div className={`p-6 rounded-2xl border-2 border-dashed ${theme === 'dark' ? 'border-blue-500/20 bg-blue-500/5' : 'border-blue-300 bg-blue-50/30'}`}>
                             <h4 className={`text-sm font-black uppercase tracking-widest mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Judgment Amount Composition</h4>
@@ -596,6 +596,8 @@ export const TabContent: React.FC<{
                               </label>
                             </div>
                           </div>
+                          </div>
+
                         </div>
                       </div>
 
@@ -609,13 +611,99 @@ export const TabContent: React.FC<{
                     </div>
                   )}
                   {tab.id === 'legal' && (
-                    <CategoryView 
-                       category={activeCategory} 
-                       theme={theme} 
-                       activeCreditor={activeCreditor}
-                       judgementEntered={judgementEntered}
-                       setJudgementEntered={setJudgementEntered}
-                     />
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      {/* SECTION 1: Complaint Information */}
+                      <div className={`p-8 rounded-[30px] border ${
+                        theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-8">
+                          <div className="h-5 w-1 bg-blue-500 rounded-full" />
+                          <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Complaint Information</h4>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          <SelectField label="County" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
+                          <SelectField label="Court" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}, {value:'municipal', label:'Municipal Court'}]} defaultValue="superior" theme={theme} />
+                          <DateField label="Complaint Sent Date" theme={theme} />
+                          <DateField label="Complaint Filed Date" theme={theme} />
+                          <InputField label="Court Number" placeholder="" type="text" theme={theme} />
+                          <DateField label="Sent For Service Date" theme={theme} />
+                          <SelectField label="Process Server" options={[{value:'server1', label:'Server 1'}, {value:'server2', label:'Server 2'}]} defaultValue="server1" theme={theme} />
+                          <DateField label="Complaint Served Date" theme={theme} />
+                          <DateField label="Answer Filed Date" theme={theme} />
+                        </div>
+                      </div>
+
+                      {/* SECTION 2: Judgement Information */}
+                      <div className={`p-8 rounded-[30px] border ${
+                        theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-8">
+                          <div className="h-5 w-1 bg-violet-500 rounded-full" />
+                          <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-violet-400' : 'text-violet-600'}`}>Judgement Information</h4>
+                        </div>
+                        
+                        <div className="flex items-center gap-3 mb-8 p-4 rounded-lg bg-white/5">
+                          <input 
+                            type="checkbox" 
+                            id="judgement-checkbox"
+                            checked={judgementEntered}
+                            onChange={(e) => setJudgementEntered(e.target.checked)}
+                            className="w-5 h-5 rounded-md border-2 border-blue-500 accent-blue-600 cursor-pointer" 
+                          />
+                          <label htmlFor="judgement-checkbox" className={`text-sm font-bold uppercase tracking-widest cursor-pointer ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                            Judgement Entered
+                          </label>
+                        </div>
+
+                        {judgementEntered && (
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <DateField label="Judgement Sent Date" theme={theme} />
+                            <DateField label="Judgement Entered Date" theme={theme} />
+                            <DateField label="Abstract Recorded Date" theme={theme} />
+                            <DateField label="Satisfaction of Judgement Sent Date" theme={theme} />
+                            <InputField label="Attorney Fees Sought" placeholder="$0.00" type="text" theme={theme} />
+                            <InputField label="Attorney Fees Awarded" placeholder="$0.00" type="text" theme={theme} />
+                            <InputField label="Name of Judge" placeholder="" type="text" theme={theme} />
+                            <SelectField label="County Abstracted" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
+                            <SelectField label="Court Abstracted" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}]} defaultValue="superior" theme={theme} />
+                            <DateField label="Judgement Expiration Date" theme={theme} />
+                            <DateField label="Judgement Reminder Date" theme={theme} />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* SECTION 3: Garnishment Information */}
+                      <div className={`p-8 rounded-[30px] border ${
+                        theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-8">
+                          <div className="h-5 w-1 bg-amber-500 rounded-full" />
+                          <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>Garnishment Information</h4>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          <DateField label="Writ Sent For Filing Date" theme={theme} />
+                          <DateField label="Writ Returned Date" theme={theme} />
+                          <DateField label="Garnish Wages Sent Date" theme={theme} />
+                          <DateField label="Garnish Wages Received Date" theme={theme} />
+                          <DateField label="Bank Garnish Sent Date" theme={theme} />
+                          <DateField label="Bank Garnish Received Date" theme={theme} />
+                          <DateField label="Unsatisfied Return Rec'd Date" theme={theme} />
+                          <DateField label="Garnish Recheck Date" theme={theme} />
+                          <SelectField label="County Executed" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
+                          <SelectField label="Court Executed" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}]} defaultValue="superior" theme={theme} />
+                        </div>
+                      </div>
+
+                      {/* Save Button */}
+                      <div className="pt-8 flex justify-end">
+                        <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20">
+                          <Save size={18} />
+                          Save changes
+                        </button>
+                      </div>
+                    </div>
                   )}
                   {tab.id === 'allocations' && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -627,6 +715,16 @@ export const TabContent: React.FC<{
                           Save changes
                         </button>
                       </div>
+                    </div>
+                  )}
+                  {tab.id === 'reminders' && (
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <RemindersFeed theme={theme} />
+                    </div>
+                  )}
+                  {tab.id === 'logs' && (
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <AuditLogs theme={theme} />
                     </div>
                   )}
                 </div>
@@ -675,12 +773,6 @@ const CategoryView: React.FC<{
             <div className={`lg:col-span-3 p-6 rounded-[30px] border grid grid-cols-1 md:grid-cols-3 gap-6 items-center ${
               theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-sky-100 border-slate-200 shadow-sm'
             }`}>
-              <SelectField
-                label="Credit Rating" 
-                options={[{value:'poor', label:'Poor'}, {value:'fair', label:'Fair'}, {value:'good', label:'Good'}, {value:'very good', label:'Very Good'}, {value:'excellent', label:'Excellent'} ]}
-                defaultValue="good"
-                theme={theme}
-              />
               <SelectField
                 label="TRW Bureau Status" 
                 options={[{value:'reported', label:'Reported'}, {value:'not reported', label:'Not Reported'} ]}
@@ -1053,115 +1145,17 @@ const CategoryView: React.FC<{
     
     case 'settlement':
       return (
-        <div className="flex flex-col items-center justify-center py-16 px-6 text-center bg-blue-600/10 rounded-[40px] border border-blue-500/20 shadow-2xl animate-in zoom-in duration-500">
-           <p className="text-[10px] text-blue-400 font-black uppercase tracking-widest mb-2">Approved Settlement Range</p>
-           <h3 className={`text-5xl font-black mb-10 ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>$9,500 - $11,000</h3>
-           <div className="flex gap-4">
-             <button className="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-blue-600/40 transition-all active:scale-95">
-               Generate Final Offer
-             </button>
-             <button className={`px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-widest border transition-all active:scale-95 ${theme === 'dark' ? 'border-white/10 text-white hover:bg-white/5' : 'border-slate-300 text-slate-700 hover:bg-slate-50'}`}>
-               Manual Override
-             </button>
-           </div>
-        </div>
-      );
-    
-    case 'legal details':
-      return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          
-          {/* SECTION 1: Complaint Information */}
-          <div className={`p-8 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
-          }`}>
-            <div className="flex items-center gap-2 mb-8">
-              <div className="h-5 w-1 bg-blue-500 rounded-full" />
-              <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Complaint Information</h4>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <SelectField label="County" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
-              <SelectField label="Court" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}, {value:'municipal', label:'Municipal Court'}]} defaultValue="superior" theme={theme} />
-              <DateField label="Complaint Sent Date" theme={theme} />
-              <DateField label="Complaint Filed Date" theme={theme} />
-              <InputField label="Court Number" placeholder="" type="text" theme={theme} />
-              <DateField label="Sent For Service Date" theme={theme} />
-              <SelectField label="Process Server" options={[{value:'server1', label:'Server 1'}, {value:'server2', label:'Server 2'}]} defaultValue="server1" theme={theme} />
-              <DateField label="Complaint Served Date" theme={theme} />
-              <DateField label="Answer Filed Date" theme={theme} />
-              <InputField label="Debtor Attorney Name" placeholder="" type="text" theme={theme} />
-            </div>
-          </div>
-
-          {/* SECTION 2: Judgement Information */}
-          <div className={`p-8 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
-          }`}>
-            <div className="flex items-center gap-2 mb-8">
-              <div className="h-5 w-1 bg-violet-500 rounded-full" />
-              <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-violet-400' : 'text-violet-600'}`}>Judgement Information</h4>
-            </div>
-            
-            <div className="flex items-center gap-3 mb-8 p-4 rounded-lg bg-white/5">
-              <input 
-                type="checkbox" 
-                id="judgement-checkbox"
-                checked={judgementEntered}
-                onChange={(e) => setJudgementEntered(e.target.checked)}
-                className="w-5 h-5 rounded-md border-2 border-blue-500 accent-blue-600 cursor-pointer" 
-              />
-              <label htmlFor="judgement-checkbox" className={`text-sm font-bold uppercase tracking-widest cursor-pointer ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                Judgement Entered
-              </label>
-            </div>
-
-            {judgementEntered && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <DateField label="Judgement Sent Date" theme={theme} />
-                <DateField label="Judgement Entered Date" theme={theme} />
-                <DateField label="Abstract Recorded Date" theme={theme} />
-                <DateField label="Satisfaction of Judgement Sent Date" theme={theme} />
-                <InputField label="Attorney Fees Sought" placeholder="$0.00" type="text" theme={theme} />
-                <InputField label="Attorney Fees Awarded" placeholder="$0.00" type="text" theme={theme} />
-                <InputField label="Name of Judge" placeholder="" type="text" theme={theme} />
-                <SelectField label="County Abstracted" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
-                <SelectField label="Court Abstracted" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}]} defaultValue="superior" theme={theme} />
-                <DateField label="Judgement Expiration Date" theme={theme} />
-              </div>
-            )}
-          </div>
-
-          {/* SECTION 3: Garnishment Information */}
-          <div className={`p-8 rounded-[30px] border ${
-            theme === 'dark' ? 'bg-slate-900/40 border-white/5' : 'bg-sky-100 border-slate-200'
-          }`}>
-            <div className="flex items-center gap-2 mb-8">
-              <div className="h-5 w-1 bg-amber-500 rounded-full" />
-              <h4 className={`text-xs uppercase font-black tracking-[0.2em] ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>Garnishment Information</h4>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <DateField label="Writ Sent For Filing Date" theme={theme} />
-              <DateField label="Writ Returned Date" theme={theme} />
-              <DateField label="Garnish Wages Sent Date" theme={theme} />
-              <DateField label="Garnish Wages Received Date" theme={theme} />
-              <DateField label="Bank Garnish Sent Date" theme={theme} />
-              <DateField label="Bank Garnish Received Date" theme={theme} />
-              <DateField label="Unsatisfied Return Rec'd Date" theme={theme} />
-              <DateField label="Garnish Recheck Date" theme={theme} />
-              <SelectField label="County Executed" options={[{value:'la', label:'Los Angeles'}, {value:'sf', label:'San Francisco'}, {value:'sd', label:'San Diego'}]} defaultValue="la" theme={theme} />
-              <SelectField label="Court Executed" options={[{value:'superior', label:'Superior Court'}, {value:'district', label:'District Court'}]} defaultValue="superior" theme={theme} />
-            </div>
-          </div>
-
-          {/* Save Button */}
-          <div className="pt-8 flex justify-end">
-            <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20">
-              <Save size={18} />
-              Save changes
-            </button>
-          </div>
+           <div className="grid grid-cols-4 gap-6">
+            <DateField label="First Payment Date Expiration" theme={theme} />
+            <InputField label="First Payment Amount" placeholder="$0.00" type="text" theme={theme} />
+            <DateField label="Second Payment Date Expiration" theme={theme} />
+            <InputField label="Second Payment Amount" placeholder="$0.00" type="text" theme={theme} />
+            <DateField label="Third Payment Date Expiration" theme={theme} />
+            <InputField label="Third Payment Amount" placeholder="$0.00" type="text" theme={theme} />
+            <DateField label="Date of Settlement Expiration" theme={theme} />
+            <InputField label="Settlement Amount" placeholder="$0.00" type="text" theme={theme} />
+           </div>
         </div>
       );
     default:

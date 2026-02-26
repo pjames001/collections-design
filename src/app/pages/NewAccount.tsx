@@ -80,8 +80,6 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
           <div className="max-w-[1800px] mx-auto space-y-8 pb-12">
             <NewDashboardHeader 
               theme={theme} 
-              activeCreditor={activeCreditor} 
-              setActiveCreditor={setActiveCreditor} 
             />
             
             <div className="flex flex-col lg:flex-row gap-8 items-start">

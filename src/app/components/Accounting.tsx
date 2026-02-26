@@ -79,6 +79,7 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
                       <th className={`p-4 text-[16px] text-center min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Agency Owes</th>
                       <th className={`p-4 text-[16px] text-center min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Client Owes</th>
                       <th className={`p-4 text-[16px] text-center min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Actions</th>
+                      <th className={`p-4 text-[16px] text-center min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Payments</th>
                     </tr>
                   </thead>
                   <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-slate-100'}`}>
@@ -96,6 +97,12 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
                         <td className={`p-4 text-center text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>$0.00</td>
                         <td className={`p-4 text-center text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>$25.00</td>
                         <td className={`p-4 text-center text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>$450.00</td>
+                        <td className={`p-4 text-center text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
+                          <select name="" id="">
+                            <option value="edit" className={theme === 'dark' ? 'text-slate-300 bg-slate-800' : 'text-slate-700 bg-white'}>Edit</option>
+                            <option value="delete" className={theme === 'dark' ? 'text-slate-300 bg-slate-800' : 'text-slate-700 bg-white'}>Delete</option>
+                          </select>
+                        </td>
                         <td className={`p-4 text-center text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
                           <Dialog.Trigger asChild>
                             <button className={`px-3 py-1 rounded-full text-sm ${theme === 'dark' ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white'}`}>
@@ -145,6 +152,7 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
                     <th className={`p-4 text-[16px] min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Total Pending</th>
                     <th className={`p-4 text-[16px] min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Trust Balance</th>
                     <th className={`p-4 text-[16px] min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Actions</th>
+                    <th className={`p-4 text-[16px] min-w-[200px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'} tracking-widest border-b border-white/5`}>Payments</th>
                   </tr>
                 </thead>
                 <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-slate-100'}`}>
@@ -164,6 +172,12 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
                         <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>$400.00</td>
                         <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>$270.00</td>
                         <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>$370.00</td>
+                        <td className={`p-4 text-center text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
+                          <select name="" id="">
+                            <option value="edit" className={theme === 'dark' ? 'text-slate-300 bg-slate-800' : 'text-slate-700 bg-white'}>Edit</option>
+                            <option value="delete" className={theme === 'dark' ? 'text-slate-300 bg-slate-800' : 'text-slate-700 bg-white'}>Delete</option>
+                          </select>
+                        </td>
                         <td className={`p-4 text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
                           <Dialog.Trigger asChild>
                             <button className={`px-3 py-1 rounded-full text-sm ${theme === 'dark' ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white'}`}>
@@ -175,7 +189,7 @@ export const AccountingModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme 
                       </tr>
                       {expandedRow === i && (
                         <tr className={theme === 'dark' ? 'bg-white/10' : 'bg-blue-500/60'}>
-                          <td colSpan={11} className="p-6">
+                          <td colSpan={12} className="p-6">
                              <div className="flex justify-between gap-2 text-sm w-full">
                                 <div>
                                   <p className={theme === 'dark' ? 'text-sky-300' : 'text-slate-800'}>Date</p>

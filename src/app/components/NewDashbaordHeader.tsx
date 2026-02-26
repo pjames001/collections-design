@@ -7,57 +7,13 @@ import { DateField } from './shared/DateField';
 import { StatField } from './shared/StatField';
 import { InputField } from './shared/InputField';
 
-interface TabItem {
-  id: string;
-  label: string;
-}
-
 export const NewDashboardHeader: React.FC<{ 
   theme: 'dark' | 'light';
-  activeCreditor: string;
-  setActiveCreditor: (id: string) => void;
-}> = ({ theme, activeCreditor, setActiveCreditor }) => {
-  const topHeader = {
-    debtor: "Marcus Thorne",
-    business: "Thorne Architecture & Design Ltd.",
-    accountNumber: "DC-99281-XT",
-    clientNumber: "6512-7981-4503",
-    status: "Active / Legal",
-    lastUpdated: "Feb 09, 2026 - 14:30"
-  };
-
-  const getCreditorData = (id: string) => {
-    switch(id) {
-      case 'creditor 2': return { name: "Global Credit Corp", client: "Blue Star Logistics", balance: "$12,450.00" };
-      case 'creditor 3': return { name: "Vanguard Assets", client: "Peak performance Inc", balance: "$8,900.00" };
-      case 'creditor 4': return { name: "Sentinel Recovery", client: "Oceanic Enterprises", balance: "$15,200.00" };
-      default: return { name: "Apex Financial Group", client: "Apex Realty Group", balance: "$10,636.67" };
-    }
-  };
-
-  const currentCreditor = getCreditorData(activeCreditor);
-
-  const accountStats = [
-    { label: "Client's Name", value: currentCreditor.client },
-    { label: "Creditor", value: currentCreditor.name },
-    { label: "Collector", value: "Sarah Jenkins" },
-    { label: "Que", value: "Priority High (Q1)" },
-    { label: "Referring", value: "Internal Referral" },
-    { label: "Account Type", value: "Consumer Credit" },
-    { label: "Client Claim", value: currentCreditor.balance },
-    { label: "Account Age", value: "142 Days" },
-    { label: "Status", value: "Legal Review" },
-    { label: "Originated", value: "Sept 12, 2025" },
-  ];
-
-  const tabs: TabItem[] = [
-    { id: 'creditor 1', label: 'philip james'},
-    { id: 'creditor 2', label: 'mark hakim'},
-    { id: 'creditor 3', label: 'jason north'},
-    { id: 'creditor 4', label: 'allan jones'},
-  ];
+}> = ({ theme }) => {
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isAddContact, setIsAddContact] = useState(false);
+  const [isPersonalGuarantor, setIsPersonalGuarantor] = useState(false);
   const [debtors, setDebtors] = useState([
     { id: 1, name: 'Marcus Thorne' },
   ]);
@@ -65,14 +21,6 @@ export const NewDashboardHeader: React.FC<{
     1: 'Marcus Thorne',
   });
   const [nextDebtorId, setNextDebtorId] = useState(2);
-
-  const handleDebtorNameChange = (id: number, value: string) => {
-    setDebtorInputs({ ...debtorInputs, [id]: value });
-  };
-
-  const handleSaveDebtor = (id: number) => {
-    setDebtors(debtors.map(d => d.id === id ? { ...d, name: debtorInputs[id] } : d));
-  };
 
   const handleAddCoDebtor = () => {
     const newId = nextDebtorId;
@@ -87,6 +35,13 @@ export const NewDashboardHeader: React.FC<{
     setDebtorInputs(rest);
   };
 
+  const handleContact = () => {
+    setIsAddContact(prev => !prev);
+  }
+
+  const handlePersonalGuarantor = () => {
+    setIsPersonalGuarantor(prev => !prev);
+  }
 
   return (
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
@@ -232,7 +187,9 @@ export const NewDashboardHeader: React.FC<{
                   <Tabs.Trigger
                     value="individual"
                     className={`flex-1 px-6 py-3 rounded-xl transition-all duration-300 outline-none cursor-pointer font-medium text-xs uppercase tracking-widest ${
-                      'data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-slate-300 data-[state=inactive]:hover:bg-white/50'
+                      theme === 'dark' 
+                      ? 'data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-slate-300 data-[state=inactive]:hover:bg-white/50'
+                      : 'data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-slate-500 data-[state=inactive]:hover:bg-slate-200'
                     }`}
                   >
                     Individual
@@ -240,7 +197,9 @@ export const NewDashboardHeader: React.FC<{
                   <Tabs.Trigger
                     value="company"
                     className={`flex-1 px-6 py-3 rounded-xl transition-all duration-300 outline-none cursor-pointer font-medium text-xs uppercase tracking-widest ${
-                      'data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-slate-300 data-[state=inactive]:hover:bg-white/50'
+                      theme === 'dark' 
+                      ? 'data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-slate-300 data-[state=inactive]:hover:bg-white/50'
+                      : 'data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:text-slate-500 data-[state=inactive]:hover:bg-slate-200'
                     }`}
                   >
                     Company
@@ -309,30 +268,12 @@ export const NewDashboardHeader: React.FC<{
 
                 {/* Company Tab */}
                 <Tabs.Content value="company" className="space-y-6 outline-none">
-                  <div className="grid grid-cols-4 gap-6">
-                    <InputField label="Company Name" placeholder="" type="text" theme={theme} />
-                    <InputField label="Contact Title" placeholder="" type="text" theme={theme} />
-                    <InputField label="Contact Name" placeholder="" type="text" theme={theme} />
-                    <InputField label="SSN" placeholder="" type="text" theme={theme} />
-                    <DateField label="DOB" theme={theme} />
-                    <InputField label="Type" type='text' theme={theme} />
-                    
-                    {/* Deceased Checkbox with Date */}
-                    <div className="flex flex-col gap-1.5">
-                      <label className={`text-md tracking-widest ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>
-                        Deceased
-                      </label>
-                      <div className="flex items-center gap-2">
-                        <input type="checkbox" className="w-5 h-5 rounded-md border-2 border-blue-500 accent-blue-600 cursor-pointer" />
-                        <DateField label="" theme={theme} />
-                      </div>
-                    </div>
-                  </div>
 
                   {/* Address Section */}
-                  <div className="pt-4 border-t border-slate-200/20">
+                  <div className="pt-4">
                     <h4 className={`text-xs font-black uppercase tracking-widest mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Address Information</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-4 gap-6">
+                      <InputField label="Company Name" placeholder="" type="text" theme={theme} />
                       <InputField label="Address 1" placeholder="" type="text" theme={theme} />
                       <InputField label="Address 2" placeholder="" type="text" theme={theme} />
                       <InputField label="City" placeholder="" type="text" theme={theme} />
@@ -343,24 +284,55 @@ export const NewDashboardHeader: React.FC<{
                     </div>
                   </div>
 
-                  {/* Contact Section */}
+                  {/* Company Contact Section */}
                   <div className="pt-4 border-t border-slate-200/20">
-                    <h4 className={`text-xs font-black uppercase tracking-widest mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Contact Information</h4>
+                    <h4 className={`text-xs font-black uppercase tracking-widest mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Company Contact Information</h4>
                     <div className="flex gap-6">
-                      <div className="flex items-center gap-2">
-                        <InputField label="Cell Number" placeholder="" type="text" theme={theme} />
-                        <InputField label="Ext" placeholder="" type="text" theme={theme} />
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <InputField label="Home Number" placeholder="" type="text" theme={theme} />
-                        <InputField label="Ext" placeholder="" type="text" theme={theme} />
-                      </div>
-                      <div className="w-40">
-                        <InputField label="Fax" placeholder="" type="text" theme={theme} />
-                      </div>
+                      <InputField label="Office Number" placeholder="" type="text" theme={theme} />
+                      <InputField label="Fax" placeholder="" type="text" theme={theme} />
                     </div>
                   </div>
+
+                  {/* New Contact Section */}
+                  {isAddContact &&<div className="pt-4 border-t border-slate-200/20">
+                    <h4 className={`text-xs font-black uppercase tracking-widest mb-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Contact Information</h4>
+                    <div className="grid grid-cols-4 gap-6">
+                      <InputField label="First Name" placeholder="" type="text" theme={theme} />
+                      <InputField label="Last Name" placeholder="" type="text" theme={theme} />
+                      <InputField label="Contact Title" placeholder="" type="text" theme={theme} />
+                      <div className='w-full flex flex-col gap-4'>
+                        <label htmlFor="primary" className="text-md text-sky-300">Is Personal Guarantor</label>
+                        <input type='checkbox' id='primary' onChange={handlePersonalGuarantor} className="w-5 h-5 rounded-md border-2 border-blue-500 accent-blue-600 cursor-pointer" />
+                      </div>
+                      <InputField label="Phone Number" placeholder="" type="tel" theme={theme} />
+                      <button className={`px-6 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-xl font-black uppercase text-md tracking-widest transition-all shadow-lg shadow-teal-500/20 active:scale-95 w-max self-end ${theme === 'dark' ? 'bg-teal-500 hover:bg-teal-600 shadow-teal-500/20' : 'bg-teal-600 hover:bg-teal-700 shadow-teal-600/20'}`}>
+                        +
+                      </button>
+                    </div>
+                      {isPersonalGuarantor && (
+                        <div className='grid grid-cols-4 gap-6 mt-6'>
+                          
+                          <InputField label="SSN" placeholder="" type="text" theme={theme} />
+                          <DateField label="DOB" theme={theme} />
+                          <div className="flex flex-col gap-1.5">
+                            <label className={`text-md tracking-widest ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>
+                              Deceased
+                            </label>
+                            <div className="flex items-center gap-2">
+                              <input type="checkbox" className="w-5 h-5 rounded-md border-2 border-blue-500 accent-blue-600 cursor-pointer" />
+                              <DateField label="" theme={theme} />
+                            </div>
+                          </div>
+                          <div></div>
+                          <InputField label="Address" type='text' theme={theme} />
+                          <button className={`px-6 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-xl font-black uppercase text-md tracking-widest transition-all shadow-lg shadow-teal-500/20 active:scale-95 w-max self-end ${theme === 'dark' ? 'bg-teal-500 hover:bg-teal-600 shadow-teal-500/20' : 'bg-teal-600 hover:bg-teal-700 shadow-teal-600/20'}`}>
+                            +
+                          </button>
+                        </div>
+                      )}
+                  </div>}
+
+
                 </Tabs.Content>
               </Tabs.Root>
 
@@ -373,6 +345,9 @@ export const NewDashboardHeader: React.FC<{
                     Cancel
                   </button>
                 </Dialog.Close>
+                <button onClick={handleContact} className="px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-teal-600/20 active:scale-95">
+                  {isAddContact ? 'Remove Contact' : 'Add Contact'}
+                </button>
                 <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black uppercase text-xs tracking-widest transition-all shadow-lg shadow-blue-600/20 active:scale-95">
                   Save Debtor
                 </button>

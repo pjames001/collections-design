@@ -8,6 +8,7 @@ import { TransactionAllocations } from './TransactionAllocations';
 
 export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
   const [activeSection, setActiveSection] = useState('company');
+  const [commercialConsumer, setCommercialConsumer] = useState<'commercial' | 'consumer' | null>(null);
 
   const navItems = [
     { id: 'company', label: 'Company Settings', icon: <Building2 size={18} /> },
@@ -15,7 +16,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
     { id: 'authorization', label: 'Authorization', icon: <ShieldCheck size={18} /> },
     { id: 'cancellation', label: 'Cancellation', icon: <XCircle size={18} /> },
     { id: 'allocations', label: 'Transaction Allocations', icon: <Calculator size={18} /> },
-    { id: 'defaults', label: 'Default values', icon: <Percent size={18} /> },
+    // { id: 'defaults', label: 'Default values', icon: <Percent size={18} /> },
   ];
 
   return (
@@ -49,13 +50,45 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField label="Client ID" placeholder="Enter id..." theme={theme} />
               <SelectField label="Sales Agent" options={[]} theme={theme} />
-              <InputField label="Business Type" theme={theme} />
-              <div className="flex flex-col gap-3">
-                <label className={`text-md ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Medical</label>
-                <div className="flex gap-4">
-                  <RadioField label="Yes" name="medical" theme={theme} />
-                  <RadioField label="No" name="medical" theme={theme} />
+              <SelectField label="Business Type" options={[]} theme={theme} />
+              <div className='flex gap-6'>
+                <div className="flex flex-col gap-3">
+                  <label className={`text-md ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Commercial / Consumer</label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input 
+                        type="radio" 
+                        name="commercialConsumer" 
+                        value="commercial"
+                        checked={commercialConsumer === 'commercial'}
+                        onChange={(e) => setCommercialConsumer(e.target.value as 'commercial' | 'consumer')}
+                        className="w-4 h-4"
+                      />
+                      <span className={theme === 'dark' ? 'text-white' : 'text-slate-800'}>Commercial</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input 
+                        type="radio" 
+                        name="commercialConsumer" 
+                        value="consumer"
+                        checked={commercialConsumer === 'consumer'}
+                        onChange={(e) => setCommercialConsumer(e.target.value as 'commercial' | 'consumer')}
+                        className="w-4 h-4"
+                      />
+                      <span className={theme === 'dark' ? 'text-white' : 'text-slate-800'}>Consumer</span>
+                    </label>
+                  </div>
                 </div>
+
+                {commercialConsumer === 'consumer' && (
+                  <div className="flex flex-col gap-3">
+                    <label className={`text-md ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Medical</label>
+                    <div className="flex gap-4">
+                      <RadioField label="Yes" name="medical" theme={theme} />
+                      <RadioField label="No" name="medical" theme={theme} />
+                    </div>
+                  </div>
+                )}
               </div>
               <InputField label="Username" theme={theme} />
               <button className={`h-max py-2.5 self-end bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20`}>
@@ -118,7 +151,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
           </div>
         )}
 
-        {activeSection === 'defaults' && (
+        {/* {activeSection === 'defaults' && (
           <div className="space-y-8 animate-in slide-in-from-right-4">
             <h3 className={`text-xl font-normal ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>Default values</h3>
 
@@ -171,7 +204,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
               <InputField label="Collector Commission Fee" placeholder="0.00" theme={theme} />
             </div>
           </div>
-        )}
+        )} */}
 
         <div className="mt-12 pt-8 border-t border-slate-100 dark:border-white/5 flex justify-end">
           <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl text-sm transition-all hover:bg-blue-500 shadow-lg shadow-blue-600/20">

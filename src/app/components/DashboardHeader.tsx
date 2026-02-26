@@ -381,10 +381,9 @@ export const DashboardHeader: React.FC<{
                   defaultValue="active" 
                   theme={theme} 
                 />
-                <InputField 
+                <SelectField 
                   label="ECOA Code" 
-                  placeholder="Enter ECOA code..." 
-                  type="text" 
+                  options={[]}
                   theme={theme} 
                 />
               </div>

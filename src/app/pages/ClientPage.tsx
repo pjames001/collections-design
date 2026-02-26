@@ -186,7 +186,7 @@ const ClientPage = () => {
                 theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200 shadow-sm'
               }`}>
                 <div className="p-8">
-                   <div className="flex justify-between items-start gap-3 mb-6">
+                   <div className="flex flex-col justify-between items-start gap-3 mb-6">
 
                      <div className='flex  items-center gap-2'>
                       <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500">
@@ -197,12 +197,12 @@ const ClientPage = () => {
                       </h2>
                      </div>
 
-                     <div className='space-y-2'>
+                     <div className='space-y-2 mt-6'>
                       <h2 className={`text-3xl mr-10 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>
                         Global Logistics Inc.
                       </h2>
-                      <div>
-                        <h2 className={`text-lg text-center underline ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>#640126480</h2>
+                      <div className='space-y-2'>
+                        <h2 className={`text-lg underline ${theme === 'dark' ? 'text-white' : 'text-slate-800'}`}>#640126480</h2>
                         <h2 className={`text-lg text-center rounded-full py-1 px-6 ${theme === 'dark' ? 'bg-green-500/20 text-green-500' : 'bg-green-500/20 text-green-600'}`}>Active</h2>
                       </div>
                      </div>

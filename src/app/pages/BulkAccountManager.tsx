@@ -118,27 +118,27 @@ export const BulkAccountManagement = () => {
               </div>
             </div>
             <div className='grid grid-cols-4 gap-4'>
-               <span className='text-md text-sky-300 self-end'>Principal</span>
+               <span className={`text-md  self-end font-medium ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Principal</span>
                <InputField label="Advanced %" placeholder="0.00" theme={theme} />
                <InputField label="Attorney %" placeholder="0.00" theme={theme} />
                <InputField label="Agency %" placeholder="0.00" theme={theme} />
 
-               <span className='text-md text-sky-300 self-end'>Interest</span>
+               <span className={`text-md  self-end font-medium ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Interest</span>
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
 
-               <span className='text-md text-sky-300 self-end'>Costs</span>
+               <span className={`text-md  self-end font-medium ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Costs</span>
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
 
-               <span className='text-md text-sky-300 self-end'>Attorney Fees</span>
+               <span className={`text-md  self-end font-medium ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Attorney Fees</span>
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
 
-               <span className='text-md text-sky-300 self-end'>Over Payment</span>
+               <span className={`text-md  self-end font-medium ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Over Payment</span>
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
                <InputField label="" placeholder="0.00" theme={theme} />
@@ -358,7 +358,7 @@ export const BulkAccountManagement = () => {
         </div>
 
         {/* SCROLLABLE FILTER CONTENT */}
-        <div className="flex-1 overflow-y-auto p-10 space-y-12">
+        <div className={`flex-1 overflow-y-auto p-10 space-y-12 ${theme === 'dark' ? 'bg-slate-900/50' : 'bg-[#bbdcfd]'}`}>
           
           {/* GROUP 1: Entity & Status (Multi-select Area) */}
           <section className="space-y-6">

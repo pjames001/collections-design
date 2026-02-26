@@ -45,8 +45,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [newNote, setNewNote] = useState('');
   const [portalEnabled, setPortalEnabled] = useState(false);
-  const [documents, setDocuments] = useState<string[]>(['Document 1', 'Document 2']);
-  const [newDocument, setNewDocument] = useState('');
+
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500 ">
@@ -343,6 +342,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pt-4 pb-6 space-y-4 border-t border-white/5">
+                      <CheckboxField label="Select All" theme={theme} />
                       <CheckboxField label="Edit Collection Status" theme={theme} />
                       <CheckboxField label="Edit Account Manually" theme={theme} />
                       <CheckboxField label="Upload Bulk Files" theme={theme} />
@@ -365,6 +365,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pt-4 pb-6 space-y-4 border-t border-white/5">
+                      <CheckboxField label="Select All" theme={theme} />
                       <CheckboxField label="Date of First Delinquency" theme={theme} />
                       <CheckboxField label="Originated Date" theme={theme} />
                       <CheckboxField label="Debtor Employer" theme={theme} />
@@ -386,6 +387,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pt-4 pb-6 space-y-4 border-t border-white/5">
+                      <CheckboxField label="Select All" theme={theme} />
                       <CheckboxField label="Accounts Report" theme={theme} />
                       <CheckboxField label="Client Statement No Adjustment" theme={theme} />
                       <CheckboxField label="Client Statement Report No Interest" theme={theme} />

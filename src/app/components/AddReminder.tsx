@@ -17,18 +17,6 @@ const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
         <h2 className="text-2xl font-black uppercase tracking-tight text-white">
           Add New Reminder
         </h2>
-
-        <div className="flex items-end gap-4 mt-6">
-          <div className="w-full">
-            <MultiSearchSelect isFilter={false} label="Custom Group" theme={theme} />
-          </div>
-          <div className="w-full">
-            <InputField label="Group Name" type="text" theme={theme} />
-          </div>
-          <button className="w-full px-2 py-2.5 bg-blue-600 text-white rounded-2xl font-black tracking-widest text-sm shadow-xl shadow-blue-600/20">
-            Save as Custom Group
-          </button>
-        </div>
       </div>
 
       {/* SCROLLABLE FILTER CONTENT */}
@@ -54,6 +42,17 @@ const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
               }`}
             />
 
+          </div>
+          <div className="flex items-end gap-4 mt-6 border-t border-slate-600 pt-6">
+            <div className="w-full">
+              <MultiSearchSelect isFilter={false} label="Custom Group" theme={theme} />
+            </div>
+            <div className="w-full">
+              <InputField label="Group Name" type="text" theme={theme} />
+            </div>
+            <button className="w-full px-2 py-2.5 bg-blue-600 text-white rounded-2xl font-black tracking-widest text-sm shadow-xl shadow-blue-600/20">
+              Save as Custom Group
+            </button>
           </div>
         </section>
 
