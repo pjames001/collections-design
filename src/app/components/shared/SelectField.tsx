@@ -38,7 +38,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         className={`w-full appearance-none py-2.5 px-4 pr-10 rounded-xl border text-xs font-bold transition-all outline-none cursor-pointer ${
           theme === 'dark'
             ? 'bg-white/5 border-white/10 text-white hover:bg-white/10 focus:border-blue-500/50'
-            : 'bg-slate-100 border-slate-400 text-slate-800 hover:bg-slate-200 focus:border-blue-600/50'
+            : 'bg-slate-100 border-slate-400 text-[#334155] hover:bg-slate-200 focus:border-blue-600/50'
         }`}
       >
         {options.map((opt) => (
