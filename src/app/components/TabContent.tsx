@@ -39,6 +39,7 @@ import { AllocationTag } from './shared/AllocationTag';
 import { TransactionAllocations } from './TransactionAllocations';
 import { RemindersFeed } from './Reminders';
 import AuditLogs from './AuditLogs';
+import Documents from './Documents';
 
 interface TabItem {
   id: string;
@@ -406,39 +407,8 @@ export const TabContent: React.FC<{
                     </div>
                   )}
                   {tab.id === 'folder' && (
-                    <div className="max-w-[1300px] animate-in fade-in slide-in-from-bottom-4 duration-700">
-                      <table className="text-left border-collapse">
-                        <thead>
-                          <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-slate-50'}>
-                            {['#', 'File Name', 'Comments', 'File Size', 'By', 'Upload Date', 'Show in Client Portal', 'Actions'].map((head) => (
-                              <th key={head} className="p-4 text-[16px] font-black tracking-widest text-slate-400 border-b border-white/5">{head}</th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody className={`divide-y ${theme === 'dark' ? 'divide-white/5' : 'divide-slate-100'}`}>
-                          {[1, 2].map((i) => (
-                            <tr key={i} className="hover:bg-blue-500/5 transition-colors group">
-                              <td className={`p-4 text-md ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>
-                                <input type="checkbox" className="w-4 h-4 accent-blue-600" />
-                              </td>
-                              <td className="p-4 text-md text-gray-300">ACCOUNT PAID IN FULL_SETTLED LETTER.docx</td>
-                              <td className="p-4 text-md text-gray-300">Generated from the Account Details tab</td>
-                              <td className="p-4 text-md text-gray-300">130.54 KB</td>
-                              <td className="p-4 text-md text-gray-300">Annabel</td>
-                              <td className="p-4 text-md text-gray-300">8/22/2025 2:05:42 PM</td>
-                              <td className="p-4 text-md text-gray-300">
-                                <input type="checkbox" className="w-4 h-4 accent-blue-600" checked />
-                              </td>
-                              <td className="p-4">
-                                <select className={`bg-transparent text-[10px] font-black uppercase outline-none cursor-pointer ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
-                                  <option className='bg-slate-800'>Edit</option>
-                                  <option className='bg-slate-800'>Download</option>
-                                </select>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <Documents theme={theme} />
                     </div>
                   )}
                   {tab.id === 'judgment' && (
