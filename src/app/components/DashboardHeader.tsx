@@ -71,7 +71,7 @@ export const DashboardHeader: React.FC<{
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
       <Dialog.Root open={isHexagonDialogOpen} onOpenChange={setIsHexagonDialogOpen}>
       <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-2xl transition-all duration-500 overflow-hidden relative ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200/60 shadow-slate-200/40'
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-gray-300 border-slate-200/60 shadow-slate-200/40'
       }`}>
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] pointer-events-none rounded-full" />
         
