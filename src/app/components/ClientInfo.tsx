@@ -112,7 +112,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
 
         {/* RIGHT PART: CLIENT DOSSIER (8/12 columns) */}
         <div
-          className={`w-full rounded-[35px] border overflow-y-auto custom-scrollbar p-8 ${theme === "dark" ? "bg-slate-900/60 border-white/10" : "bg-sky-100 border-slate-200 shadow-sm"}`}
+          className={`w-full overflow-y-auto custom-scrollbar`}
         >
           {/* HEADER */}
           <div className="flex items-center gap-3 mb-8">
@@ -132,7 +132,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           </div>
 
           {/* SECTION 1: FIRM INFORMATION */}
-          <div className={`p-8 rounded-[30px] border-2 mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-200/70 border-slate-200 shadow-sm"}`}>
+          <div className={`p-8 rounded-[30px] border mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-50 border-blue-500/50 shadow-sm"}`}>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-600">
                 <Briefcase size={18} />
@@ -156,7 +156,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           </div>
 
           {/* SECTION 2: CORPORATE ADDRESS */}
-          <div className={`p-8 rounded-[30px] border-2 mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-200/70 border-slate-200 shadow-sm"}`}>
+          <div className={`p-8 rounded-[30px] border mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-50 border-blue-500/50 shadow-sm"}`}>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-green-500/10 rounded-xl text-green-600">
                 <MapPin size={18} />
@@ -179,7 +179,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           </div>
 
           {/* SECTION 3: POINT OF CONTACT */}
-          <div className={`p-8 rounded-[30px] border-2 mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-200/70 border-slate-200 shadow-sm"}`}>
+          <div className={`p-8 rounded-[30px] border mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-50 border-blue-500/50 shadow-sm"}`}>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-purple-500/10 rounded-xl text-purple-600">
@@ -221,7 +221,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           </div>
 
           {/* SECTION 4: ACCOUNT CONFIGURATION */}
-          <div className={`p-8 rounded-[30px] border-2 mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-200/70 border-slate-200 shadow-sm"}`}>
+          <div className={`p-8 rounded-[30px] border mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-50 border-blue-500/50 shadow-sm"}`}>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-600">
                 <LayoutGrid size={18} />
@@ -241,7 +241,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           </div>
 
           {/* SECTION 5: NOTES & COMMUNICATION */}
-          <div className={`p-8 rounded-[30px] border-2 mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-200/70 border-slate-200 shadow-sm"}`}>
+          <div className={`p-8 rounded-[30px] border mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-50 border-blue-500/50 shadow-sm"}`}>
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-amber-500/10 rounded-xl text-amber-600">
                 <MessageSquare size={18} />
@@ -294,7 +294,7 @@ export const ClientInfo: React.FC<{ theme: "dark" | "light" }> = ({
           </div>
 
           {/* SECTION 6: CLIENT PORTAL SETTINGS */}
-          <div className={`p-8 rounded-[30px] border-2 mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-200/70 border-slate-200 shadow-sm"}`}>
+          <div className={`p-8 rounded-[30px] border mb-8 ${theme === "dark" ? "bg-slate-900/40 border-white/5" : "bg-sky-50 border-blue-500/50 shadow-sm"}`}>
             <div className="flex items-center gap-3 mb-8">
               <div className="p-2.5 bg-indigo-500/10 rounded-xl text-indigo-600">
                 <Lock size={18} />

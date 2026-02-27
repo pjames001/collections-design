@@ -8,8 +8,8 @@ interface AllocationRowProps {
 }
 
 const AllocationRow: React.FC<AllocationRowProps> = ({ label, theme }) => (
-  <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 items-center p-4 rounded-2xl transition-all
-    ${theme === 'dark' ? 'hover:bg-white/5 border-b border-white/5' : 'hover:bg-blue-300 border-b border-slate-50'}`}>
+  <div className={`grid grid-cols-1 md:grid-cols-4 gap-4 items-center p-4  transition-all
+    ${theme === 'dark' ? 'hover:bg-white/5 border-b border-white/10' : 'hover:bg-blue-200 border-b border-gray-300'}`}>
     
     <div className="md:col-span-1">
       <span className={`text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -81,14 +81,14 @@ export const TransactionAllocations: React.FC<{ theme: 'dark' | 'light' }> = ({ 
         </div>
 
         <div className={`p-6 rounded-[40px] border shadow-sm ${
-          theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-200'
+          theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-50 border-blue-500/50 shadow-sm'
         }`}>
           {/* Table Header Guide */}
           <div className="grid grid-cols-4 gap-4 px-4 mb-4">
-            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>Category type</span>
-            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Client %</span>
-            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Attorney %</span>
-            <span className={`text-md ${theme === 'dark' ? 'text-white' : 'text-slate-500'} text-center`}>Agency %</span>
+            <span className={`text-md font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>Category type</span>
+            <span className={`text-md font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-700'} text-center`}>Client %</span>
+            <span className={`text-md font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-700'} text-center`}>Attorney %</span>
+            <span className={`text-md font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-700'} text-center`}>Agency %</span>
           </div>
 
           {/* Mapping Categories */}

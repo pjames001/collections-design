@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-500 overflow-hidden flex flex-col ${
-      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-[#E2E8F0] text-slate-900'
+      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-900'
     }`}>
       {/* Dynamic Background */}
      

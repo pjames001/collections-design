@@ -45,8 +45,8 @@ export const NewDashboardHeader: React.FC<{
 
   return (
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
-      <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-2xl transition-all duration-500 overflow-hidden relative ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200/60 shadow-slate-200/40'
+      <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-lg transition-all duration-500 overflow-hidden relative ${
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-transparent border-slate-300 shadow-slate-800/40'
       }`}>
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] pointer-events-none rounded-full" />
         
@@ -158,7 +158,7 @@ export const NewDashboardHeader: React.FC<{
             theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-white border-slate-200'
           }`}>
             {/* Modal Header */}
-            <div className={`sticky top-0 p-6 border-b flex justify-between items-center z-10 ${theme === 'dark' ? 'bg-slate-900 border-white/5' : 'bg-white border-slate-100'}`}>
+            <div className={`sticky top-0 p-6 border-b flex justify-between items-center z-10 ${theme === 'dark' ? 'bg-slate-900 border-white/5' : 'bg-white border-slate-200'}`}>
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-blue-500/10 rounded-lg">
                   <User className="text-blue-500" size={24} />

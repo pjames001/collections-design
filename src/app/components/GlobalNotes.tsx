@@ -20,11 +20,11 @@ export const GlobalNotes: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
   const [newNote, setNewNote] = useState('');
 
   return (
-    <div className={`w-full backdrop-blur-3xl border rounded-[40px] overflow-hidden transition-all duration-500 mb-12 shadow-2xl ${
-      theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#bbdcfd] border-slate-200/60'
+    <div className={`w-full backdrop-blur-3xl border rounded-[40px] overflow-hidden transition-all duration-500 mb-12 shadow-lg ${
+      theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-transparent border-slate-300 shadow-slate-800/40'
     }`}>
       {/* Header */}
-      <div className={`flex items-center justify-between px-8 py-6 border-b ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
+      <div className={`flex items-center justify-between px-8 py-6 border-b ${theme === 'dark' ? 'border-white/5' : 'border-blue-500/50'}`}>
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500">
             <MessageSquare size={20} />
@@ -51,7 +51,7 @@ export const GlobalNotes: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
           <div className="space-y-4">
             {mockNotes.map((note) => (
               <div key={note.id} className={`px-6 py-3 rounded-3xl border transition-all hover:scale-[1.01] ${
-                theme === 'dark' ? 'bg-white/5 border-white/5 hover:bg-white/[0.07]' : 'bg-gray-50/80 border-slate-200 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50'
+                theme === 'dark' ? 'bg-white/5 border-white/5 hover:bg-white/[0.07]' : 'bg-sky-50 border-blue-500/50 shadow-sm hover:bg-white hover:shadow-xl hover:shadow-slate-200/50'
               }`}>
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export const GlobalNotes: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) =>
 
         {/* Input Area */}
         <div className={`w-full lg:w-[400px] p-8 border-t lg:border-t-0 lg:border-l flex flex-col gap-4 ${
-          theme === 'dark' ? 'border-white/5 bg-black/20' : 'border-slate-100 bg-slate-50/50'
+          theme === 'dark' ? 'border-white/5 bg-black/20' : 'border-blue-500/50 shadow-sm bg-sky-50'
         }`}>
           <div className="flex-1 flex flex-col gap-2">
             <div className='flex justify-between items-center'>

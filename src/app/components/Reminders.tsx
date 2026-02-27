@@ -59,15 +59,15 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
           <Dialog.Trigger asChild>
             <button className={`px-4 py-2 rounded-xl text-sm transition-all border
               ${theme === 'dark' 
-                ? 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10' 
-                : 'border-blue-100 text-blue-600 hover:bg-blue-50'}`}>
+                ? 'border-blue-500/50 text-blue-400 hover:bg-blue-500/10' 
+                : 'border-blue-500 text-blue-600 hover:bg-blue-50'}`}>
               <Plus size={16} className='inline mb-1' /> Add New Reminder
             </button>
           </Dialog.Trigger>
           <button className={`px-4 py-2 rounded-xl text-sm transition-all border
             ${theme === 'dark' 
-              ? 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10' 
-              : 'border-blue-100 text-blue-600 hover:bg-blue-50'}`}>
+              ? 'border-blue-500/50 text-blue-400 hover:bg-blue-500/10' 
+              : 'border-blue-500 text-blue-600 hover:bg-blue-50'}`}>
             View completed archive
           </button>
         </div>
@@ -78,10 +78,10 @@ export const RemindersFeed: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) 
         {reminders.map((item) => (
           <div 
             key={item.id} 
-            className={`relative p-6 rounded-[30px] border transition-all duration-300 hover:shadow-xl  
+            className={`relative p-6 rounded-[30px] border transition-all duration-300 hover:shadow-lg  
               ${theme === 'dark' 
                 ? 'bg-slate-900/60 border-white/10 hover:border-white/20 hover:shadow-slate-200/20' 
-                : 'bg-sky-100 border-slate-100 shadow-sm hover:border-blue-100 hover:shadow-gray-700/30'}`}
+                : 'bg-sky-50 border-blue-500/50 shadow-sm hover:shadow-blue-700/40'}`}
           >
             {/* Importance Indicator */}
             <div className="flex justify-between items-start mb-4">

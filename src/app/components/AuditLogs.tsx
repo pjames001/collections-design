@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import DynamicTable from './shared/DynamicTable';
 
 const AuditLogs = ({ theme }: { theme: 'dark' | 'light' }) => {
 
@@ -32,34 +33,19 @@ const AuditLogs = ({ theme }: { theme: 'dark' | 'light' }) => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full rounded-xl overflow-hidden">
-        <thead>
-          <tr className={`border-b ${theme === 'dark' ? 'border-white/5 bg-white/2' : 'border-slate-200 bg-white/50'}`}>
-            <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>User</th>
-            <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Start</th>
-            <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>End</th>
-            <th className={`px-6 py-4 text-left text-xs font-black uppercase tracking-widest ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>Timespan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredAccounts.map((account, idx) => (
-            <tr
-              key={account.id}
-              className={`border-b transition-colors ${
-                theme === 'dark'
-                  ? `border-white/5 ${selectedAccounts.has(account.id) ? 'bg-blue-500/10' : idx % 2 === 0 ? 'bg-white/2' : 'hover:bg-white/5'}`
-                  : `border-slate-200 ${selectedAccounts.has(account.id) ? 'bg-blue-100/30' : idx % 2 === 0 ? 'bg-white/40' : 'hover:bg-white/60'}`
-              }`}
-            >
-              <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.debtorName}</td>
-              <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.nextWorkDate}</td>
-              <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.originatedDate}</td>
-              <td className={`px-6 py-4 text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{account.clientName}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <DynamicTable 
+        theme={theme}
+        data={filteredAccounts}
+        columns={[
+          { key: 'debtorName', title: 'User' },
+          { key: 'nextWorkDate', title: 'Start' },
+          { key: 'originatedDate', title: 'End' },
+          { key: 'clientName', title: 'Timespan' },
+        ]}
+        rowKey="id"
+        
+      />
     </div>
   )
 }

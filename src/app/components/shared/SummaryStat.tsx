@@ -19,13 +19,14 @@ export const SummaryStat: React.FC<SummaryStatProps> = ({
         ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
         : theme === 'dark'
         ? 'bg-white/5 border border-white/5'
-        : 'bg-sky-100 border border-slate-100'
+        : 'bg-sky-50 border border-blue-500/50 shadow-sm'
     }`}
   >
     <span
-      className={`text-[12px] font-black tracking-[0.2em] ${
-        isTotal ? 'text-blue-100' : 'text-slate-400'
-      }`}
+      className={`text-[14px] font-black tracking-[0.2em] ${
+        isTotal ? 'text-white' : 'text-blue-600'
+      }
+      ${theme === 'dark' ? 'text-sky-300' : ''}`}
     >
       {label}
     </span>
@@ -35,7 +36,7 @@ export const SummaryStat: React.FC<SummaryStatProps> = ({
           ? 'text-white'
           : theme === 'dark'
           ? 'text-white'
-          : 'text-slate-900'
+          : 'text-slate-700'
       }`}
     >
       {value}

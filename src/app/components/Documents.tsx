@@ -70,7 +70,7 @@ const Documents: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
 
       {/* Grid Container */}
       <div className={`p-8 rounded-[35px] border min-h-[400px] transition-all
-        ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'}`}>
+        ${theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-50 border-blue-500/50 shadow-sm'}`}>
         
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {!activeFolder ? (
@@ -79,11 +79,11 @@ const Documents: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
               <div 
                 key={folder.id}
                 onDoubleClick={() => setActiveFolder(folder)}
-                className="group flex flex-col items-center gap-3 cursor-pointer select-none"
+                className="group flex flex-col items-center gap-3 cursor-pointer select-none w-max"
               >
                 <div className={`w-20 h-20 flex items-center justify-center rounded-2xl transition-all
-                  ${theme === 'dark' ? 'bg-white/5 group-hover:bg-blue-500/10' : 'bg-slate-50 group-hover:bg-blue-50'}`}>
-                  <Folder size={40} className="text-blue-500/60 group-hover:text-blue-500 transition-colors" />
+                  ${theme === 'dark' ? 'bg-white/5 group-hover:bg-blue-500/10' : 'bg-white border-2 border-blue-500/50 group-hover:bg-blue-50'}`}>
+                  <Folder size={40} className="text-blue-500 group-hover:text-blue-500/60 transition-colors" />
                 </div>
                 <span className={`text-xs text-center transition-colors ${theme === 'dark' ? 'text-slate-400 group-hover:text-white' : 'text-slate-500 group-hover:text-slate-900'}`}>
                   {folder.name}

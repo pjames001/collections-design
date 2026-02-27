@@ -10,11 +10,11 @@ import { RotateCcw } from "lucide-react";
 const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
   return (
     <div
-      className={`w-3xl max-w-4xl h-[90vh] overflow-hidden rounded-[25px] border flex flex-col ${theme === "dark" ? "bg-slate-900 border-white/10" : "bg-sky-100 border-slate-200 shadow-2xl"}`}
+      className={`w-3xl max-w-4xl h-[90vh] overflow-hidden rounded-[25px] border flex flex-col ${theme === "dark" ? "bg-slate-900 border-white/10" : "bg-white border-slate-200 shadow-sm"}`}
     >
       {/* TOP BAR */}
-      <div className={`px-8 py-4 border-b border-white/5 ${theme === 'dark' ? 'bg-slate-900/50' : 'bg-blue-300'}`}>
-        <h2 className="text-2xl font-black uppercase tracking-tight text-white">
+      <div className={`px-8 py-4 border-b ${theme === 'dark' ? 'bg-slate-900/50 border-blue-500/50' : 'bg-white border-slate-200'}`}>
+        <h2 className={`text-2xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>
           Add New Reminder
         </h2>
       </div>
@@ -35,10 +35,10 @@ const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
             <DateField label="End Date" theme={theme} />
             <textarea 
               placeholder="Add a Note"
-              className={`col-span-2 w-full p-6 rounded-3xl border text-sm resize-none focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all ${
+              className={`col-span-2 w-full p-6 rounded-3xl border text-sm resize-none focus:outline-none transition-all ${
                 theme === 'dark' 
                   ? 'bg-slate-900 border-white/10 text-white placeholder:text-white/20' 
-                  : 'bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 shadow-inner'
+                  : 'bg-white border-blue-500/50 text-slate-800 placeholder:text-slate-400 shadow-inner'
               }`}
             />
 
@@ -60,7 +60,7 @@ const AddReminder = ({ theme }: { theme: "dark" | "light" }) => {
       </div>
 
       {/* 3. Sticky Footer (Action Buttons) */}
-      <div className={`p-6 border-t flex justify-end gap-4 ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-blue-300 border-slate-200'}`}>
+      <div className={`p-6 border-t flex justify-end gap-4 ${theme === 'dark' ? 'bg-slate-900/50 border-blue-500/50' : 'bg-white border-slate-200'}`}>
         <button className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:bg-white/5 ${theme === 'dark' ? 'text-slate-400' : 'text-gray-700'}`}>
           <RotateCcw size={16} /> Cancel
         </button>

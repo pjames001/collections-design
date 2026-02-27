@@ -34,13 +34,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, theme
 
   return (
     <aside className={`w-20 h-screen flex flex-col items-center py-8 backdrop-blur-xl border-r fixed left-0 top-0 z-50 transition-colors duration-500 ${
-      theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-[#bbdcfd] border-black/5 shadow-2xl shadow-black/5'
+      theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-[#005ea3] border-black/5 shadow-2xl shadow-black/5'
     }`}>
-      <div className="mb-10">
-        <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30">
-          <span className="text-white font-bold text-xl">FC</span>
-        </div>
-      </div>
       
       <nav className="flex-1 flex flex-col gap-6">
         {navItems.map((item) => (
@@ -49,10 +44,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, theme
             onClick={() => setActiveTab(item.id)}
             className={`p-3 rounded-2xl transition-all duration-300 group relative ${
               activeTab === item.id 
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/40' 
+                ? 'bg-gray-300 text-blue-600 shadow-lg shadow-blue-500/40' 
                 : theme === 'dark' 
                   ? 'text-blue-200 hover:bg-white/10 hover:text-white'
-                  : 'text-slate-400 hover:bg-blue-50 hover:text-blue-600'
+                  : 'text-slate-200 hover:bg-blue-50 hover:text-blue-600'
             }`}
             title={item.label}
           >
@@ -68,13 +63,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, theme
         <button 
           onClick={toggleTheme}
           className={`p-3 rounded-2xl transition-all duration-300 ${
-            theme === 'dark' ? 'text-blue-200 hover:bg-white/10 hover:text-white' : 'text-slate-400 hover:bg-amber-50 hover:text-amber-600'
+            theme === 'dark' ? 'text-blue-200 hover:bg-white/10 hover:text-white' : 'text-slate-200 hover:bg-amber-50 hover:text-amber-600'
           }`}
         >
           {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
         </button>
         <button className={`p-3 rounded-2xl transition-all duration-300 ${
-          theme === 'dark' ? 'text-blue-200 hover:bg-red-500/20 hover:text-red-400' : 'text-slate-400 hover:bg-red-50 hover:text-red-500'
+          theme === 'dark' ? 'text-blue-200 hover:bg-red-500/20 hover:text-red-400' : 'text-slate-200 hover:bg-red-50 hover:text-red-500'
         }`}>
           <LogOut size={24} />
         </button>

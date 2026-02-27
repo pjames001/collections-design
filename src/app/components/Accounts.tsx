@@ -45,7 +45,7 @@ export const AccountsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
 
       {/* Summary Grid */}
       <div className={`flex justify-between items-start flex-wrap p-8 rounded-[30px] border 
-        ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'}`}>
+        ${theme === 'dark' ? 'bg-slate-900 border-white/10' : 'bg-sky-50 border-blue-500/50 shadow-sm'}`}>
         {summaryStats.map((stat, i) => (
           <div key={i} className="flex flex-col items-center gap-1">
             <span className={`text-[14px] ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>{stat.label}</span>
@@ -55,8 +55,8 @@ export const AccountsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
       </div>
 
       {/* Expandable Table */}
-      <div className="overflow-hidden rounded-[30px]">
-        <table className="w-full text-left border-collapse">
+      <div className="overflow-hidden rounded-[30px] border border-blue-500/50 shadow-sm">
+        <table className="w-full text-left border-collapse ">
           <thead>
             <tr className={theme === 'dark' ? 'bg-white/5' : 'bg-sky-100'}>
               <th className={`p-4 text-[16px] min-w-[120px] tracking-widest border-b border-white/5 ${theme === 'dark' ? 'text-sky-300' : 'text-blue-600'}`}>

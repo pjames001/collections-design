@@ -29,7 +29,7 @@ const NewAccount: React.FC<{ theme: 'dark' | 'light' }> = ({ theme: initialTheme
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-500 overflow-hidden flex flex-col ${
-      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-[#e6f0fa] text-slate-900'
+      theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-900'
     }`}>
       {/* Dynamic Background */}
       

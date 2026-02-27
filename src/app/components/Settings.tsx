@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Settings, ShieldCheck, Percent, XCircle, Building2, Save, Calculator } from 'lucide-react';
+import { Settings, ShieldCheck, XCircle, Building2, Save, Calculator } from 'lucide-react';
 import { RadioField } from './shared/RadioField';
 import { SelectField } from './shared/SelectField';
 import { InputField } from './shared/InputField';
-import { CheckboxField } from './shared/CheckboxField';
 import { TransactionAllocations } from './TransactionAllocations';
 
 export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
@@ -41,7 +40,7 @@ export const SettingsModule: React.FC<{ theme: 'dark' | 'light' }> = ({ theme })
 
       {/* Settings Form Content */}
       <div className={`flex-1 p-10 rounded-[40px] border ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-100 border-slate-100 shadow-sm'
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-sky-50 border-blue-500/50 shadow-sm'
       }`}>
         
         {activeSection === 'company' && (

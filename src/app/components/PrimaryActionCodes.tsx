@@ -11,7 +11,7 @@ const PrimaryActionCodes = ({ theme, className }: { theme: 'dark' | 'light', cla
 
   return (
     <div className={` ${className} px-8 py-3 border-y flex justify-center items-center gap-3 overflow-x-auto no-scrollbar flex-shrink-0 ${
-      theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-gray-300 border-slate-200 shadow-sm'
+      theme === 'dark' ? 'bg-white/5 border-white/5' : 'bg-transparent border-slate-300 shadow-lg shadow-slate-800/40'
     }`}>
       {primaryActionCodes.map((action) => (
         <button 

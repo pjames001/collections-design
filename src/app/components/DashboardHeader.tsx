@@ -70,8 +70,8 @@ export const DashboardHeader: React.FC<{
   return (
     <Dialog.Root open={isPaymentModalOpen} onOpenChange={setIsPaymentModalOpen}>
       <Dialog.Root open={isHexagonDialogOpen} onOpenChange={setIsHexagonDialogOpen}>
-      <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-2xl transition-all duration-500 overflow-hidden relative ${
-        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-[#F8FAFC] border-slate-200/60 shadow-slate-200/40'
+      <div className={`w-full backdrop-blur-3xl border rounded-[25px] p-4 mb-8 shadow-lg transition-all duration-500 overflow-hidden relative ${
+        theme === 'dark' ? 'bg-slate-900/60 border-white/10' : 'bg-transparent border-slate-300 shadow-slate-800/40'
       }`}>
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 blur-[100px] pointer-events-none rounded-full" />
         
@@ -90,7 +90,7 @@ export const DashboardHeader: React.FC<{
             </div>
             <Tabs.Root value={activeCreditor} onValueChange={setActiveCreditor} className="w-max ">
               <Tabs.List className={`flex gap-1 p-1.5 backdrop-blur-md rounded-2xl border transition-all ${
-                theme === 'dark' ? 'bg-black/20 border-white/5' : 'bg-slate-100/80 border-slate-200 shadow-inner'
+                theme === 'dark' ? 'bg-black/20 border-white/5' : 'bg-slate-100/80 border-slate-300 shadow-inner'
               }`}>
                 {tabs.map((tab) => (
                   <Tabs.Trigger
